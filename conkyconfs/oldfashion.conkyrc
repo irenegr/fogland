@@ -1,0 +1,97 @@
+#screenshot: http://irenegr.wordpress.com/2012/10/17/adisandpersephoni/
+# Conky settings
+update_interval 1
+update_interval_on_battery 2
+total_run_times 0
+net_avg_samples 2
+cpu_avg_samples 4
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+top_cpu_separate yes
+
+#own window to run simultanious 2 or more conkys
+own_window yes
+own_window_transparent yes
+#own_window_argb_visual yes
+#own_window_argb_value 99
+own_window_type desktop
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager
+
+#borders
+draw_borders no
+#border_margin 3
+
+#shades
+draw_shades no
+
+#behaviour
+update_interval 1
+
+#font
+use_xft yes
+#xftfont Inconsolata-10:style=Medium
+xftfont CaviarDreams-8:style=Bold
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+#to prevent window from moving
+use_spacer none
+
+alignment top_left
+gap_x 5
+gap_y 35
+minimum_size 300 700
+color0 aaaaaa
+color1 dddddd
+
+
+TEXT
+$color1 fog@$nodename $color0
+  |
+  |___$color1$kernel$color0
+  |
+  |___CPUs
+  |   |__CPU1___$color1${cpu cpu0}%$color0
+  |   |  '-${cpugraph cpu0 11, 192}
+  |   |__CPU2___$color1${cpu cpu1}%$color0
+  |   |  '-${cpugraph cpu1 11, 192}
+  |   |__CPU3___$color1${cpu cpu2}%$color0
+  |   |  '-${cpugraph cpu2 11, 192}
+  |   |__CPU4___$color1${cpu cpu3}%$color0
+  |      '-${cpugraph cpu3 11, 192}
+  |
+  |___RAM___$color1${memperc}%$color0
+  |   |__${mem}/${memmax}
+  |      '-${memgraph 11, 192}
+  |
+  ${if_up wlan0}|___WLAN___$color1${addr wlan0}$color0
+  |   |__up_____$color1${upspeed wlan0}$color0
+  |   |  '-${upspeedgraph wlan0 11, 192}
+  |   |__down___$color1${downspeed wlan0}$color0
+  |      '-${downspeedgraph wlan0 11, 192}
+  |${endif}
+  |___HDD
+  |   |__/_____________${color1}${fs_used /}${color0}/${color1}${fs_size /}${color0}
+  |   |  '-${fs_bar 11, 192 /}
+  |   |__/data___${color1}${fs_used /media/data}${color0}/${color1}${fs_size /media/data}${color0}
+  |   |  '-${fs_bar 11, 192 /media/data}
+  |   |__/winblows__${color1}${fs_used /media/windows}${color0}/${color1}${fs_size /media/windows}${color0}
+  |      '-${fs_bar 11, 192 /media/windows}
+  |
+  |___TIME
+  |   |__${time %A %d %B}: $color1${time %T}$color0
+  |   |__UNIX: $color1${time %s}$color0
+  |   |__Uptime: $color1$uptime$color0
+  |
+  |___WEATHER
+  |   |__Athens: ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}
+  |
+  |___MAIL
+  |   |__gmail: $color1${execpi 300 python ~/.scripts/gmail.py}$color0
+  |
+  |___TEMP
+  |   |__$color1$acpitemp°C$color0
+  |
+  |___BAT
+      |__$color1 ${battery_percent BAT1}%$color0
