@@ -1,0 +1,239 @@
+#https://irenegr.wordpress.com/2012/11/21/retro-desktop/
+
+########################################################################
+# ___ conkyrc                                                          #
+# livarp_0.3.9 arpinux@2012                                            #
+# http://arpinux.org/livarp                                            #
+########################################################################
+## Setting                                                             #
+########################################################################
+update_interval 1
+total_run_times 0
+net_avg_samples 2
+cpu_avg_samples 2
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+override_utf8_locale yes
+use_xft yes
+xftalpha 0.5
+xftfont Monospace:size=12
+text_buffer_size 2048
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_pager,skip_taskbar
+alignment tl
+gap_x 20
+gap_y 490
+border_inner_margin 0
+border_outer_margin 0
+minimum_size 400 300
+maximum_width 400
+default_color CDC296 # light grey
+color1 2D625F        # blue
+color2 D07F0D        # orange
+color3 492C21        # dark gray
+color4 70CD37        # green
+color5 A83F2C        # red
+color6 1D8000        # dark green
+draw_shades no
+draw_outline no
+default_shade_color 222222
+if_up_strictness address
+########################################################################
+## Output                                                              #
+########################################################################
+TEXT
+${if_match ${battery_percent BAT1} < 10}${color5}${else}${color3}${endif}${font Abstract:size=4}bat$font\
+${voffset -8}${goto 50}${if_match ${battery_percent BAT1} > 0}${color5}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 10}${color5}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 15}${color2}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 20}${color2}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 25}${color2}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 30}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 35}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 40}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 45}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 50}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 55}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 60}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 65}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 70}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 75}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 80}${color1}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 85}${color4}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 90}${color4}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} > 95}${color4}${else}${color}${endif}●\
+${if_match ${battery_percent BAT1} == 100}${color6}${else}${color}${endif}●
+${voffset -8}${color3}${font Abstract:size=4}hor$font\
+${voffset -8}${goto 50}${if_match ${time %H%M} > 0}${color6}${else}${color}${endif}●\
+${if_match ${time %H%M} > 112}${color4}${else}${color}${endif}●\
+${if_match ${time %H%M} > 224}${color4}${else}${color}${endif}●\
+${if_match ${time %H%M} > 336}${color4}${else}${color}${endif}●\
+${if_match ${time %H%M} > 448}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 600}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 712}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 824}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 936}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1048}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1200}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1312}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1424}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1536}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1700}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1812}${color1}${else}${color}${endif}●\
+${if_match ${time %H%M} > 1924}${color4}${else}${color}${endif}●\
+${if_match ${time %H%M} > 2048}${color4}${else}${color}${endif}●\
+${if_match ${time %H%M} > 2200}${color4}${else}${color}${endif}●\
+${if_match ${time %H%M} > 2312}${color6}${else}${color}${endif}●
+${voffset -8}${if_match ${fs_used_perc} > 95}${color5}${else}${color3}${endif}${font Abstract:size=4}hdd$font\
+${voffset -8}${goto 50}${if_match ${fs_used_perc} > 0}${color6}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 10}${color4}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 15}${color4}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 20}${color4}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 25}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 30}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 35}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 40}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 45}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 50}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 55}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 60}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 65}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 70}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 75}${color1}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 80}${color2}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 85}${color2}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 90}${color2}${else}${color}${endif}●\
+${if_match ${fs_used_perc} > 95}${color5}${else}${color}${endif}●\
+${if_match ${fs_used_perc} == 100}${color5}${else}${color}${endif}●
+
+${voffset -8}${color3}${font Abstract:size=4}ram$font\
+${voffset -8}${goto 50}${if_match ${memperc} > 0}${color6}${else}${color}${endif}●\
+${if_match ${memperc} > 10}${color4}${else}${color}${endif}●\
+${if_match ${memperc} > 15}${color4}${else}${color}${endif}●\
+${if_match ${memperc} > 20}${color4}${else}${color}${endif}●\
+${if_match ${memperc} > 25}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 30}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 35}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 40}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 45}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 50}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 55}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 60}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 65}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 70}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 75}${color1}${else}${color}${endif}●\
+${if_match ${memperc} > 80}${color2}${else}${color}${endif}●\
+${if_match ${memperc} > 85}${color2}${else}${color}${endif}●\
+${if_match ${memperc} > 90}${color2}${else}${color}${endif}●\
+${if_match ${memperc} > 95}${color5}${else}${color}${endif}●\
+${if_match ${memperc} == 100}${color5}${else}${color}${endif}●
+${voffset -8}${color3}${font Abstract:size=4}cpu$font\
+${voffset -8}${goto 50}${if_match ${cpu} > 0}${color6}${else}${color}${endif}●\
+${if_match ${cpu} > 10}${color4}${else}${color}${endif}●\
+${if_match ${cpu} > 15}${color4}${else}${color}${endif}●\
+${if_match ${cpu} > 20}${color4}${else}${color}${endif}●\
+${if_match ${cpu} > 25}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 30}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 35}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 40}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 45}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 50}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 55}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 60}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 65}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 70}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 75}${color1}${else}${color}${endif}●\
+${if_match ${cpu} > 80}${color2}${else}${color}${endif}●\
+${if_match ${cpu} > 85}${color2}${else}${color}${endif}●\
+${if_match ${cpu} > 90}${color2}${else}${color}${endif}●\
+${if_match ${cpu} > 95}${color5}${else}${color}${endif}●\
+${if_match ${cpu} == 100}${color5}${else}${color}${endif}●
+${voffset -8}${color3}${font Abstract:size=4}tmp$font\
+${voffset -8}${goto 50}${if_match ${ibm_temps 0} > 30}${color6}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 35}${color4}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 40}${color4}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 45}${color4}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 50}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 52}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 54}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 56}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 57}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 60}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 62}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 64}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 66}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 68}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 70}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 72}${color1}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 74}${color2}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 80}${color2}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 85}${color2}${else}${color}${endif}●\
+${if_match ${ibm_temps 0} > 90}${color5}${else}${color}${endif}●
+
+${if_up wlan0}${color3}${font Abstract:size=4}wifi${font}${color}\
+${voffset -8}${goto 50}${if_match ${wireless_link_qual_perc wlan0} > 0}${color5}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 10}${color5}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 15}${color2}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 20}${color2}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 25}${color2}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 30}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 35}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 40}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 45}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 50}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 55}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 60}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 65}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 70}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 75}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 80}${color1}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 85}${color4}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 90}${color4}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} > 95}${color4}${else}${color}${endif}●\
+${if_match ${wireless_link_qual_perc wlan0} == 100}${color6}${else}${color}${endif}●
+${voffset -8}${if_match ${upspeedf wlan0} > 80}${color5}${else}${color3}${endif}${font Abstract:size=4}upl$font\
+${voffset -8}${goto 50}${if_match ${upspeedf wlan0} > 0}${color6}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 10}${color4}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 15}${color4}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 20}${color4}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 25}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 30}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 35}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 40}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 45}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 50}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 55}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 60}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 65}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 70}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 75}${color1}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 80}${color2}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 85}${color2}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 90}${color2}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 95}${color5}${else}${color}${endif}●\
+${if_match ${upspeedf wlan0} > 100}${color5}${else}${color}${endif}●
+${voffset -8}${if_match ${downspeedf wlan0} > 1000}${color5}${else}${color3}${endif}${font Abstract:size=4}dnl$font\
+${voffset -8}${goto 50}${if_match ${downspeedf wlan0} > 0}${color6}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 50}${color4}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 100}${color4}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 125}${color4}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 150}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 175}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 200}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 225}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 250}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 275}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 300}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 350}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 400}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 450}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 500}${color1}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 600}${color2}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 700}${color2}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 800}${color2}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 900}${color5}${else}${color}${endif}●\
+${if_match ${downspeedf wlan0} > 1000}${color5}${else}${color}${endif}●
+

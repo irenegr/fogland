@@ -1,0 +1,41 @@
+alignment bottom_right
+background no
+#border_margin 5
+border_width 5
+default_color d7d7d7  #413536 # grey 5f5f5f 3F3F3F 183149 3B3B3B 26211F
+double_buffer yes
+draw_borders no
+draw_graph_borders no
+draw_outline no
+draw_shades no
+gap_x 10
+gap_y 5
+maximum_width 1000
+minimum_size 40
+no_buffers yes
+override_utf8_locale yes
+own_window yes
+own_window_title normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+own_window_type normal 	## normal /override /desktop
+text_buffer_size 8000
+total_run_times 0
+update_interval 1
+uppercase yes
+use_xft yes
+xftalpha 1
+xftfont Raleway:pixelsize=9
+
+#	Distric-Thin			fonts
+#	Blue Highway
+#	Raleway
+#	Zekton
+#	Calibri
+#	Engebrechtre
+#	Opeln2001
+#	BankGothic Md BT
+#	AvantGarde LT ExtraLight
+
+TEXT
+${color #FBAA35}${font AvantGarde LT ExtraLight Bold:size=9}${execi 10 exaile --get-title} -  ${execi 10 exaile --get-artist} ${color #666666} ${execi 10 exaile --get-album}

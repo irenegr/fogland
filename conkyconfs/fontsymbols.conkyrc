@@ -1,0 +1,61 @@
+#https://irenegr.wordpress.com/2012/12/07/matrix-rain/
+#same config but vertical
+
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 15411
+
+gap_x 2
+gap_y 27
+minimum_size 200 739
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+alignment tl
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+override_utf11_locale yes
+use_xft yes
+xftfont Caviar Dreams-7:style=Bold
+xftalpha 0.5
+uppercase no
+
+default_color 6E98A4
+#color2 00C9FF
+
+
+TEXT
+${font Dingytwo:size=22}e$font${voffset -11}  ${time %H}:${time %M}${voffset 15}  
+${font Dingytwo:size=22}D$font${voffset -11}  ${time %d/%m/%y}${voffset 15} 
+${font Dingytwo:size=22}a$font${voffset -11}  ${texeci 300 python2 ~/.scripts/gmail.py}  mail(s)${voffset 15}
+${font Dingytwo:size=22}B$font${voffset -11}  ${execi 1800 ~/.scripts/weather.sh "EUR|GR|GR007|Athens"}${voffset 15}  
+${font Dingytwo:size=22}N$font${voffset -11}  ${execi 6000 aptitude search "~U" | wc -l}  package(s)${voffset 15}
+${font Dingytwo:size=22}8$font${voffset -11}  Mint14 / Openbox${voffset 15}
+${font Dingytwo:size=22}Z$font${voffset -11}  ${kernel}${voffset 15}  
+${font Dingytwo:size=22}T$font${voffset -11}  ${uptime}${voffset 15}  
+${font Dingytwo:size=22}O$font${voffset -11}  ${mem}${voffset 15}
+${font Dingytwo:size=22}L$font${voffset -11}  ${hwmon 0 temp 1}°C${voffset 15}
+${font Dingytwo:size=22}6$font${voffset -11}  ${cpu cpu0}%${voffset 15}  
+${font Dingytwo:size=22}6$font${voffset -11}  ${cpu cpu1}%${voffset 15}  
+${font Dingytwo:size=22}6$font${voffset -11}  ${cpu cpu2}%${voffset 15}  
+${font Dingytwo:size=22}6$font${voffset -11}  ${cpu cpu3}%${voffset 15}      
+${font Dingytwo:size=22}W$font${voffset -11}  ${fs_free_perc /}%${voffset 15}  
+${font Dingytwo:size=22}J$font${voffset -11}  ${fs_free_perc /media/data}%${voffset 15}
+${font Dingytwo:size=22}U$font${voffset -11}  ${battery_percent BAT1}%${voffset 15} 
+${font Dingytwo:size=22}r$font${voffset -11}  ${wireless_link_qual wlan0}%${voffset 15}  
+${font Dingytwo:size=22}5$font${voffset -11}  ${upspeed wlan0}${voffset 15}  
+${font Dingytwo:size=22}4$font${voffset -11}  ${downspeed wlan0} 

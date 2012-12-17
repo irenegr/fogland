@@ -1,0 +1,5 @@
+sleep 1 &&
+conky -d -c /home/fog/.conky_exaile &
+
+sleep 1 &&
+conky -d -c /home/fog/.conky_combo &

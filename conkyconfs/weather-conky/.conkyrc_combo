@@ -1,0 +1,116 @@
+#https://irenegr.wordpress.com/2012/12/13/ubuntu-raring/
+#requires curl, conkyForecast
+
+# Use Xft?
+use_xft yes
+xftfont Santana:style=Bold:size=9
+xftalpha 1
+text_buffer_size 2048
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 182 0
+maximum_width 202
+
+# Draw shades?
+draw_shades no
+default_color 999999 #999999
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+#border_margin 5
+draw_graph_borders no
+# border width
+border_width 1
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 10
+gap_y 40
+
+
+#	Distric-Thin			fonts
+#	Blue Highway
+#	Raleway
+#	Zekton
+#	Calibri
+#	Engebrechtre
+#	Opeln2001
+#	AvantGarde LT ExtraLight
+#	AvantGarde LT ExtraLight
+
+# -- Lua Load -- #
+#lua_load ~/.draw_bg.lua
+#lua_draw_hook_pre draw_bg
+
+#imlib_cache_size 0
+
+
+TEXT
+${font Santana:style=Bold:size=40}${alignc}${color #999999}${time %H} ${color #A5E12D}${time %M}
+${font Santana:style=Bold:size=20}${alignc}${color #999999}${time %b %Y}
+${font Santana:style=Bold:size=15}${alignc}${color #999999}${time %A %d}
+${font Santana:style=Bold:size=9}${alignc}______________________________
+
+${font Santana:style=Bold:size=9}${alignc}USER: fog@${alignc}${nodename}
+${font Santana:style=Bold:size=9}${alignc}KERNEL: ${kernel} 
+${font Santana:style=Bold:size=9}${alignc}UPTIME: $uptime
+${font Santana:style=Bold:size=9}${alignc}MAIL: ${execpi 300 python ~/.scripts/gmail.py}
+${font Santana:style=Bold:size=9}${alignc}______________________________
+
+${font Santana:style=Bold:size=9}${alignc}CPU1: ${cpu cpu0}% | CPU2: ${cpu cpu1}%
+${font Santana:style=Bold:size=9}${alignc}CPU3: ${cpu cpu2}% | CPU4: ${cpu cpu3}%
+${font Santana:style=Bold:size=9}${alignc}RAM: ${mem} / ${memmax}
+${font Santana:style=Bold:size=9}${alignc}HDD: ${fs_free_perc /}% | UPDATES: ${execi 6000 aptitude search "~U" | wc -l}
+${font Santana:style=Bold:size=9}${alignc}BAT: ${battery_percent BAT1}% | TEMP: $acpitemp°C
+${font Santana:style=Bold:size=9}${alignc}______________________________
+
+${font Santana:style=Bold:size=9}${alignc}${color #999999}Dl: ${downspeed wlan0} kb/s ${downspeedgraph wlan0 4,80 000000 000000}
+${font Santana:style=Bold:size=9}${alignc}${color #999999}Ul: ${upspeed wlan0} kb/s ${upspeedgraph wlan0 4,80 000000 000000}
+${font Santana:style=Bold:size=9}${alignc}${color #999999}______________________________
+
+${voffset -10}${alignr 56}${font ConkyWeather:style=Bold:size=40}${execi 600 conkyForecast --location=GRXX0004 --datatype=WF}${font}
+${voffset -50}${font Weather:size=40}y${font}  ${voffset -38}${font Santana:style=Bold:size=26}${execi 600 conkyForecast --location=GRXX0004 --datatype=HT}${font}
+
+
+${font Santana:style=Bold:size=9}${alignc 43}${execpi 600 conkyForecast --location=GRXX0004 --datatype=DW --startday=1 --shortweekday} ${alignc 8}${execpi 600 conkyForecast --location=GRXX0004 --datatype=DW --startday=2 --shortweekday} ${alignc -29}${execpi 600 conkyForecast --location=GRXX0004 --datatype=DW --startday=3 --shortweekday} ${alignc -64}${execpi 600 conkyForecast --location=GRXX0004 --datatype=DW --startday=4 --shortweekday}
+${alignc 75}${font ConkyWeather:size=28}${execpi 600 conkyForecast --location=GRXX0004 --datatype=WF --startday=1 --endday=4 --spaces=1}${font}
+${font Santana:style=Bold:size=9}${alignc 48}${execpi 600 conkyForecast --location=GRXX0004 --datatype=HT --startday=1 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0004 --datatype=LT --startday=1 --hideunits --centeredwidth=3} ${alignc -14}${execpi 600 conkyForecast --location=GRXX0004 --datatype=HT --startday=2 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0004 --datatype=LT --startday=2 --hideunits --centeredwidth=3} ${alignc -40}${execpi 600 conkyForecast --location=GRXX0004 --datatype=HT --startday=3 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0004 --datatype=LT --startday=3 --hideunits --centeredwidth=3} ${alignr 6}${execpi 600 conkyForecast --location=GRXX0004 --datatype=HT --startday=4 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0004 --datatype=LT --startday=4 --hideunits --centeredwidth=3}
+${font Santana:style=Bold:size=9}${voffset 4}LOCATION:${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=CN}
+${font Santana:style=Bold:size=9}LAST UPDATED: ${alignr} ${execi 600 conkyForecast --location=GRXX0004 --hideunits --datatype=LU -m 0 }
+${font Santana:style=Bold:size=9}FEELS LIKE:${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=LT}
+${font Santana:style=Bold:size=9}CONDITION:${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=CC}
+${font Santana:style=Bold:size=9}HUMIDITY: ${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=HM}
+${font Santana:style=Bold:size=9}WIND: ${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=WS } - ${execi 600 conkyForecast --location=GRXX0004 --datatype=WD}
+${font Santana:style=Bold:size=9}VISIBILITY: ${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=VI }
+${font Santana:style=Bold:size=9}SUNRISE: ${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=SR}
+${font Santana:style=Bold:size=9}SUNSET: ${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=SS}
+${font Santana:style=Bold:size=9}MOON PHASE: ${alignr}${execi 600 conkyForecast --location=GRXX0004 --datatype=MP} ${font MoonPhases:size=8:style=Bold}${execi 600 conkyForecast --location=GRXX0004 --datatype=MF}${font} 
