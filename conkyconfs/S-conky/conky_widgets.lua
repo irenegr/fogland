@@ -95,26 +95,26 @@ function conky_widgets()
 --	cairo_destroy(cr)
 	
 	cr = cairo_create(cs)
-	ring(cr, 'cpu', 'CPU0', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 920, 200, 50, 10, 0, 180) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
+	ring(cr, 'cpu', 'CPU0', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 220, 100, 50, 10, 0, 180) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
 	cairo_destroy(cr)
 	
 	cr = cairo_create(cs)
-	ring(cr, 'memperc', '', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 920, 300, 50, 10, 180, 360) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
+	ring(cr, 'memperc', '', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 220, 200, 50, 10, 180, 360) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
 	cairo_destroy(cr)	
 	
 	cr = cairo_create(cs)
-	ring(cr, 'fs_used_perc', '/', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 920, 400, 50, 10, 0, 180) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
+	ring(cr, 'fs_used_perc', '/', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 220, 300, 50, 10, 0, 180) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
 	cairo_destroy(cr)
 	
 	cr = cairo_create(cs)
-	ring(cr, 'battery_percent', 'BAT1', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 920, 500, 50, 10, 180, 360) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
+	ring(cr, 'battery_percent', 'BAT1', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 220, 400, 50, 10, 180, 360) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
 	cairo_destroy(cr)
 	
 	cr = cairo_create(cs)
-	ring(cr, 'acpitemp', '', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 920, 600, 50, 10, 0, 180) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
+	ring(cr, 'acpitemp', '', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 220, 500, 50, 10, 0, 180) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
 	cairo_destroy(cr)
 	
 	cr = cairo_create(cs)
-	ring(cr, 'wireless_link_qual_perc', 'wlan0', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 920, 700, 50, 10, 180, 360) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
+	ring(cr, 'wireless_link_qual_perc', 'wlan0', 100, 0xFFFFFF, 0.2, 0xFFFFFF, 0.8, 220, 600, 50, 10, 180, 360) -- options: name, arg, max, bg_colour, bg_alpha, fg_colour, fg_alpha, xc, yc, radius, thickness, start_angle, end_angle
 	cairo_destroy(cr)
 end

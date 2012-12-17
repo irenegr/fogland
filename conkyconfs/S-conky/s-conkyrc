@@ -16,19 +16,19 @@ imlib_cache_size 0
 # -- Window specifications -- #
 
 own_window yes
-own_window_type desktop
+own_window_type normal
 own_window_transparent yes
 own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
 
 border_inner_margin 0
 border_outer_margin 0
 
-minimum_size 1000 800
-maximum_width 1000
+minimum_size 300 600
+maximum_width 300
 
 alignment tr
 gap_x 5
-gap_y -70
+gap_y 40
 
 # -- Graphics settings -- #
 draw_shades no
@@ -51,9 +51,9 @@ lua_draw_hook_pre widgets
 
 TEXT
 
-${goto 880}${voffset 170}CPU ${cpu}%
-${alignr 28}${voffset 80}MEM ${memperc}%
-${goto 868}${voffset 80}HDD ${fs_used_perc /}%
+${goto 180}${voffset 70}CPU ${cpu}%
+${alignr 30}${voffset 80}MEM ${memperc}%
+${goto 180}${voffset 80}HDD ${fs_used_perc /}%
 ${alignr 30}${voffset 80}BAT ${battery_percent BAT1}%
-${goto 868}${voffset 80}TMP ${acpitemp}°C
+${goto 180}${voffset 80}TMP ${acpitemp}°C
 ${alignr 30}${voffset 80}SGN ${wireless_link_qual_perc wlan0}%
