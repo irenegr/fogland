@@ -1,0 +1,148 @@
+#https://irenegr.wordpress.com/2012/12/16/my-mint-is-green/
+#modified by me
+# Theme: CathexiS
+# Description: Simple, minimal, distraction free foundation for building your desktop experience...
+# Author: Samir Kahvedzic < akirapowered@gmail.com >
+# Web: http://samirkahvedzic.deviantart.com
+
+
+##############################################
+# Settings
+##############################################
+
+background yes
+
+# Use Xft?
+use_xft yes
+xftfont Coda:size=9
+xftalpha 1
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_transparent yes
+own_window_type normal
+
+#own_window_argb_visual yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 200 200
+maximum_width 240
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# border width
+border_width 1
+
+# border margins
+#border_margin 5
+
+# Stippled borders?
+stippled_borders 0
+
+# Default colors and also border colors
+default_color 777777
+own_window_colour 262524
+default_shade_color 000000
+default_outline_color 828282
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 30
+gap_y 50
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer right
+
+default_bar_size 200 3
+draw_graph_borders yes
+
+##############################################
+#  Output
+##############################################
+TEXT
+
+${time %A}
+${time %D} $alignc${voffset -35}${font Coda:size=37}${time %k:%M}${font}
+${voffset -14}${hr}
+${voffset -5}Athens: ${alignr}${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}${color}
+
+${color a7a7a7}Kernel:${color}$alignr$kernel
+${color a7a7a7}UpTime:${color}$alignr$uptime  
+
+P R O C E S S O R
+${hr}
+${color a7a7a7}Cpu1:${color}${offset 30}${cpu cpu1}%
+${color 556B2F}${cpugraph cpu1 20,85 556B2F 9ACD32}
+${voffset -54}${offset 112}${color a7a7a7}Cpu2:${color}${offset 30}${cpu cpu2}%
+$alignr${color 556B2F}${cpugraph cpu2 20,85 556B2F 9ACD32}
+${color a7a7a7}Cpu3:${color}${offset 30}${cpu cpu2}%
+${color 556B2F}${cpugraph cpu2 20,85 556B2F 9ACD32}
+${voffset -54}${offset 112}${color a7a7a7}Cpu4:${color}${offset 30}${cpu cpu3}%
+$alignr${color 556B2F}${cpugraph cpu3 20,85 556B2F 9ACD32} 
+
+${color a7a7a7}Temp:${color CDFF00}$alignr$acpitemp°C${color}
+
+M E M O R Y
+${hr}
+${color a7a7a7}Ram:$alignr${color FFB100}$mem${color} / ${color CDFF00}$memmax${color}
+${color 556B2F}${membar}${color}
+
+HDD
+${hr}
+${color a7a7a7}Root:$alignr${color FFB100}${fs_used /}${color} / ${color CDFF00}${fs_free /}
+${color 556B2F}${fs_bar /}${color}
+${color a7a7a7}Data:$alignr${color FFB100}${fs_used /media/data}${color} / ${color CDFF00}${fs_free /media/data}
+${color 556B2F}${fs_bar /media/data}${color}
+
+NETWORK
+${hr}
+${color a7a7a7}Up:${color} ${upspeed wlan0}
+${color 556B2F}${upspeedgraph wlan0 20,85 556B2F 9ACD32}
+${color a7a7a7}Total:${color} ${totalup wlan0}
+${voffset -75}${offset 114}${color a7a7a7}Down:${color} ${downspeed wlan0}
+$alignr${color 556B2F}${downspeedgraph wlan0 20,85 556B2F 9ACD32}
+$alignr${color a7a7a7}Total:${color} ${totaldown wlan0}
+
+${color a7a7a7}Mail:${color}${offset 30}${color CDFF00}${execpi 300 python ~/.scripts/gmail.py}${color}
+${voffset -20}${offset 112}${color a7a7a7}Updates:${color}${offset 30}${color CDFF00}${execi 6000 aptitude search "~U" | wc -l}${color}
