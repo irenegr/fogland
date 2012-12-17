@@ -4,6 +4,7 @@
 #USAGE: weather.sh <locationcode>
 #
 #(c) Michael Seiler 2007
+#requires curl
 
 METRIC=1 #Should be 0 or 1; 0 for F, 1 for C
 
