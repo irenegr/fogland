@@ -94,7 +94,7 @@ override_utf8_locale yes
 # Add spaces to keep things from moving about?  This only affects certain objects.
 use_spacer right
 
-default_bar_size 200 3
+default_bar_size 220 3
 draw_graph_borders yes
 
 ##############################################
