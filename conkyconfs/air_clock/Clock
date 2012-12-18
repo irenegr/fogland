@@ -9,10 +9,10 @@ double_buffer yes
 no_buffers yes
 text_buffer_size 2048
 
-gap_x 80 #left-right
-gap_y 80
+gap_x 60 #left-right
+gap_y 50
 minimum_size 750  200
-maximum_width 900
+maximum_width 850
 own_window yes
 own_window_type normal
 own_window_transparent yes
@@ -28,8 +28,8 @@ draw_graph_borders no
 
 override_utf8_locale yes
 use_xft yes
-xftfont champignon:size=8
-xftalpha 0.5
+xftfont Santana:size=8
+xftalpha 0.8
 uppercase no
 
 
@@ -40,9 +40,9 @@ lua_draw_hook_pre draw_clock
 ##############################################
 #  Output
 ##############################################
-#color grey32
+default_color grey75
 TEXT
 
 
-${goto 240}${voffset 32}${font Santana:size=28}${color grey70}${time %A, %d %B %Y}
-${goto 240}${voffset -20}${hr 2}
+${goto 230}${voffset 32}${font Santana:size=28}${time %A, %d %B %Y}
+${goto 230}${voffset -20}${hr 2}

@@ -1,3 +1,4 @@
+#Screenshot: http://irenegr.wordpress.com/2012/12/18/conky-tonk-woman/
 # -- Conky settings -- #
 background no
 update_interval 1
@@ -39,7 +40,7 @@ draw_graph_borders no
 # -- Text settings -- #
 use_xft yes
 xftfont Sans:size=12
-xftalpha 0.8
+xftalpha 0.7
 
 uppercase no
 

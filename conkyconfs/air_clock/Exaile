@@ -8,8 +8,8 @@ draw_borders no
 draw_graph_borders no
 draw_outline no
 draw_shades no
-gap_x 320
-gap_y 190
+gap_x 300
+gap_y 160
 maximum_width 1100
 minimum_size 40
 no_buffers yes
@@ -24,9 +24,9 @@ total_run_times 0
 update_interval 1
 uppercase no
 use_xft yes
-xftalpha 0.8
+xftalpha 0.9
 xftfont Santana:size=12
-default_color grey75
+default_color grey90
 
 #	Distric-Thin			fonts
 #	Blue Highway
