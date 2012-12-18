@@ -1,0 +1,6 @@
+sleep 1 &&
+conky -d -c /home/fog/.conky/air_clock/AirRings &
+sleep 1 &&
+conky -d -c /home/fog/.conky/air_clock/Clock &
+sleep 2 &&
+conky -d -c /home/fog/.conky/air_clock/Exaile &

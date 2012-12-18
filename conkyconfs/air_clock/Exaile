@@ -1,0 +1,42 @@
+alignment top_left
+background no
+#border_margin 5
+border_width 5
+default_color d7d7d7  #413536 # grey 5f5f5f 3F3F3F 183149 3B3B3B 26211F
+double_buffer yes
+draw_borders no
+draw_graph_borders no
+draw_outline no
+draw_shades no
+gap_x 320
+gap_y 190
+maximum_width 1100
+minimum_size 40
+no_buffers yes
+override_utf8_locale yes
+own_window yes
+own_window_title normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+own_window_type normal 	## normal /override /desktop
+text_buffer_size 8000
+total_run_times 0
+update_interval 1
+uppercase no
+use_xft yes
+xftalpha 0.8
+xftfont Santana:size=12
+default_color grey75
+
+#	Distric-Thin			fonts
+#	Blue Highway
+#	Raleway
+#	Zekton
+#	Calibri
+#	Engebrechtre
+#	Opeln2001
+#	BankGothic Md BT
+#	AvantGarde LT ExtraLight
+
+TEXT
+${execi 10 exaile --get-title} -  ${execi 10 exaile --get-artist} / ${execi 10 exaile --get-album}
