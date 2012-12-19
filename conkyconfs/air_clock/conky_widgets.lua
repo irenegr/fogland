@@ -41,25 +41,50 @@ function ring(cr, name, arg, max, bgc, bga, fgc, fga, xc, yc, r, t, sa, ea)
 		return ((colour / 0x10000) % 0x100) / 255., ((colour / 0x100) % 0x100) / 255., (colour % 0x100) / 255., alpha
 	end
 	
-	local function draw_ring(pct)
-		local angle_0=sa*(2*math.pi/360)-math.pi/2
-		local angle_f=ea*(2*math.pi/360)-math.pi/2
-		local pct_arc=pct*(angle_f-angle_0)
+	--  left rings filled from the bottom
+--	local function draw_ring(pct)
+--		local angle_0=sa*(2*math.pi/360)-math.pi/2
+--		local angle_f=ea*(2*math.pi/360)-math.pi/2
+--		local pct_arc=pct*(angle_f-angle_0)
 
 		-- Draw background ring
 
-		cairo_arc(cr,xc,yc,r,angle_0,angle_f)
-		cairo_set_source_rgba(cr,rgb_to_r_g_b(bgc,bga))
-		cairo_set_line_width(cr,t)
-		cairo_stroke(cr)
+--		cairo_arc(cr,xc,yc,r,angle_0,angle_f)
+--		cairo_set_source_rgba(cr,rgb_to_r_g_b(bgc,bga))
+--		cairo_set_line_width(cr,t)
+--		cairo_stroke(cr)
 	
 		-- Draw indicator ring
 
-		cairo_arc(cr,xc,yc,r,angle_0,angle_0+pct_arc)
-		cairo_set_source_rgba(cr,rgb_to_r_g_b(fgc,fga))
-		cairo_stroke(cr)
-	end
+--		cairo_arc(cr,xc,yc,r,angle_0,angle_0+pct_arc)
+--		cairo_set_source_rgba(cr,rgb_to_r_g_b(fgc,fga))
+--		cairo_stroke(cr)
+--	end
 	
+	--left rings fillem from the top 
+	  local function draw_ring(pct)
+    local angle_0= sa * (math.pi / 180) - math.pi/2
+    local angle_f= ea * (math.pi / 180) - math.pi/2
+    local pct_arc= pct * (angle_f - angle_0)
+
+    -- Draw background ring
+
+    cairo_arc(cr,xc,yc,r,angle_0,angle_f)
+    cairo_set_source_rgba(cr,rgb_to_r_g_b(bgc,bga))
+    cairo_set_line_width(cr,t)
+    cairo_stroke(cr)
+   
+    -- Draw indicator ring
+
+    if sa == 0 then
+      cairo_arc(cr,xc,yc,r,angle_0,angle_0+pct_arc)
+    else
+      cairo_arc_negative(cr,xc,yc,r,angle_0-math.pi,angle_0-math.pi-pct_arc)
+    end
+    cairo_set_source_rgba(cr,rgb_to_r_g_b(fgc,fga))
+    cairo_stroke(cr)
+  end 
+  
 	    local function setup_ring()
         local str = ''
         local value = 0
