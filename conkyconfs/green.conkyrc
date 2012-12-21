@@ -1,5 +1,3 @@
-#https://irenegr.wordpress.com/2012/12/16/my-mint-is-green/
-#modified by me
 # Theme: CathexiS
 # Description: Simple, minimal, distraction free foundation for building your desktop experience...
 # Author: Samir Kahvedzic < akirapowered@gmail.com >
@@ -36,7 +34,7 @@ own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
 
 # Minimum size of text area
-minimum_size 200 200
+minimum_size 220 200
 maximum_width 240
 
 # Draw shades?
@@ -72,7 +70,7 @@ alignment top_right
 # Gap between borders of screen and text
 # same thing as passing -x at command line
 gap_x 30
-gap_y 50
+gap_y 40
 
 # Subtract file system buffers from used memory?
 no_buffers yes
@@ -121,7 +119,8 @@ ${color 556B2F}${cpugraph cpu2 20,85 556B2F 9ACD32}
 ${voffset -54}${offset 112}${color a7a7a7}Cpu4:${color}${offset 30}${cpu cpu3}%
 $alignr${color 556B2F}${cpugraph cpu3 20,85 556B2F 9ACD32} 
 
-${color a7a7a7}Temp:${color CDFF00}$alignr$acpitemp°C${color}
+${color a7a7a7}Temp:${color}${offset 30}${color CDFF00}$acpitemp°C${color}
+${voffset -20}${offset 125}${color a7a7a7}Battery:${color}${offset 28}${color CDFF00}${battery_percent BAT1}%${color}
 
 M E M O R Y
 ${hr}
@@ -140,9 +139,9 @@ ${hr}
 ${color a7a7a7}Up:${color} ${upspeed wlan0}
 ${color 556B2F}${upspeedgraph wlan0 20,85 556B2F 9ACD32}
 ${color a7a7a7}Total:${color} ${totalup wlan0}
-${voffset -75}${offset 114}${color a7a7a7}Down:${color} ${downspeed wlan0}
+${voffset -75}${offset 135}${color a7a7a7}Down:${color} ${downspeed wlan0}
 $alignr${color 556B2F}${downspeedgraph wlan0 20,85 556B2F 9ACD32}
 $alignr${color a7a7a7}Total:${color} ${totaldown wlan0}
 
 ${color a7a7a7}Mail:${color}${offset 30}${color CDFF00}${execpi 300 python ~/.scripts/gmail.py}${color}
-${voffset -20}${offset 112}${color a7a7a7}Updates:${color}${offset 30}${color CDFF00}${execi 6000 aptitude search "~U" | wc -l}${color}
+${voffset -20}${offset 135}${color a7a7a7}Updates:${color}${offset 30}${color CDFF00}${execi 6000 aptitude search "~U" | wc -l}${color}
