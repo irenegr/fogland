@@ -1,0 +1,11 @@
+#http://irenegr.wordpress.com/2012/12/24/city-of-rapture/
+#requires dzen2
+
+out_to_x no
+out_to_console yes
+update_interval 1.0
+total_run_times 0
+use_spacer none
+
+TEXT
+ ^i(/home/fog/.conky/dzicons/clock.xbm) ^fg(\#6EB3AF)${time %a %d %b %H:%M}^fg() ${if_up wlan0}^i(/home/fog/.conky/dzicons/dish.xbm) ^fg(\#348781)${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}^fg() ^i(/home/fog/.conky/dzicons/mail.xbm) ^fg(\#dd9648)${execpi 120 python /home/fog/.scripts/gmail.py}^fg()${endif} ^i(/home/fog/.conky/dzicons/info_01.xbm) ^fg(\#7b828c)${kernel}^fg() ^i(/home/fog/.conky/dzicons/cpu.xbm) ^fg(\#63b3af)${cpu cpu0}% ${cpu cpu1}% ${cpu cpu2}% ${cpu cpu3}%^fg() ^i(/home/fog/.conky/dzicons/mem.xbm) ^fg(\#348781)${mem}/${memmax}^fg() ^i(/home/fog/.conky/dzicons/bug_01.xbm) ^fg(\#343a46)${running_processes running}^fg() ^i(/home/fog/.conky/dzicons/temp.xbm) ^fg(\#dd9648)${acpitemp}°C^fg() ${if_match ${battery_percent BAT1} >=26}^i(/home/fog/.conky/dzicons/bat_full_01.xbm)${endif}${if_match ${battery_percent BAT1} <=25} ^fg(\#CC0000)^i(/home/fog/.conky/dzicons/bat_low_01.xbm)^fg()${endif} ^fg(\#348781)${battery_percent BAT1}%^fg() ^i(/home/fog/.conky/dzicons/fs_02.xbm) ^fg(\#1c4d4a)${fs_used_perc /}%^fg() ^i(/home/fog/.conky/dzicons/fs_01.xbm) ^fg(\#63b3af)${fs_used_perc /media/data}%^fg() ${if_up wlan0}^i(/home/fog/.conky/dzicons/wifi_02.xbm) ^fg(\#7b828c)${wireless_essid wlan0} ${wireless_link_qual wlan0}%^fg() ^i(/home/fog/.conky/dzicons/net_up_03.xbm) ^fg(\#348781)${upspeedf wlan0}^fg() ^i(/home/fog/.conky/dzicons/net_down_03.xbm) ^fg(\#1c4d4a)${downspeedf wlan0}^fg()${endif} ${if_running mocp}^i(/home/fog/.conky/dzicons/phones.xbm) ^fg(\#6EB3AF)${execi 10 mocp -Q %song}-${execi 10 mocp -Q %artist} ^fg()${endif} 
