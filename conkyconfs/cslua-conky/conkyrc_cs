@@ -1,0 +1,111 @@
+#Screenshot: http://irenegr.wordpress.com/2013/01/07/mintbox/
+# -- Conky settings -- #
+background no
+update_interval 1
+ 
+cpu_avg_samples 2
+net_avg_samples 2
+ 
+override_utf8_locale yes
+ 
+double_buffer yes
+no_buffers yes
+ 
+text_buffer_size 2048
+imlib_cache_size 0
+ 
+# -- Window specifications -- #
+own_window_class Conky
+own_window yes
+own_window_type desktop
+#own_window_argb_visual yes
+#own_window_argb_value 50
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager 
+#own_window yes
+#own_window_type desktop
+#own_window_transparent yes
+#own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+ 
+border_inner_margin 0
+border_outer_margin 0
+ 
+minimum_size 500 900
+maximum_width 1000
+ 
+alignment top_right
+gap_x -35
+gap_y 20
+ 
+# -- Graphics settings -- #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+ 
+# -- Text settings -- #
+use_xft yes
+xftfont Ubuntu L:size=24
+xftalpha 0.8
+ 
+uppercase no
+ 
+default_color 000000
+color1 D32A32
+color2 0c2b52
+color3 a2e21b
+color4 f89b16
+color5 471544
+color6 c6e0d5
+color7 014457
+color8 0d410c
+color9 011079
+# -- Lua Load -- # #here  you change the directory where you put the script#
+##  Lua directiory
+lua_load ~/.scripts/csconky.lua
+lua_draw_hook_pre ring_stats
+ 
+TEXT
+# |--CPU 
+
+${voffset 20}${font Skia:pixelsize=17}${goto 100}${color1}CORE1: ${color}${font Skia:pixelsize=17}${cpu cpu1}% 
+
+${font Skia:pixelsize=17}${goto 100}${color2}CORE2: ${color}${font Skia:pixelsize=17}${cpu cpu2}% 
+
+${font Skia:pixelsize=17}${goto 100}${color3}CORE3: ${color}${font Skia:pixelsize=17}${cpu cpu3}% 
+
+${font Skia:pixelsize=17}${goto 100}${color4}CORE4: ${color}${font Skia:pixelsize=17}${cpu cpu4}% 
+###############
+##########
+############
+
+
+
+
+
+
+${goto 100}${font Skia:pixelsize=17}${color5}Root: ${color}${font Skia:pixelsize=17}${fs_used_perc /}%
+
+#################
+
+
+${goto 100}${font Skia:pixelsize=17}${color1}Ram: ${color}$memperc%
+
+######################
+
+
+${goto 100}${font Skia:pixelsize=17}${color7}Battery: ${color}${font Skia:pixelsize=17}${battery_percent BAT1}%
+##############
+######################
+
+
+
+${goto 100}${font Skia:pixelsize=17}${color8}Signal: ${color}${font Skia:pixelsize=17}${wireless_link_qual_perc wlan0}%
+##############
+# |--MEM
+
+
+
+${goto 100}${color9}Temp: ${color}${font Skia:pixelsize=17}${color}${font Skia:pixelsize=17}${acpitemp}°C
+
+
