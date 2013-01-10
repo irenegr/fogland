@@ -1,0 +1,1 @@
+Layout: ${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63}==0}us ${else}gr
