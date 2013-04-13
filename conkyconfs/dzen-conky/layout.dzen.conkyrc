@@ -1,8 +1,0 @@
-out_to_x no
-out_to_console yes
-update_interval 1.0
-total_run_times 0
-use_spacer none
-
-TEXT
- ${if_up wlan0}^i(/home/fog/.conky/dzicons/dish.xbm) ^fg(\#296460)${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}^fg() ^i(/home/fog/.conky/dzicons/mail.xbm) ^fg(\#B9783E)${execpi 120 python /home/fog/.scripts/gmail.py}^fg()${endif} ^i(/home/fog/.conky/dzicons/info_01.xbm) ^fg(\#296460)${kernel}^fg() ^i(/home/fog/.conky/dzicons/clock.xbm) ^fg(\#296460)${uptime}^fg() ^i(/home/fog/.conky/dzicons/cpu.xbm) ^fg(\#296460)${cpu cpu0}% ${cpu cpu1}% ${cpu cpu2}% ${cpu cpu3}%^fg() ^i(/home/fog/.conky/dzicons/temp.xbm) ^fg(\#B9783E)${acpitemp}°C^fg() ^i(/home/fog/.conky/dzicons/mem.xbm) ^fg(\#296460)${mem}/${memmax}^fg() ${if_match ${battery_percent BAT1} >=26}^i(/home/fog/.conky/dzicons/bat_full_01.xbm)${endif}${if_match ${battery_percent BAT1} <=25} ^fg(\#CC0000)^i(/home/fog/.conky/dzicons/bat_low_01.xbm)^fg()${endif} ^fg(\#296460)${battery_percent BAT1}%^fg() ^i(/home/fog/.conky/dzicons/fs_02.xbm) ^fg(\#296460)${fs_used_perc /}%^fg() ^i(/home/fog/.conky/dzicons/fs_01.xbm) ^fg(\#296460)${fs_used_perc /media/data}%^fg() ${if_up wlan0}^i(/home/fog/.conky/dzicons/wifi_02.xbm) ^fg(\#296460)${wireless_essid wlan0} ${wireless_link_qual wlan0}%^fg() ^i(/home/fog/.conky/dzicons/net_up_03.xbm) ^fg(\#296460)${upspeedf wlan0}^fg() ^i(/home/fog/.conky/dzicons/net_down_03.xbm) ^fg(\#296460)${downspeedf wlan0}^fg()${endif} ^i(/home/fog/.conky/dzicons/info_02.xbm) ^fg(\#B9783E)${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us^fg()${else}gr^fg()${endif} ^i(/home/fog/.conky/dzicons/clock.xbm) ^fg(\#296460)${time %a %d %b %H:%M}^fg() 
