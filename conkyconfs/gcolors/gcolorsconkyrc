@@ -1,0 +1,88 @@
+#Screenshot: http://irenegr.wordpress.com/2013/04/30/magic-mushrooms/
+# Conky Google Now style #
+
+
+# Conky settings #
+background no
+update_interval 1
+double_buffer yes
+no_buffers yes
+
+# Window specifications #
+own_window yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_title 
+own_window_transparent yes
+#own_window_colour 0D151D
+
+minimum_size 250
+
+# Alignment #
+alignment tl
+gap_x 10
+gap_y 40
+
+border_inner_margin 15
+border_outer_margin 0
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftalpha 0
+xftfont Bahamas:size=10
+
+override_utf8_locale yes
+
+imlib_cache_size 0
+
+# Color scheme #
+#default_color DCDCDC
+default_color 96BEC8
+
+color1 00566C
+color2 B58900
+color3 669900
+color4 9F440D
+color5 CC0000
+color6 AAAAAA
+color7 484848
+color8 CB4B16
+
+TEXT
+${voffset -20}${color8}${font Bahamas:size=25}${time %a %d %b %Y}${color}${font}
+
+${voffset -5}${color3}${font Bahamas:size=15}      Xubuntu 13.10${color}${font}
+
+${color1}Kernel:${color} ${color3}${exec uname -r | cut -c1-7}${color}${alignr}${color1}Uptime:${color} ${color3}${uptime_short}${color}
+${color1}User:${color} ${color3}fog${color}${alignr}${color1}Machine:${color} ${color3}edge${color}
+${color1}Mail:${color} ${color8}${execpi 120 python /home/fog/.scripts/gmail.py}${color}${alignr}${color1}Layout:${color} ${color8}${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}${color}
+
+${voffset -5}${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=965867&u=c" -o ~/.cache/weather.xml}${font Bahamas:size=20}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "city=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"} ${alignr}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "country=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${font}
+${font Bahamas:size=60}${alignr}${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°${font}
+${execi 300 cp -f ~/.weathericons/$(grep "yweather:condition" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*").png ~/.cache/weather.png}${image ~/.cache/weather.png -p 0,165 -s 60x60}
+${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "text=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"} ${alignr}${color6}${execi 300 grep "yweather:wind" ~/.cache/weather.xml | grep -o "speed=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${execi 300 grep "yweather:units" ~/.cache/weather.xml | grep -o "speed=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${color}
+${execi 300 cp -f ~/.weathericons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1).png ~/.cache/weather-today.png}${image ~/.cache/weather-today.png -p 0,275 -s 30x30}${execi 300 cp -f ~/.weathericons/$(grep "yweather:forecast" ~/.cache/weather.xml | grep -o "code=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1).png ~/.cache/weather-tomorrow.png}${image ~/.cache/weather-tomorrow.png -p 130,275 -s 30x30}
+${goto 60}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1}${goto 190}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "day=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1}
+${goto 60}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1}° ${color6}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | head -n1}°${color}${goto 190}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1}° ${color6}${execi 300 grep "yweather:forecast" ~/.cache/weather.xml | grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | tail -n1}°${color}${voffset 15}
+#${color7}${hr}${color}
+${if_existing /proc/net/route wlan0}
+${color1}Up:${color} ${color2}${upspeed wlan0}${color}${alignr}${color1}Down:${color} ${color2}${downspeed wlan0}${color}
+${upspeedgraph wlan0 25,120 9F440D 9F440D}${alignr}${downspeedgraph wlan0 25,120 9F440D 9F440D}
+${color1}Sent:${color} ${color3}${totalup wlan0}${color}${alignr}${color1}Received:${color} ${color3}${totaldown wlan0}${color}
+${else}${if_existing /proc/net/route eth0}
+${color1}Up:${color} ${color3}${upspeed eth0}${color}${alignr}${color1}Down:${color} ${color3}${downspeed eth0}${color}
+${upspeedgraph eth0 50,120 9F440D 9F440D}${alignr}${downspeedgraph eth0 50,120 9F440D 9F440D}
+${color1}Sent:${color} ${color2}${totalup eth0}${color}${alignr}${color1}Received:${color} ${color2}${totaldown eth0}${color}
+${else}
+Network disconnected
+${color6}Connect to a network to see statistics${color}
+${voffset 50}
+${endif}${endif}${voffset -15}
+${color1}Cpu:${color} ${color3}${cpu cpu}%${color}${alignr}${color1}Ram:${color} ${color3}${mem}${color}
+${color1}Temp:${color} ${color8}${acpitemp}°C${color}${alignr}${color1}Bat:${color} ${color3}${battery_percent BAT1}%${color}
