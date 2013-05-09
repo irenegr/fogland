@@ -1,0 +1,12 @@
+#!/bin/bash
+#sleep 2 &&
+#conky -d -c /home/fog/.conkyrc &
+sleep 2 &&
+conky -d -c /home/fog/.conkyrc-dark &
+#sleep 2 &&
+#/home/fog/.conkybar &
+#sleep 2 &&
+#conky -d -c /home/fog/.conkyrcws &
+sleep 2 &&
+conky -d -c /home/fog/.conkyrc.big &
+exit
