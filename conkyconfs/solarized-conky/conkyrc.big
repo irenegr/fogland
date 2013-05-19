@@ -1,0 +1,56 @@
+######################
+# - Conky settings - #
+######################
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+#xftfont Dinreg:size=160
+xftfont Bahamas:size=150
+override_utf8_locale yes
+text_buffer_size 2048
+xftalpha 0.8
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#own_window_argb_visual yes
+#own_window_argb_value 100
+
+alignment tl
+gap_x 10
+gap_y 10
+minimum_size 230 230
+maximum_width 250
+
+
+default_bar_size 60 8
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+
+default_color 00566C
+default_shade_color 1d1d1d
+color0 ffffff
+color1 ffffff
+color8 CB4B16
+
+TEXT
+${voffset -10}${time %H}
+${color8}${voffset -110}${time %M}${color}
