@@ -14,8 +14,8 @@ no_buffers yes
 # - Text settings - #
 #####################
 use_xft yes
-#xftfont Dinreg:size=160
-xftfont Bahamas:size=150
+xftfont Dinreg:size=160
+#xftfont Bahamas:size=150
 override_utf8_locale yes
 text_buffer_size 2048
 xftalpha 0.8
@@ -45,12 +45,13 @@ default_bar_size 60 8
 #########################
 draw_shades no
 
-default_color 00566C
+default_color 859900 #green
 default_shade_color 1d1d1d
 color0 ffffff
 color1 ffffff
-color8 CB4B16
+color8 B58900 #yellow
 
 TEXT
 ${voffset -10}${time %H}
-${color8}${voffset -110}${time %M}${color}
+${color8}${voffset -130}${time %M}${color}
+
