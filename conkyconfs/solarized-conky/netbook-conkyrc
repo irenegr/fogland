@@ -1,0 +1,94 @@
+# Conky Google Now style #
+
+# Conky settings #
+background no
+update_interval 1
+double_buffer yes
+no_buffers yes
+
+# Window specifications #
+own_window yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_title 
+own_window_transparent yes
+own_window_colour E8F4B9
+#own_window_argb_visual yes
+#own_window_argb_value 100
+
+minimum_size 200
+maximum_width 200
+
+# Alignment #
+alignment tr
+gap_x 10
+gap_y 10
+
+border_inner_margin 15
+border_outer_margin 0
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftalpha 1
+xftfont Bahamas:size=9
+
+override_utf8_locale yes
+
+imlib_cache_size 0
+
+# Color scheme #
+#default_color DCDCDC
+default_color 669900 #96BEC8
+
+color1 00566C
+color2 B58900
+color3 669900
+color4 9F440D
+color5 516269
+color6 A92B68
+color7 484848
+color8 CB4B16
+color9 21817A
+
+TEXT
+${voffset 35} 
+${color8}${voffset -55}${font Bahamas:size=28}${alignc}${time %H:%M }${color}${font}
+
+${color1}${voffset -10}${font Droid Sans:size=16}    ${time %a %d %b %Y}${color}${font}
+
+${voffset -5}${color3}${font Bahamas:size=14}   Xubuntu Saucy 13.10${color}${font}
+
+${color1}User:${color} ${color3}fog${color}${alignr}${color1}Machine:${color} ${color3}road${color}
+${color1}Kernel:${color} ${color3}${exec uname -r | cut -c1-8}${color}${alignr}${color1}Uptime:${color} ${color3}${uptime_short}${color}
+${color1}CPU:${color} ${color3}${cpu cpu0}%${color}${alignr}${color1}Temp:${color} ${color3}${exec sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}°C${color}
+${color1}Ram:${color} ${color3}${mem}${color}${alignr}${color1}Total:${color} ${color3}${memmax}${color}
+${color1}Root:${color} ${color3}${fs_used_perc /}% ${color}${alignr}${color1}Bat:${color} ${color3}${battery_percent BAT1}%${color}
+${color1}Layout:${color} ${color8}${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}${color}${alignr}${color1}Mail:${color} ${color8}${execpi 120 python /home/fog/.scripts/gmail.py}${color}
+${color1}Up:${color} ${color3}${upspeed wlan0}${color}${alignr}${color1}Down:${color} ${color3}${downspeed wlan0}${color}
+${upspeedgraph wlan0 15,90 669900 E6B315}${alignr}${downspeedgraph wlan0 15,90 669900 E6B315}
+${color1}Out:${color} ${color3}${totalup wlan0}${color}${alignr}${color1}In:${color} ${color3}${totaldown wlan0}${color}
+
+${color8}${voffset -5}${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=965867&u=c" -o ~/.cache/weather.xml}${font Bahamas:size=19}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "city=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"} ${alignr}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "country=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${font}${color}
+
+${color1}${alignr 56}${font ConkyWeather:style=Bold:size=40}${execi 600 conkyForecast --location=GRXX0015 --datatype=WF}${font}
+${voffset -50}${font Weather:size=40}y${font}  ${voffset -38}${font Bahamas:size=26}${execi 600 conkyForecast --location=GRXX0015 --datatype=HT}${font}${color}
+
+
+${color3}${font Bahamas:size=10}${alignc 48}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=1 --shortweekday} ${alignc 8}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=2 --shortweekday} ${alignc -29}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=3 --shortweekday} ${alignc -70}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=4 --shortweekday}
+${alignc 80}${font ConkyWeather:size=30}${execpi 600 conkyForecast --location=GRXX0015 --datatype=WF --startday=1 --endday=4 --spaces=1}${font}
+${font Bahamas:size=10}${alignc 48}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=1 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=1 --hideunits --centeredwidth=3} ${alignc -14}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=2 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=2 --hideunits --centeredwidth=3} ${alignc -40}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=3 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=3 --hideunits --centeredwidth=3} ${alignr 6}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=4 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=4 --hideunits --centeredwidth=3}${color}
+
+${color1}${font Bahamas:size=10}Updated:${color} ${color2}${alignr} ${execi 600 conkyForecast --location=GRXX0015 --hideunits --datatype=LU -m 0 }
+${color1}${font Bahamas:size=10}Condition:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=CC}
+${color1}${font Bahamas:size=10}Wind:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=WS } - ${execi 600 conkyForecast --location=GRXX0015 --datatype=WD}
+${color1}${font Bahamas:size=10}Humidity:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=HM}
+${color1}${font Bahamas:size=10}Feels Like:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=LT}${color}
+${color1}${font Bahamas:size=10}Sunrise:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=SR}${color}
+${color1}${font Bahamas:size=10}Sunset:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=SS}${color}
+${color1}${font Bahamas:size=10}Moon:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=MP} ${font MoonPhases:size=8:style=Bold}${execi 600 conkyForecast --location=GRXX0015 --datatype=MF}${font} ${color}
