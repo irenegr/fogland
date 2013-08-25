@@ -1,5 +1,15 @@
 # Conky Google Now style #
 
+#Moschato GRXX0015
+#http://weather.yahooapis.com/forecastrss?w=965867&u=c
+
+#Rafina GRXX0561
+#"http://weather.yahooapis.com/forecastrss?w=24543598"
+
+#Lamia GRXX0083
+#"http://weather.yahooapis.com/forecastrss?w=56558175"
+
+
 # Conky settings #
 background no
 update_interval 1
