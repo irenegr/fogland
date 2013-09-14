@@ -1,0 +1,67 @@
+alignment top_left
+border_width 0
+default_color 000000		
+default_outline_color 000000 	
+default_shade_color 000000	
+draw_borders no
+draw_graph_borders no
+draw_outline no
+draw_shades no
+gap_x 1180
+gap_y 30
+max_specials 1024
+max_user_text 10000
+maximum_width 220
+minimum_size 220 400
+double_buffer yes
+override_utf8_locale yes
+own_window yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+own_window_argb_visual yes
+pad_percents 2			
+short_units yes			
+stippled_borders 3
+text_buffer_size 8000
+total_run_times 0
+update_interval 1.0
+uppercase no
+use_spacer right
+use_xft yes
+xftalpha 1
+xftfont Freesans:pixelsize=9
+
+lua_load ~/.box.lua
+lua_draw_hook_pre main_box
+
+TEXT
+${offset 146}${voffset 13}${font Serif:size=12}${color #ffffff}i
+
+${voffset -30}${offset 30}${font Zegoe UI:size=8}${color #db8426}DATE
+${offset 30}${font pftempestafivecondensed:size=6}${color #ffffff}${time %H:%M:%S} h
+${offset 30}${time  %d. %B, %Y}
+${offset 30}Athens: ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}
+${offset 30}Mail: ${execpi 300 python ~/.scripts/gmail.py}
+
+${offset 30}${font Zegoe UI:size=8}${color #db8426}SYSTEM
+${offset 30}${font pftempestafivecondensed:size=6}${color #ffffff}Uptime: $uptime
+${offset 30}Battery: ${battery_percent BAT1}%
+${offset 30}Layout: ${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}
+${offset 30}Temp: ${acpitemp}°C
+
+${offset 30}CPU: $cpu%
+${offset 30}${cpubar 4,80} 
+${offset 30}Ram: $mem / $memmax
+${offset 30}${membar 4,80} 
+${offset 30}Root: ${fs_used /}
+${offset 30}${fs_bar 4,80 /} 
+${offset 30}Data: ${fs_used /media/data}
+${offset 30}${fs_bar 4,80 /media/data} 
+
+${offset 30}${font Zegoe UI:size=8}${color #db8426}NETWORK
+${offset 30}${font pftempestafivecondensed:size=6}${color #ffffff}Signal: ${wireless_link_qual wlan0}% 
+${offset 30}${wireless_link_bar 4,80 wlan0}
+${offset 30}Ul: ${upspeed wlan0} kb/s 
+${offset 30}${upspeedgraph wlan0 4,80 000000 000000}
+${offset 30}Dl: ${downspeed wlan0} kb/s 
+${offset 30}${downspeedgraph wlan0 4,80 000000 000000}
