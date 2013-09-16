@@ -41,16 +41,23 @@ use_spacer none
 alignment top_left
 gap_x 5
 gap_y 5
-minimum_size 300 700
-color0 aaaaaa
-color1 dddddd
-color2 FFA500
+minimum_size 250 700
+color0 2D2D2D
+color1 2B2B2B
+color2 AD0A0F
 
 
 TEXT
-$color1 fog@$nodename $color0 ${goto 160}${voffset -10} ${font Droid Sans :size=18}${if_match ${desktop}==1}${color2}${endif}•${color}${offset 10}${if_match ${desktop}==2}${color2}${endif}•${color0}${font}
+$color1 fog@$nodename $color0 ${goto 200}${voffset -7} ${font Droid Sans :size=16}${if_match ${desktop}==1}${color2}${endif}•${color0}${offset 10}${if_match ${desktop}==2}${color2}${endif}•${color0}${font}
   |
   |___$color1$kernel$color0
+  |
+  |___TIME
+  |   |__${time %A %d %B}: $color2${time %T}$color0
+  |   |__Uptime: $color1$uptime$color0
+  |
+  |___WEATHER
+  |   |__Athens: ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}$color0
   |
   |___CPUs
   |   |__CPU1___$color1${cpu cpu0}%$color0
@@ -63,15 +70,9 @@ $color1 fog@$nodename $color0 ${goto 160}${voffset -10} ${font Droid Sans :size=
   |      '-${cpugraph cpu3 11, 192}
   |
   |___RAM___$color1${memperc}%$color0
-  |   |__${mem}/${memmax}
+  |   |__$color2${mem}$color0 / ${memmax}
   |      '-${memgraph 11, 192}
   |
-  ${if_up wlan0}|___WLAN___$color1${addr wlan0}$color0
-  |   |__up_____$color1${upspeed wlan0}$color0
-  |   |  '-${upspeedgraph wlan0 11, 192}
-  |   |__down___$color1${downspeed wlan0}$color0
-  |      '-${downspeedgraph wlan0 11, 192}
-  |${endif}
   |___HDD
   |   |__/_____________${color1}${fs_used /}${color0}/${color1}${fs_size /}${color0}
   |   |  '-${fs_bar 11, 192 /}
@@ -80,21 +81,21 @@ $color1 fog@$nodename $color0 ${goto 160}${voffset -10} ${font Droid Sans :size=
   |   |__/winblows__${color1}${fs_used /media/windows}${color0}/${color1}${fs_size /media/windows}${color0}
   |      '-${fs_bar 11, 192 /media/windows}
   |
-  |___TIME
-  |   |__${time %A %d %B}: $color1${time %T}$color0
-  |   |__Uptime: $color1$uptime$color0
-  |
-  |___WEATHER
-  |   |__Athens: ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}
-  |
-  |___LAYOUT
-  |   |__${color2}${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}$color0
-  
-  |___MAIL
-  |   |__${color2}${execpi 300 python ~/.scripts/gmail.py}$color0
-  |
+  ${if_up wlan0}|___WLAN___$color1${addr wlan0}$color0
+  |   |__up_____$color1${upspeed wlan0}$color0
+  |   |  '-${upspeedgraph wlan0 11, 192}
+  |   |__down___$color1${downspeed wlan0}$color0
+  |      '-${downspeedgraph wlan0 11, 192}
+  |${endif}
   |___TEMP
   |   |__$color2 $acpitemp°C$color0
   |
   |___BAT 
-      |__$color2 ${battery_percent BAT1}%$color0
+  |    |__$color2 ${battery_percent BAT1}%$color0
+  |
+  |___LAYOUT
+  |   |__${color2} ${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}$color0
+  |
+  |___MAIL
+      |__${color2} ${execpi 300 python ~/.scripts/gmail.py}$color0
+
