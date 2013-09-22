@@ -1,0 +1,50 @@
+# conky configuration
+#  Settings
+##############################################
+background yes
+use_xft yes
+#xftfont Aller Display:pixelsize=12
+xftfont KL1MonoCase:pixelsize=12
+xftalpha 0.1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_pager,skip_taskbar
+double_buffer yes
+minimum_size 1300 55
+maximum_width 1300
+draw_shades no
+draw_outline no
+draw_borders no
+border_inner_margin 0
+border_width 1
+draw_graph_borders yes
+default_color 768C94
+#default_shade_color 231E15
+#default_outline_color black
+alignment br
+gap_x 33
+gap_y 5
+no_buffers yes
+uppercase yes
+text_buffer_size 1024
+cpu_avg_samples 2
+show_graph_scale no
+show_graph_range no
+short_units yes
+override_utf8_locale yes
+use_spacer right
+color1 ffffff
+
+lua_load ~/.scripts/bars.lua
+lua_draw_hook_pre bar_stats
+##############################################
+#  Output
+##############################################
+TEXT
+
+${goto 120}${font KL1MonoCase:pixelsize=16}${alignr 10}${if_match ${desktop}==1}${color1}${endif}•$color${offset 10}${if_match ${desktop}==2}${color1}${endif}•$color  ${exec echo "fog@edge"}  $acpitemp${offset -8}°C  @${execpi 120 python ~/.scripts/gmail.py}  ${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif} ${time %I:%M}${font}
+${voffset -2}${font KL1MonoCase:pixelsize=16}Xubuntu 13.10${hr 2}
+${goto 302}${font KL1MonoCase:pixelsize=12}Bt Cu Rm Dl Ul Sy Dt      C° H°      Hr Mn Sc ${alignr 5}Athens:${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}  ${time %a %d %b}
