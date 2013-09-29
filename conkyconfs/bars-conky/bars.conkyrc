@@ -1,4 +1,17 @@
 # conky configuration
+#
+# The list of variables has been removed from this file in favour
+# of keeping the documentation more maintainable.
+# Check http://conky.sf.net for an up-to-date-list.
+#
+# For ideas about how to modify conky, please see:
+# http://crunchbanglinux.org/forums/topic/59/my-conky-config/
+#
+# For help with conky, please see:
+# http://crunchbanglinux.org/forums/topic/2047/conky-help/
+#
+# Enjoy! :)
+##############################################
 #  Settings
 ##############################################
 background yes
@@ -38,7 +51,7 @@ override_utf8_locale yes
 use_spacer right
 color1 ffffff
 
-lua_load ~/.scripts/bars.lua
+lua_load ~/.scripts/daft_bars.lua
 lua_draw_hook_pre bar_stats
 ##############################################
 #  Output
