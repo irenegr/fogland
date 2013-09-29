@@ -1,0 +1,103 @@
+#screenshot: 
+#Moschato GRXX0015
+#"http://weather.yahooapis.com/forecastrss?w=965867&u=c"
+# Conky settings #
+background no
+update_interval 1
+double_buffer yes
+no_buffers yes
+
+# Window specifications #
+own_window yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_title 
+own_window_transparent yes
+own_window_colour 2d2d2d
+#own_window_argb_visual yes
+#own_window_argb_value 200
+
+minimum_size 200
+maximum_width 200
+
+# Alignment #
+alignment tl
+gap_x 1150
+gap_y 15
+
+border_inner_margin 15
+border_outer_margin 0
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftalpha 0
+#xftfont Santana-9:style=Bold
+xftfont Santana-9:style=Bold
+override_utf8_locale yes
+
+imlib_cache_size 0
+
+# Color scheme #
+#default_color 846D51
+default_color 846D51
+color1 22727E 
+color2 C3551E 
+color3 5D7143 
+color4 2D2D2D 
+color5 2D2D2D
+color6 E11D2B
+color7 B75E53
+color8 846D51
+
+TEXT
+${voffset -30} 
+${goto 160}${font Droid Sans:size=24}${if_match ${desktop}==1}${color6}${endif}•${color}${offset 10}${if_match ${desktop}==2}${color6}${endif}•${color}${font}
+
+${voffset -30}${font Dinreg:size=50}${color6} ${time %H}${color} ${color1}${time %M}${color}
+${color3}${voffset -50}${font Santana:style=Bold:size=16}    ${time %a %d %b %Y}${color}${font}
+
+${voffset -5}${color2}${font Santana:style=Bold:size=15}${alignc}Xubuntu 13.10${color}${font}
+
+${color1}User:${color} ${color3}fog${color}${alignr}${color1}Uptime:${color} ${color3}${uptime_short}${color}
+${color1}Kernel:${color} ${color3}${exec uname -r | cut -c1-8}${color}${alignr}${color1}Machine:${color} ${color3}edge${color}
+${color1}Ram:${color} ${color3}${mem}${color}${alignr}${color1}Total:${color} ${color3}${memmax}${color}
+${color1}Root:${color}${color3}${fs_used_perc /}% ${color}${alignr}${color1}Data:${color} ${color3}${fs_used_perc /media/data}%${color}
+${color1}Bat:${color} ${color3}${battery_percent BAT1}%${color}${alignr}${color1}Temp:${color} ${color6}${acpitemp}°C${color}
+${color1}Layout:${color} ${color6}${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}${color}${alignr}${color1}Mail:${color} ${color6}${execpi 120 python /home/fog/.scripts/gmail.py}${color}
+
+${color1}${font Santana-9:style=Bold}CPU 1: ${color3}${alignr}${freq_g 0} ${color1}Ghz ${color3}${cpu cpu0}${color1}%
+${color1}${font Santana-9:style=Bold}CPU 2: ${color3}${alignr}${freq_g 1} ${color1}Ghz ${color3}${cpu cpu1}${color1}%
+${color1}${font Santana-9:style=Bold}CPU 3: ${color3}${alignr}${freq_g 2} ${color1}Ghz ${color3}${cpu cpu2}${color1}%
+${color1}${font Santana-9:style=Bold}CPU 4: ${color3}${alignr}${freq_g 3} ${color1}Ghz ${color3}${cpu cpu3}${color1}%
+${alignr}${loadgraph 15,200 ffffff 22727E -l}
+
+${color1}Up:${color} ${color2}${upspeed wlan0}${color}${alignr}${color1}Down:${color} ${color2}${downspeed wlan0}${color}
+${upspeedgraph wlan0 15,90 fffffff C3551E}${alignr}${downspeedgraph wlan0 15,90 ffffff C3551E}
+
+${color1}Out:${color} ${color3}${totalup wlan0}${color}${alignr}${color1}In:${color} ${color3}${totaldown wlan0}${color}
+
+${color2}${voffset -5}${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=965867&u=c" -o ~/.cache/weather.xml}${font Santana:style=Bold:size=18}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "city=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"} ${alignr}${execi 300 grep "yweather:location" ~/.cache/weather.xml | grep -o "country=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}${font}${color}
+
+${color1}${alignr 56}${font ConkyWeather:style=Bold:size=40}${execi 600 conkyForecast --location=GRXX0015 --datatype=WF}${font}
+${voffset -50}${font Weather:size=40}y${font}  ${voffset -38}${font Santana:style=Bold:size=26}${execi 600 conkyForecast --location=GRXX0015 --datatype=HT}${font}${color}
+
+
+${color3}${font Santana-9:style=Bold}${alignc 48}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=1 --shortweekday} ${alignc 8}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=2 --shortweekday} ${alignc -29}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=3 --shortweekday} ${alignc -70}${execpi 600 conkyForecast --location=GRXX0015 --datatype=DW --startday=4 --shortweekday}
+${alignc 80}${font ConkyWeather:size=30}${execpi 600 conkyForecast --location=GRXX0015 --datatype=WF --startday=1 --endday=4 --spaces=1}${font}
+${font Santana-9:style=Bold}${alignc 48}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=1 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=1 --hideunits --centeredwidth=3} ${alignc -14}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=2 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=2 --hideunits --centeredwidth=3} ${alignc -40}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=3 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=3 --hideunits --centeredwidth=3} ${alignr 6}${execpi 600 conkyForecast --location=GRXX0015 --datatype=HT --startday=4 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=GRXX0015 --datatype=LT --startday=4 --hideunits --centeredwidth=3}${color}
+
+${color1}${font Santana-9:style=Bold}Updated:${color} ${color2}${alignr} ${execi 600 conkyForecast --location=GRXX0015 --hideunits --datatype=LU -m 0 }
+${color1}${font Santana-9:style=Bold}Condition:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=CC}
+${color1}${font Santana-9:style=Bold}Wind:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=WS } - ${execi 600 conkyForecast --location=GRXX0015 --datatype=WD}
+${color1}${font Santana-9:style=Bold}Humidity:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=HM}
+${color1}${font Santana-9:style=Bold}Feels Like:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=LT}${color}
+${color1}${font Santana-9:style=Bold}Sunrise:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=SR}${color}
+${color1}${font Santana-9:style=Bold}Sunset:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=SS}${color}
+${color1}${font Santana-9:style=Bold}Moon:${color} ${color2}${alignr}${execi 600 conkyForecast --location=GRXX0015 --datatype=MP} ${font MoonPhases:size=7:style=Bold}${execi 600 conkyForecast --location=GRXX0015 --datatype=MF}${font} ${color}
+${voffset -100} 
