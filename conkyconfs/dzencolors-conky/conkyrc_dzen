@@ -29,25 +29,25 @@ if_up_strictness address
 #  Output                                                              #
 ########################################################################
 TEXT
-          ${if_up wlan0}^fg(\#00cd00)^i(/usr/share/dzicons/dish.xbm) ^fg(\#ccc)${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"} \
-^fg(\#ff4500)^i(/usr/share/dzicons/mail.xbm) ^fg(\#ccc)${execpi 120 python /home/fog/.scripts/gmail.py}^fg()${endif} \
-^fg(\#ffa500)^i(/usr/share/dzicons/info9.xbm) ^fg(\#ccc)${uptime_short} ^fg(\#00bfff)^i(/usr/share/dzicons/info6.xbm) ^fg(\#ccc)${nodename} \
-^fg(\#ffd700)^i(/usr/share/dzicons/info2.xbm) ^fg(\#ccc)${exec uname -r | cut -c1-21} \
-^fg(\#00cd00)^i(/usr/share/dzicons/info10.xbm) ^fg(\#ccc)${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 19-40} \
-^fg(\#ffa500)^i(/usr/share/dzicons/cpu.xbm) ^fg(\#ccc)${cpu}% \
-^fg(\#00bfff)^i(/usr/share/dzicons/mem.xbm) ^fg(\#ccc)${mem}/${memmax} \
-^fg(\#ff4500)^i(/usr/share/dzicons/temp6.xbm) ^fg(\#ccc)${acpitemp}°C \
-^fg(\#ffd700)^i(/usr/share/dzicons/home.xbm) ^fg(\#ccc)${fs_used_perc /}% \
+        ${if_up wlan0}^fg(\#00cd00)^i(/usr/share/dzicons/dish.xbm) ^fg()${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"} \
+^fg(\#ff4500)^i(/usr/share/dzicons/mail.xbm) ^fg()${execpi 120 python /home/fog/.scripts/gmail.py}^fg()${endif} \
+^fg(\#ffa500)^i(/usr/share/dzicons/info9.xbm) ^fg()${uptime_short} ^fg(\#00bfff)^i(/usr/share/dzicons/info6.xbm) ^fg()${nodename} \
+^fg(\#ffd700)^i(/usr/share/dzicons/info2.xbm) ^fg()${exec uname -r | cut -c1-21} \
+^fg(\#00cd00)^i(/usr/share/dzicons/info10.xbm) ^fg()${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 19-40} \
+^fg(\#ffa500)^i(/usr/share/dzicons/cpu.xbm) ^fg()${cpu}% \
+^fg(\#00bfff)^i(/usr/share/dzicons/mem.xbm) ^fg()${mem}/${memmax} \
+^fg(\#ff4500)^i(/usr/share/dzicons/temp6.xbm) ^fg()${acpitemp}°C \
+^fg(\#ffd700)^i(/usr/share/dzicons/home.xbm) ^fg()${fs_used_perc /}% \
 ^fg()${if_existing /sys/class/power_supply/BAT0}${if_match ${battery_percent BAT0} >=26}^fg(\#7cfc00)^i(/usr/share/dzicons/bat_full_01.xbm)${else}\
-^fg(\#CC0000)^i(/usr/share/dzicons/bat_low_01.xbm)^fg()${endif} ^fg(\#ccc)${battery_percent BAT0}% \
+^fg(\#CC0000)^i(/usr/share/dzicons/bat_low_01.xbm)^fg()${endif} ^fg()${battery_percent BAT0}% \
 ${else}${endif}${if_existing /sys/class/power_supply/BAT1}${if_match ${battery_percent BAT1} >=26}^fg(\#7cfc00)^i(/usr/share/dzicons/bat_full_01.xbm)${else}\
-^fg(\#CC0000)^i(/usr/share/dzicons/bat_low_01.xbm)^fg()${endif} ^fg(\#ccc)${battery_percent BAT1}%${else}${endif} \
+^fg(\#CC0000)^i(/usr/share/dzicons/bat_low_01.xbm)^fg()${endif} ^fg()${battery_percent BAT1}%${else}${endif} \
 ${if_gw}^fg()${if_up eth0}^i(/usr/share/dzicons/net_wired.xbm) \
-^fg(\#00cd00)^i(/usr/share/dzicons/net_up_02.xbm) ^fg(\#ccc)${upspeedf eth0} \
-^fg(\#ffa500)^i(/usr/share/dzicons/net_down_02.xbm) ^fg(\#ccc)${downspeedf eth0} \
-^fg()${endif}${if_up wlan0}^i(/usr/share/dzicons/wifi_02.xbm) ^fg(\#ccc)${wireless_essid wlan0} ${wireless_link_qual wlan0}% \
-^fg(\#00cd00)^i(/usr/share/dzicons/net_up_02.xbm) ^fg(\#ccc)${upspeedf wlan0} \
-^fg(\#ffa500)^i(/usr/share/dzicons/net_down_02.xbm) ^fg(\#ccc)${downspeedf wlan0} \
+^fg(\#00cd00)^i(/usr/share/dzicons/net_up_02.xbm) ^fg()${upspeedf eth0} \
+^fg(\#ffa500)^i(/usr/share/dzicons/net_down_02.xbm) ^fg()${downspeedf eth0} \
+^fg()${endif}${if_up wlan0}^i(/usr/share/dzicons/wifi_02.xbm) ^fg()${wireless_essid wlan0} ${wireless_link_qual wlan0}% \
+^fg(\#00cd00)^i(/usr/share/dzicons/net_up_02.xbm) ^fg()${upspeedf wlan0} \
+^fg(\#ffa500)^i(/usr/share/dzicons/net_down_02.xbm) ^fg()${downspeedf wlan0} \
 ^fg()${endif}${endif} \
-^fg(\#ff4500)^i(/usr/share/dzicons/alien.xbm) ^fg(\#ccc)${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us^fg()${else}gr^fg()${endif} \
-^i(/usr/share/dzicons/cal.xbm) ^fg()${time %d/%m}^fg(\#ccc) ^i(/usr/share/dzicons/clock.xbm) ${time %I:%M}  ${if_running mocp}^fg(\#00bfff)^i(/usr/share/dzicons/phones.xbm) ^fg(\#ccc)${execi 10 mocp -Q %song}-${execi 10 mocp -Q %artist} ^fg()${endif}
+^fg(\#ff4500)^i(/usr/share/dzicons/alien.xbm) ^fg()${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us^fg()${else}gr^fg()${endif} \
+^fg(\#ffd700)^i(/usr/share/dzicons/cal.xbm) ^fg()${time %d/%m}^fg(\#00bfff) ^i(/usr/share/dzicons/clock.xbm) ^fg()${time %I:%M}  ${if_running mocp}^fg(\#00bfff)^i(/usr/share/dzicons/phones.xbm) ^fg()${execi 10 mocp -Q %song}-${execi 10 mocp -Q %artist} ^fg()${endif}
