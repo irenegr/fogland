@@ -1,0 +1,4 @@
+#define monitor_width 8
+#define monitor_height 8
+static unsigned char monitor_bits[] = {
+   0xff, 0x81, 0x81, 0x89, 0xd5, 0xa3, 0x81, 0xff };

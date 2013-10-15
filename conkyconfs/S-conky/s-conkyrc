@@ -48,7 +48,7 @@ uppercase no
 default_color grey75
 
 # -- Lua Load -- #
-lua_load ~/conky_widgets.lua
+lua_load ~/.conky/conky_widgets.lua
 lua_draw_hook_pre widgets
 
 TEXT
