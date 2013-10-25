@@ -16,9 +16,10 @@ draw_outline n
 draw_borders noo
 draw_graph_borders yes
 stippled_borders 0
-border_margin 4
+#border_margin 4
 border_width 0
 default_color black
+color1 fe8608
 default_shade_color black
 default_outline_color white
 alignment top_right
@@ -28,15 +29,15 @@ no_buffers yes
 cpu_avg_samples 2
 net_avg_samples 2
 override_utf8_locale yes
-use_spacer yes
+use_spacer right
 
 maximum_width 350
 
 
 TEXT
 #leet chars: ┤┤└└┴┴┐┐││┘┘┌┌├├┬┬┼┼┴┴── ││ ▽▼△▲▵▴▾▿
-${alignr}${offset -32} ${font DejaVu Sans Mono:pixelsize=14}xubuntu
-${alignr}${offset 76} $font └──────── ${sysname}   
+${alignr}${offset -38} ${font DejaVu Sans Mono:pixelsize=14}xubuntu
+${alignr}${offset 76} $font └───${if_match ${desktop}==1}${color1}${endif}•${color}${if_match ${desktop}==2}${color1}${endif}•${color}─── ${sysname}   
 ${alignr}$font │  
 ${alignr}$font fog @ ${nodename} -─┤  
 ${alignr}$font < ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"} > Athens -─┤    │  
@@ -69,7 +70,7 @@ ${alignr}$font processes -─┤    │
 ${alignr}$font < $processes >   total -─┤    │    │  
 ${alignr}$font < $running_processes > running -─┘    │    │  
 ${alignr}$font temperature -─┘    │  
-${alignr}$font < ${hwmon temp 1}°C > tmp1 -─┘         │  
+${alignr}$font < ${hwmon temp 1}°C >    tmp1 -─┘         │  
 ${alignr}$font │  
 ${alignr}$font resources -─┤  
 ${alignr}$font < $diskio_read >  read -─┤    │  
