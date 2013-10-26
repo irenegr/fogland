@@ -3,7 +3,7 @@
 
 background yes
 use_xft yes
-xftfont monospace:pixelsize=8
+xftfont monospace:pixelsize=9
 xftalpha 0.8
 update_interval 1.0
 total_run_times 0
@@ -13,18 +13,18 @@ own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
 draw_shades no
 draw_outline n
-draw_borders noo
+draw_borders no
 draw_graph_borders yes
 stippled_borders 0
 #border_margin 4
 border_width 0
-default_color black
-color1 fe8608
+default_color f8f8f8
+color1 red
 default_shade_color black
 default_outline_color white
 alignment top_right
 gap_x 15
-gap_y 60
+gap_y 5
 no_buffers yes
 cpu_avg_samples 2
 net_avg_samples 2
@@ -40,13 +40,13 @@ ${alignr}${offset -38} ${font DejaVu Sans Mono:pixelsize=14}xubuntu
 ${alignr}${offset 76} $font └───${if_match ${desktop}==1}${color1}${endif}•${color}${if_match ${desktop}==2}${color1}${endif}•${color}─── ${sysname}   
 ${alignr}$font │  
 ${alignr}$font fog @ ${nodename} -─┤  
-${alignr}$font < ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"} > Athens -─┤    │  
-${alignr}$font < ${kernel} > kernel -─┤    │  
-${alignr}$font < $machine >   arch -─┤    │  
-${alignr}$font < $uptime > uptime -─┤    │  
-${alignr}$font < ${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif} > layout -─┤    │  
-${alignr}$font < ${battery_percent BAT1}% >    bat -─┤    │  
-${alignr}$font < ${execpi 300 python ~/.scripts/gmail.py} >   mail -─┘    │  
+${alignr}$font < ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"} >  Athens -─┤    │  
+${alignr}$font < ${kernel} >  kernel -─┤    │  
+${alignr}$font < $machine >    arch -─┤    │  
+${alignr}$font < $uptime >  uptime -─┤    │  
+${alignr}$font < $color1${battery_percent BAT1}%$color > battery -─┤    │  
+${alignr}$font < $color1${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}$color >  layout -─┤    │  
+${alignr}$font < $color1${execpi 300 python ~/.scripts/gmail.py}$color >    mail -─┘    │  
 ${alignr}$font │  
 ${alignr}$font system -─┤  
 ${alignr}$font cpu -─┤    │  
@@ -70,7 +70,7 @@ ${alignr}$font processes -─┤    │
 ${alignr}$font < $processes >   total -─┤    │    │  
 ${alignr}$font < $running_processes > running -─┘    │    │  
 ${alignr}$font temperature -─┘    │  
-${alignr}$font < ${hwmon temp 1}°C >    tmp1 -─┘         │  
+${alignr}$font < $color1${hwmon temp 1}${offset -5}°C$color >   tmp1 -─┘         │  
 ${alignr}$font │  
 ${alignr}$font resources -─┤  
 ${alignr}$font < $diskio_read >  read -─┤    │  
