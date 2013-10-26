@@ -70,7 +70,7 @@ ${alignr}$font processes -─┤    │
 ${alignr}$font < $processes >   total -─┤    │    │  
 ${alignr}$font < $running_processes > running -─┘    │    │  
 ${alignr}$font temperature -─┘    │  
-${alignr}$font < $color1${hwmon temp 1}${offset -5}°C$color >   tmp1 -─┘         │  
+${alignr}$font < $color1${hwmon temp 1}${offset -5}°C$color >  tmp1 -─┘          │ 
 ${alignr}$font │  
 ${alignr}$font resources -─┤  
 ${alignr}$font < $diskio_read >  read -─┤    │  
