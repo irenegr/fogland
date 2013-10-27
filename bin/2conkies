@@ -1,0 +1,5 @@
+#!/bin/bash
+sleep 1 &&
+#dzenbar.sh && conky -d -c /home/fog/.conkyrc.5d &
+conky && conky -d -c /home/fog/.conkyrc.5d &
+exit

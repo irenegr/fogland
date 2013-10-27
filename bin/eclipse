@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ~/dev/eclipse.kepler.jee/eclipse/
+./eclipse &
+exit

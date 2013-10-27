@@ -1,0 +1,6 @@
+#!/bin/bash
+sleep 2 &&
+conky -d -c /home/fog/.conkyrc &
+sleep 2 &&
+conky -d -c /home/fog/.conkyrcs &
+exit

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+FG='#5a5a5a'
+BG='#313131'
+FONT='-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*'
+
+while true ; do
+    dt=`date +"%a %b %d %l:%M %p"`
+    un=`memstat.sh`
+    bt=`battstat.sh`
+    bv=`cat /etc/linuxbbq-version`
+    printf "%s\n" "$bv - $dt - RAM: $un M - BAT: $bt%" 
+    sleep 20
+done | dzen2 -e '' -h '14' -w '1080' -ta r -fg $FG -bg $BG -fn $FONT
+

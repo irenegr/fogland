@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ~/dev/src/adempiere/adempiere-svn/install/build/Adempiere/
+./RUN_Adempiere.sh &
+exit

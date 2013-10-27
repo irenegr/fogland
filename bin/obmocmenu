@@ -1,0 +1,410 @@
+#!/bin/bash
+
+#=============================================================================#
+#          FILE: obmocmenu                                                    #
+#       VERSION: 0.8.4                                                        #
+#                                                                             #
+#   DESCRIPTION: an openbox pipe menu for the management of Music On Console  #
+#       LICENSE: GPL2                                                         #
+#        AUTHOR: Jamie Nguyen                                                 #
+#=============================================================================#
+
+# Copyright (C) 2011 Jamie Nguyen
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License v2 as published by the
+# Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+
+
+# set command paths
+mocp="/usr/bin/mocp"
+zenity="/usr/bin/zenity"
+
+if [ -z "${TERM}" ]; then
+    term="${TERM} -e"
+else
+    term="terminator -T player -e"
+fi
+
+# set moc directory
+moc_dir="$HOME/.moc/"
+playlist_file="$moc_dir/playlist.m3u"
+playlist_dir="$moc_dir/playlists/"
+randomlist_dir="$playlist_dir/random/"
+
+
+if [ -f /etc/obmocmenu.conf ]; then
+    . /etc/obmocmenu.conf
+fi
+
+if [ -n "${XDG_CONFIG_HOME}" ]; then
+    configfile="${XDG_CONFIG_HOME}/obmocmenu/config"
+else
+    configfile="~/.config/obmocmenu/config"
+fi
+
+if [ -f "${configfile}" ]; then
+    . "${configfile}"
+fi
+
+musicMenu() {
+    echo "<openbox_pipe_menu>"
+
+    # if mocp --info fails then the server isn't running
+    if ! $($mocp --info &>/dev/null); then
+        echo "<separator label=\"Control\" />"
+
+        echo "<item label=\"Open Music Player\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$term $mocp</command>"
+        echo "</action>"
+        echo "</item>"
+
+        echo "</openbox_pipe_menu>"
+
+        return 0
+    fi
+
+
+
+    state="$($mocp --info | grep -w ^State: | awk '{print $2}')"
+
+    if [ "${state}" = "PLAY" ] || [ "${state}" = "PAUSE" ]; then
+        artist="$($mocp --info \
+            | grep -w ^Artist: | awk '{gsub(/_/,"__");gsub(/&/,"+");print $0}')"
+        [ -z "${artist}" ] && artist="(not found)"
+        album="$($mocp --info \
+            | grep -w ^Album: | awk '{gsub(/_/,"__");gsub(/&/,"+");print $0}')"
+        [ -z "${album}" ] && album="(not found)"
+        title="$($mocp --info \
+            | grep -w ^SongTitle: | awk '{gsub(/_/,"__");gsub(/&/,"+");print $0}')"
+        [ -z "${title}" ] && title="(not found)"
+        length="$($mocp --info \
+            | grep -w ^TotalTime:)"
+        [ -z "${length}" ] && length="(not found)"
+
+        if [ "${state}" = "PLAY" ]; then
+            echo "<separator label=\"Now Playing\" />"
+        elif [ "${state}" = "PAUSE" ]; then
+            echo "<separator label=\"Paused\" />"
+        fi
+
+        echo "<item label=\"${artist}\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$term $mocp</command>"
+        echo "</action>"
+        echo "</item>"
+
+        echo "<item label=\"${album}\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$term $mocp</command>"
+        echo "</action>"
+        echo "</item>"
+
+        echo "<item label=\"Title: ${title#SongTitle:}\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$term $mocp</command>"
+        echo "</action>"
+        echo "</item>"
+
+        echo "<item label=\"Length: ${length#TotalTime:}\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$term $mocp</command>"
+        echo "</action>"
+        echo "</item>"
+    fi
+
+
+
+    echo "<separator label=\"Control\" />"
+
+    if [ "${state}" = "PLAY" ] || [ "${state}" = "PAUSE" ]; then
+        echo "<item label=\"_Next\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$mocp --next</command>"
+        echo "</action>"
+        echo "</item>"
+
+        echo "<item label=\"Pre_vious\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$mocp --previous</command>"
+        echo "</action>"
+        echo "</item>"
+
+        if [ "${state}" = "PLAY" ]; then
+            echo "<item label=\"_Pause\">"
+            echo "<action name=\"Execute\">"
+            echo "<command>$mocp --toggle-pause</command>"
+            echo "</action>"
+            echo "</item>"
+        elif [ "${state}" = "PAUSE" ]; then
+            echo "<item label=\"_Unpause\">"
+            echo "<action name=\"Execute\">"
+            echo "<command>$mocp --toggle-pause</command>"
+            echo "</action>"
+            echo "</item>"
+        fi
+
+        echo "<item label=\"_Stop\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$mocp --stop</command>"
+        echo "</action>"
+        echo "</item>"
+
+
+        moc_version="$($mocp --version | grep -ow [0-9].[0-9].[0-9])"
+
+        if [ "${moc_version}" != "2.4.4" ]; then
+            echo "<menu id=\"togglemenu\" label=\"_Toggle\" \
+                execute=\"$0 --toggle-menu\" />"
+        fi
+
+    elif [ "${state}" = "STOP" ]; then
+
+        if [ -f "${playlist_file}" ]; then
+            echo "<item label=\"_Play\">"
+            echo "<action name=\"Execute\">"
+            echo "<command>$mocp --play</command>"
+            echo "</action>"
+            echo "</item>"
+        fi
+
+        echo "<item label=\"_Open Music Player\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$term $mocp</command>"
+        echo "</action>"
+        echo "</item>"
+
+    fi
+
+
+    echo "<separator label=\"Playlist\" />"
+
+    if [ -f "${playlist_file}" ]; then
+        number="$(grep ^/ "${playlist_file}" | wc -l)"
+        echo "<item label=\"Songs: ${number}\" />"
+
+        echo "<item label=\"_Clear playlist\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$mocp --clear</command>"
+        echo "</action>"
+        echo "</item>"
+    else
+        echo "<item label=\"Songs: 0\" />"
+    fi
+
+    if [ -d "${playlist_dir}" ]; then
+        echo "<menu id=\"playlistsmenu\" label=\"_Add playlist\" \
+            execute=\"$0 --playlists-menu\" />"
+    fi
+
+    if [ -d "${randomlist_dir}" ]; then
+        echo "<menu id=\"randomlistmenu\" label=\"Add _random\" \
+            execute=\"$0 --add-randomlist-menu\" />"
+    fi
+
+
+    echo "</openbox_pipe_menu>"
+}
+
+toggleMenu() {
+    echo "<openbox_pipe_menu>"
+
+    echo "<separator label=\"Toggle\" />"
+
+    echo "<item label=\"_Auto Next On\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --on autonext</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"Auto Next Off\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --off autonext</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"_Repeat On\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --on repeat</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"Repeat Off\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --off repeat</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"_Shuffle On\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --on shuffle</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"Shuffle Off\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --off shuffle</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "</openbox_pipe_menu>"
+}
+
+playlistsMenu() {
+    echo "<openbox_pipe_menu>"
+
+    echo "<separator label=\"Playlists\" />"
+
+    playlist_count="$(find "${playlist_dir}" -type f -iname '*.m3u' | wc -l)"
+
+    if [ "${playlist_count}" -eq 0 ]; then
+        echo "<item label=\"No playlists found\" />"
+        echo "</openbox_pipe_menu>"
+        exit 0
+    fi
+
+    if [ "${playlist_count}" -gt 1 ]; then
+        echo "<menu id=\"randomplaylist\" label=\"_Random playlist\" \
+            execute=\"$0 --add-random-playlist ${playlist_count}\" />"
+    fi
+
+    for i in "${playlist_dir}"/*.m3u; do
+        echo "<menu id=\"${i}\" label=\"${i##*/}\" \
+            execute=\"$0 --add-playlist-menu '${i}'\" />"
+    done
+
+    echo "</openbox_pipe_menu>"
+}
+
+
+addPlaylistMenu() {
+    if [ "${1}" = "random" ]; then
+        playlist_count="${2}"
+        random_number="$(($RANDOM%${playlist_count}+1))"
+        playlist="$(find "${playlist_dir}" -type f -iname '*.m3u' | sed -n "${random_number}p")"
+    else
+        playlist="${1}"
+    fi
+
+    echo "<openbox_pipe_menu>"
+
+    echo "<item label=\"Play\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --clear --append \"${playlist}\" --play</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"Append\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --append \"${playlist}\"</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "</openbox_pipe_menu>"
+}
+
+addRandomlistMenu() {
+    randomlist_count="$(find "${randomlist_dir}" -type f -iname '*.list' | wc -l)"
+    
+    echo "<openbox_pipe_menu>"
+
+    echo "<separator label=\"Lists\" />"
+
+    if [ "${randomlist_count}" -eq 0 ]; then
+        echo "<item label=\"No lists found\" />"
+        echo "</openbox_pipe_menu>"
+        exit 0
+    fi
+
+    for i in "${randomlist_dir}"/*.list; do
+        echo "<menu id=\"${i}\" label=\"${i##*/}\" \
+            execute=\"$0 --add-randomlist-item '${i}'\" />"
+    done
+
+    echo "</openbox_pipe_menu>"
+}
+
+addRandomlistItem() {
+    
+    randomlist="${1}"
+    randomlist_item_count="$(wc -l "${1}" | awk '{print $1}')"
+    random_number="$(($RANDOM%${randomlist_item_count}+1))"
+    random_item="$(sed -n ${random_number}p "${randomlist}")"
+    
+    echo "<openbox_pipe_menu>"
+
+    echo "<item label=\"Play\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --clear --append \"${random_item}\" --play</command>"
+    echo "</action>"
+    echo "</item>"
+
+    echo "<item label=\"Append\">"
+    echo "<action name=\"Execute\">"
+    echo "<command>$mocp --append \"${random_item}\"</command>"
+    echo "</action>"
+    echo "</item>"
+
+    if [ -f "${zenity}" ]; then
+        echo "<item label=\"Multiple\">"
+        echo "<action name=\"Execute\">"
+        echo "<command>$0 --add-multiple-randomlist-items "${randomlist}" \
+            "${randomlist_item_count}"</command>"
+        echo "</action>"
+        echo "</item>"
+    fi
+
+    echo "</openbox_pipe_menu>"
+}
+
+addMultipleRandom() {
+
+    randomlist="${1}"
+    randomlist_item_count="${2}"
+
+    number_to_add="$($zenity --title="Add Random Item" \
+        --text="Number of random items to append to the playlist:" \
+        --entry)"
+
+    number_to_add="$(echo "${number_to_add}" | grep -w ^[0-9]*)"
+
+    if [ -z "${number_to_add}" ]; then
+        zenity --warning --text="Invalid value entered."
+        exit 1
+    fi
+
+    for (( i=1 ; i < ${number_to_add} ; i++ )); do
+        random_number="$(($RANDOM%${randomlist_item_count}+1))"
+        random_item="$(sed -n ${random_number}p "${randomlist}")"
+        $mocp --append "${random_item}"
+    done
+
+}
+
+if [ $# = 0 ]; then
+    musicMenu
+elif [ "${1}" = "--toggle-menu" ]; then
+    toggleMenu
+elif [ "${1}" = "--playlists-menu" ]; then
+    playlistsMenu
+elif [ "${1}" = "--add-playlist-menu" ]; then
+    addPlaylistMenu "${2}"
+elif [ "${1}" = "--add-random-playlist" ]; then
+    addPlaylistMenu random "${2}"
+elif [ "${1}" = "--add-randomlist-menu" ]; then
+    addRandomlistMenu
+elif [ "${1}" = "--add-randomlist-item" ]; then
+    addRandomlistItem "${2}"
+elif [ "${1}" = "--add-multiple-randomlist-items" ]; then
+    addMultipleRandom "${2}" "${3}"
+fi

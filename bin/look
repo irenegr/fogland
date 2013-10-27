@@ -1,0 +1,8 @@
+#!/bin/bash
+# calls 3 GUI's for changing themes including openbox, gtk and root gtk
+#
+gksu lxappearance &
+sleep 2s
+lxappearance &
+obconf &
+done

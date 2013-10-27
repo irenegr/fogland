@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo -e "\033[0;34m"
+echo "        ┌───────────────────────────────────┐"
+echo "        │   Taking fogshot. Panic now!!!    │ "
+echo "        └───────────────────────────────────┘"
+echo "       ╱"
+echo "   ▀▄   ▄▀"
+echo -e "  ▄█▀███▀█▄ "
+echo -e " █▀███████▀█"
+echo -e " ▀ ▀▄▄ ▄▄▀ ▀"
+echo -e "\033[m"
+
+scrot -d 5 -q 85 ~/"%Y-%m-%d_scrot.png" & 
