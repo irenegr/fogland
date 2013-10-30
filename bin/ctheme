@@ -1,0 +1,462 @@
+#!/bin/bash
+
+# Switching FBTerm Color Themes from Wuxmedia and DebianJoe
+# of the LinuxBBQ.
+
+if [ $# -lt 1 ]; then
+   echo "Run script as 'theme <name_of_theme>'"
+   echo "available themes"
+   echo "'ilight' = Baskerville's Ivory Light"
+   echo "'insig' = Baskerville's Insignificato"
+   echo "'mono' = Wuxmedia's Mono"
+   echo "'cvc' = Baskerville's Count von Count"
+   echo "'vblue' = Gutterslob's Visiblue"
+   echo "'matrix' = !OK100's Matrix"
+   echo "'fside' = Baskerville's FarSide"
+   echo "'precision' = Baconator's Precision"
+   echo "'nature' = Gutterslob's Nature Suede"
+   echo "'darkocean' = Doomicide's Dark Ocean"
+   echo "'sos' = Rooster's SOS"
+   echo "'cuppa' = Baconator's Cuppa"
+   echo "'scm' = Baconator's Scotch Cut Mixture"
+   echo "'zenburn' = Jani Nurminen's Famous Vim Theme"
+   echo "'tdark' = Emacs Tango Dark"
+   echo "'wolf' = Baconator's Reichswolf"
+   echo "'solar' = Solarized"
+   echo "'solar2' = Solarized Dark"
+   echo "'astro' = Astromouse"
+   echo "'afog' = Gutterslob's Aiko Fog"
+   echo "'lumi' = Gutterslob's Lumifoo"
+else
+case "$1" in
+    "ilight")
+	    ## Console colors - Baskerville - IvoryLight;
+	    echo -en "\e]P0FEF9EC" #background
+	    echo -en "\e]P8C5C1B4" #darkgrey
+	    echo -en "\e]P1E75C58" #darkred
+	    echo -en "\e]P9B22B31" #red
+	    echo -en "\e]P200A250" #darkgreen
+	    echo -en "\e]PA007427" #green
+	    echo -en "\e]P3A08A00" #brown
+	    echo -en "\e]PB715F00" #yellow
+	    echo -en "\e]P4208FFB" #darkblue
+	    echo -en "\e]PC0065CA" #blue
+	    echo -en "\e]P5D160C4" #darkmagenta
+	    echo -en "\e]PDA03196" #magenta
+	    echo -en "\e]P600A4C1" #darkcyan
+	    echo -en "\e]PE007693" #cyan
+	    echo -en "\e]P73E424D" #lightgrey
+	    echo -en "\e]PF282C36" #white
+	    clear #for background artifacting
+	    ;;
+    "insig")
+	    ## Console colors - anon - Insignificato;
+	    echo -en "\e]P0111111" #background
+	    echo -en "\e]P85a5b5c" #darkgrey
+	    echo -en "\e]P1755a5b" #darkred
+	    echo -en "\e]P9a37679" #red
+	    echo -en "\e]P268755a" #darkgreen
+	    echo -en "\e]PA87a376" #green
+	    echo -en "\e]P3756e5a" #brown
+	    echo -en "\e]PBa39b76" #yellow
+	    echo -en "\e]P45b6976" #darkblue
+	    echo -en "\e]PC758ba3" #blue
+	    echo -en "\e]P5755b76" #darkmagenta
+	    echo -en "\e]PD9f76a3" #magenta
+	    echo -en "\e]P65b7674" #darkcyan
+	    echo -en "\e]PE75a3a1" #cyan
+	    echo -en "\e]P7808080" #lightgrey
+	    echo -en "\e]PFaeafb0" #white
+	    clear #for background artifacting
+	    ;;
+    "mono")
+	    ## Console colors - Mono;
+	    # tweaked for console by WuxMedia;
+	    echo -en "\e]P0111111" #background
+	    echo -en "\e]P8B0B0B0" #darkgrey
+	    echo -en "\e]P15a5a5a" #darkred
+	    echo -en "\e]P9636363" #red
+	    echo -en "\e]P26B6B6B" #darkgreen
+	    echo -en "\e]PAA5A5A5" #green
+	    echo -en "\e]P3969696" #brown
+	    echo -en "\e]PBE5E5E5" #yellow
+	    echo -en "\e]P45a5a5a" #darkblue
+	    echo -en "\e]PC6c6c6c" #blue
+	    echo -en "\e]P5717171" #darkmagenta
+	    echo -en "\e]PD757575" #magenta
+	    echo -en "\e]P6777777" #darkcyan
+	    echo -en "\e]PEC4C4C4" #cyan
+	    echo -en "\e]P7FFFFFF" #lightgrey
+	    echo -en "\e]PFDEDEDE" #white
+	    clear #for background artifacting
+	    ;;
+    "cvc")
+	    ## Console colors - Baskerville - Count Von Count;
+	    # tweaked for console by DJ;
+	    echo -en "\e]P0303030" #background
+	    echo -en "\e]P85E5E5E" #darkgrey
+	    echo -en "\e]P1C10023" #darkred
+	    echo -en "\e]P9FF8781" #red
+	    echo -en "\e]P2A83334" #darkgreen
+	    echo -en "\e]PAFFA095" #green
+	    echo -en "\e]P3B51D2C" #brown
+	    echo -en "\e]PBFF948B" #yellow
+	    echo -en "\e]P48C4B46" #darkblue
+	    echo -en "\e]PCFEB2AA" #blue
+	    echo -en "\e]P57D534F" #darkmagenta
+	    echo -en "\e]PDEBBBB5" #magenta
+	    echo -en "\e]P69A413D" #darkcyan
+	    echo -en "\e]PEFFAAA0" #cyan
+	    echo -en "\e]P7C6C6C6" #lightgrey
+	    echo -en "\e]PFFFFFFF" #white
+	    clear #for background artifacting
+	    ;;
+    "vblue")
+	    ## Console colors - Gutterslob - Visiblue;
+	    echo -en "\e]P0000000" #background
+	    echo -en "\e]P8333399" #darkgrey
+	    echo -en "\e]P16666CC" #darkred
+	    echo -en "\e]P99999FF" #red
+	    echo -en "\e]P20099CC" #darkgreen
+	    echo -en "\e]PA00CCFF" #green
+	    echo -en "\e]P33366CC" #brown
+	    echo -en "\e]PB6699FF" #yellow
+	    echo -en "\e]P4006699" #darkblue
+	    echo -en "\e]PC0099CC" #blue
+	    echo -en "\e]P50066FF" #darkmagenta
+	    echo -en "\e]PD0099FF" #magenta
+	    echo -en "\e]P6669999" #darkcyan
+	    echo -en "\e]PE66CCCC" #cyan
+	    echo -en "\e]P799CCCC" #lightgrey
+	    echo -en "\e]PFCCFFFF" #white
+	    clear #for background artifacting
+	    ;;
+    "matrix")
+	    ## Console colors - !OK-100 - Matrix;
+	    echo -en "\e]P0000000" #background
+	    echo -en "\e]P8000000" #darkgrey
+	    echo -en "\e]P155FF55" #darkred
+	    echo -en "\e]P955FF55" #red
+	    echo -en "\e]P200CC00" #darkgreen
+	    echo -en "\e]PA55FF55" #green
+	    echo -en "\e]P300CC00" #brown
+	    echo -en "\e]PB55FF55" #yellow
+	    echo -en "\e]P4005500" #darkblue
+	    echo -en "\e]PC005500" #blue
+	    echo -en "\e]P555FF55" #darkmagenta
+	    echo -en "\e]PD55FF55" #magenta
+	    echo -en "\e]P600CC00" #darkcyan
+	    echo -en "\e]PE55FF55" #cyan
+	    echo -en "\e]P700CC00" #lightgrey
+	    echo -en "\e]PF00CC00" #white
+	    clear #for background artifacting
+	    ;;
+    "fside")
+	    ## Console colors - FarSide - Baskerville;
+	    echo -en "\e]P0303030" #background
+	    echo -en "\e]P85E5E5E" #darkgrey
+	    echo -en "\e]P1A43261" #darkred
+	    echo -en "\e]P9FF9FC9" #red
+	    echo -en "\e]P2006CA5" #darkgreen
+	    echo -en "\e]PA3BD6FF" #green
+	    echo -en "\e]P3007086" #brown
+	    echo -en "\e]PB00DDF4" #yellow
+	    echo -en "\e]P46751A6" #darkblue
+	    echo -en "\e]PCD5B8FF" #blue
+	    echo -en "\e]P5913E88" #darkmagenta
+	    echo -en "\e]PDFFA7F6" #magenta
+	    echo -en "\e]P60061B1" #darkcyan
+	    echo -en "\e]PE93C9FF" #cyan
+	    echo -en "\e]P7C6C6C6" #lightgrey
+	    echo -en "\e]PFFFFFFF" #white
+	    clear #for background artifacting
+	    ;;
+    "precision")
+	    ## Console colors - Baconator - Precision;
+	    echo -en "\e]P0313131" #background
+	    echo -en "\e]P8AEA79F" #darkgrey
+	    echo -en "\e]P177216F" #darkred
+	    echo -en "\e]P9924D8C" #red
+	    echo -en "\e]P2772953" #darkgreen
+	    echo -en "\e]PA925475" #green
+	    echo -en "\e]P3DD4814" #brown
+	    echo -en "\e]PBE46D43" #yellow
+	    echo -en "\e]P45E2750" #darkblue
+	    echo -en "\e]PC7E5273" #blue
+	    echo -en "\e]P52C001E" #darkmagenta
+	    echo -en "\e]PD56334B" #magenta
+	    echo -en "\e]P69E7D96" #darkcyan
+	    echo -en "\e]PEBFA9B9" #cyan
+	    echo -en "\e]P7CECAC5" #lightgrey
+	    echo -en "\e]PFEFEDEC" #white
+	    clear #for background artifacting
+	    ;;
+    "nature")
+	    ## Console colors - Gutterslob - Nature Suede;
+	    echo -en "\e]P0170F0D" #background
+	    echo -en "\e]P8544B2E" #darkgrey
+	    echo -en "\e]P198724C" #darkred
+	    echo -en "\e]P9AF652F" #red
+	    echo -en "\e]P2908F32" #darkgreen
+	    echo -en "\e]PAC3C13D" #green
+	    echo -en "\e]P3AA964C" #brown
+	    echo -en "\e]PBC8B55B" #yellow
+	    echo -en "\e]P47B854E" #darkblue
+	    echo -en "\e]PC70A16C" #blue
+	    echo -en "\e]P56B5644" #darkmagenta
+	    echo -en "\e]PD98724C" #magenta
+	    echo -en "\e]P65C5142" #darkcyan
+	    echo -en "\e]PE778725" #cyan
+	    echo -en "\e]P7C8B55B" #lightgrey
+	    echo -en "\e]PFE4DC8C" #white
+	    clear #for background artifacting
+	    ;;
+    "darkocean")
+	    ## Console colors - Doomicide - Dark Ocean;
+	    echo -en "\e]P0000000" #background
+	    echo -en "\e]P838372C" #darkgrey
+	    echo -en "\e]P1571DC2" #darkred
+	    echo -en "\e]P97C54b0" #red
+	    echo -en "\e]P214DB49" #darkgreen
+	    echo -en "\e]PAA2E655" #green
+	    echo -en "\e]P3403d70" #brown
+	    echo -en "\e]PB9C6F59" #yellow
+	    echo -en "\e]P4385A70" #darkblue
+	    echo -en "\e]PC323F5C" #blue
+	    echo -en "\e]P5384894" #darkmagenta
+	    echo -en "\e]PD5E6C99" #magenta
+	    echo -en "\e]P64F3A5E" #darkcyan
+	    echo -en "\e]PE667D77" #cyan
+	    echo -en "\e]P7999999" #lightgrey
+	    echo -en "\e]PFFFFFFF" #white
+	    clear #for background artifacting
+	    ;;
+    "sos")
+	    ## Console colors - Rooster - SOS;
+	    echo -en "\e]P0373B43" #background
+	    echo -en "\e]P8373B43" #darkgrey
+	    echo -en "\e]P1FDCD39" #darkred
+	    echo -en "\e]P9FDCD39" #red
+	    echo -en "\e]P2FBFD59" #darkgreen
+	    echo -en "\e]PAFBFD59" #green
+	    echo -en "\e]P3DEAC40" #brown
+	    echo -en "\e]PBDEAC40" #yellow
+	    echo -en "\e]P4AFB171" #darkblue
+	    echo -en "\e]PCAFB171" #blue
+	    echo -en "\e]P5B387E7" #darkmagenta
+	    echo -en "\e]PDB387E7" #magenta
+	    echo -en "\e]P663E860" #darkcyan
+	    echo -en "\e]PE63E860" #cyan
+	    echo -en "\e]P7EFDECB" #lightgrey
+	    echo -en "\e]PFEFDECB" #white
+	    clear #for background artifacting
+	    ;;
+    "cuppa")
+            ## Console colors - Baconator - Cuppa;
+            echo -en "\e]P0170F0D" #background
+            echo -en "\e]P8353535" #darkgrey
+            echo -en "\e]P1443322" #darkred
+            echo -en "\e]P9AA7755" #red
+            echo -en "\e]P25A5A46" #darkgreen
+            echo -en "\e]PAAAAA99" #green
+            echo -en "\e]P3997766" #brown
+            echo -en "\e]PBDDDDCC" #yellow
+            echo -en "\e]P446515A" #darkblue
+            echo -en "\e]PCBBBBBB" #blue
+            echo -en "\e]P5442C22" #darkmagenta
+            echo -en "\e]PDCCBBAA" #magenta
+            echo -en "\e]P6BBBBBB" #darkcyan
+            echo -en "\e]PEDDDDDD" #cyan
+            echo -en "\e]P7C2B9B5" #lightgrey
+            echo -en "\e]PFD9D9D9" #white
+            clear #for background artifacting
+            ;;
+    "scm")
+            ## Console colors - Baconator - Scotch Cut Mixture;
+            echo -en "\e]P0050505" #background
+            echo -en "\e]P85E5D68" #darkgrey
+            echo -en "\e]P14E313F" #darkred
+            echo -en "\e]P9C1889F" #red
+            echo -en "\e]P25E657B" #darkgreen
+            echo -en "\e]PA6B7B98" #green
+            echo -en "\e]P3745B4A" #brown
+            echo -en "\e]PB907B4D" #yellow
+            echo -en "\e]P43A3A3A" #darkblue
+            echo -en "\e]PC1A1A1A" #blue
+            echo -en "\e]P53D2A33" #darkmagenta
+            echo -en "\e]PD695974" #magenta
+            echo -en "\e]P6435060" #darkcyan
+            echo -en "\e]PE2F323E" #cyan
+            echo -en "\e]P79D9592" #lightgrey
+            echo -en "\e]PFDCD9BA" #white
+            clear #for background artifacting
+            ;;
+    "zenburn")
+	    ## Console colors - Jani Nurminen - Zenburn;
+            echo -en "\e]P01E2320" #background
+            echo -en "\e]P8709080" #darkgrey
+            echo -en "\e]P1705050" #darkred
+            echo -en "\e]P9DCA3A3" #red
+            echo -en "\e]P260B48A" #darkgreen
+            echo -en "\e]PAC3Bf9F" #green
+            echo -en "\e]P3DFAF8F" #brown
+            echo -en "\e]PBF0DFAF" #yellow
+            echo -en "\e]P4506070" #darkblue
+            echo -en "\e]PC94BFF3" #blue
+            echo -en "\e]P5DC8CC3" #darkmagenta
+            echo -en "\e]PDEC93D3" #magenta
+            echo -en "\e]P68CD0D3" #darkcyan
+            echo -en "\e]PE93E0E3" #cyan
+            echo -en "\e]P7DCDCCC" #lightgrey
+            echo -en "\e]PFFFFFFF" #white
+	    clear #for background artifacting
+	    ;;
+    "tdark")
+	    ## Console colors - Emacs Tango Dark;
+	    # tweaked for the console by DebianJoe;
+            echo -en "\e]P0202020" #background
+            echo -en "\e]P8606060" #darkgrey
+            echo -en "\e]P1FF6565" #darkred
+            echo -en "\e]P9FF8D8D" #red
+            echo -en "\e]P293D44F" #darkgreen
+            echo -en "\e]PAC8E7A8" #green
+            echo -en "\e]P3EAB93D" #brown
+            echo -en "\e]PBFFC123" #yellow
+            echo -en "\e]P4204A87" #darkblue
+            echo -en "\e]PC3465A4" #blue
+            echo -en "\e]P5CE5C00" #darkmagenta
+            echo -en "\e]PDf57900" #magenta
+            echo -en "\e]P689b6E2" #darkcyan
+            echo -en "\e]PE46A4FF" #cyan
+            echo -en "\e]P7CCCCCC" #lightgrey
+            echo -en "\e]PFFFFFFF" #white
+	    clear #for background artifacting
+	    ;;
+     "wolf")
+            ## Console colors - Baconator - Reichswolf;
+            echo -en "\e]P0727c79" #background
+            echo -en "\e]P8CAC26E" #darkgrey
+            echo -en "\e]P14D4600" #darkred
+            echo -en "\e]P9757040" #red
+            echo -en "\e]P24E4A1D" #darkgreen
+            echo -en "\e]PA5B7425" #green
+            echo -en "\e]P3181D0C" #brown
+            echo -en "\e]PB3E5310" #yellow
+            echo -en "\e]P4414735" #darkblue
+            echo -en "\e]PC181D0C" #blue
+            echo -en "\e]P5282E1A" #darkmagenta
+            echo -en "\e]PD592611" #magenta
+            echo -en "\e]P61F2423" #darkcyan
+            echo -en "\e]PE7B4028" #cyan
+            echo -en "\e]P71A2C28" #lightgrey
+            echo -en "\e]PF101615" #white
+            clear #for background artifacting
+            ;;
+    "solar")
+	    ## Console colors - Solarized;
+            echo -en "\e]P0073642" #background
+            echo -en "\e]P8002b36" #darkgrey
+            echo -en "\e]P1dc322f" #darkred
+            echo -en "\e]P9cb4b16" #red
+            echo -en "\e]P2859900" #darkgreen
+            echo -en "\e]PA586e75" #green
+            echo -en "\e]P3b58900" #brown
+            echo -en "\e]PB657b83" #yellow
+            echo -en "\e]P4268bd2" #darkblue
+            echo -en "\e]PC839496" #blue
+            echo -en "\e]P5d33682" #darkmagenta
+            echo -en "\e]PD6c71c4" #magenta
+            echo -en "\e]P62aa198" #darkcyan
+            echo -en "\e]PE93a1a1" #cyan
+            echo -en "\e]P7eee8d5" #lightgrey
+            echo -en "\e]PFfdf6e3" #white
+	    clear #for background artifacting
+	    ;;
+    "solar2")
+	    ## Console colors - Solarized Dark;
+            echo -en "\e]P0262626" #background
+            echo -en "\e]P81c1c1c" #darkgrey
+            echo -en "\e]P1d70000" #darkred
+            echo -en "\e]P9d75f00" #red
+            echo -en "\e]P25f8700" #darkgreen
+            echo -en "\e]PA585858" #green
+            echo -en "\e]P3af8700" #brown
+            echo -en "\e]PB626262" #yellow
+            echo -en "\e]P40087ff" #darkblue
+            echo -en "\e]PC808080" #blue
+            echo -en "\e]P5af005f" #darkmagenta
+            echo -en "\e]PD5f5faf" #magenta
+            echo -en "\e]P600afaf" #darkcyan
+            echo -en "\e]PE8a8a8a" #cyan
+            echo -en "\e]P7e4e4e4" #lightgrey
+            echo -en "\e]PFffffd7" #white
+	    clear #for background artifacting
+	    ;;
+    "astro")
+	    ## Console colors - Anon - Astromouse;
+            echo -en "\e]P01c1c1c" #background
+            echo -en "\e]P83d3a3a" #darkgrey
+            echo -en "\e]P1d770af" #darkred
+            echo -en "\e]P9d28abf" #red
+            echo -en "\e]P29acc79" #darkgreen
+            echo -en "\e]PA8fb676" #green
+            echo -en "\e]P3d0d26b" #brown
+            echo -en "\e]PBc8bc45" #yellow
+            echo -en "\e]P477b6c5" #darkblue
+            echo -en "\e]PC8fa7b9" #blue
+            echo -en "\e]P5a488d9" #darkmagenta
+            echo -en "\e]PDbd89de" #magenta
+            echo -en "\e]P67fcab3" #darkcyan
+            echo -en "\e]PE6ec2a8" #cyan
+            echo -en "\e]P78d8d8d" #lightgrey
+            echo -en "\e]PFdad3d3" #white
+	    clear #for background artifacting
+	    ;;
+    "afog")
+	    ## Console colors - Gutterslob - AikoFog;
+            echo -en "\e]P0f1eee9" #background
+            echo -en "\e]P84a4a4a" #darkgrey
+            echo -en "\e]P1936a6f" #darkred
+            echo -en "\e]P9d76572" #red
+            echo -en "\e]P2668462" #darkgreen
+            echo -en "\e]PA4fae42" #green
+            echo -en "\e]P37f7b62" #brown
+            echo -en "\e]PBa8981f" #yellow
+            echo -en "\e]P46e7291" #darkblue
+            echo -en "\e]PC7782cf" #blue
+            echo -en "\e]P5846887" #darkmagenta
+            echo -en "\e]PDb754c4" #magenta
+            echo -en "\e]P6637e7b" #darkcyan
+            echo -en "\e]PE2ea89a" #cyan
+            echo -en "\e]P79a9a9a" #lightgrey
+            echo -en "\e]PFc4c4c4" #white
+	    clear #for background artifacting
+	    ;;
+    "lumi")
+	    ## Console colors - Gutterslob - Lumifoo;
+            echo -en "\e]P01e2021" #background
+            echo -en "\e]P8707172" #darkgrey
+            echo -en "\e]P1bf6382" #darkred
+            echo -en "\e]P9eaaec2" #red
+            echo -en "\e]P265a446" #darkgreen
+            echo -en "\e]PAaed49b" #green
+            echo -en "\e]P3ad8a43" #brown
+            echo -en "\e]PBd4c3a0" #yellow
+            echo -en "\e]P46b85c2" #darkblue
+            echo -en "\e]PCafc4e9" #blue
+            echo -en "\e]P59e6bb8" #darkmagenta
+            echo -en "\e]PDd2b1e2" #magenta
+            echo -en "\e]P65c9d88" #darkcyan
+            echo -en "\e]PEa4d0c1" #cyan
+            echo -en "\e]P7919191" #lightgrey
+            echo -en "\e]PFd0d0d0" #white
+	    clear #for background artifacting
+	    ;;
+    *)
+	    # Argument present, but not a match;
+	    echo "No valid theme chosen"
+	    echo "call the script without arguments"
+	    echo "for a list of themes"
+	    ;;
+esac
+fi

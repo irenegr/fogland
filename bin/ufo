@@ -1,0 +1,72 @@
+#!/bin/env python2
+#-*- coding: UTF-8 -*-
+
+import random
+unowns = []
+ 
+unown0 = [
+    '   ▀█▀▀▀█▀   ',
+    '    ▄▀▀▀▄    ',
+    '   ▀▄ ▀ ▄▀   ',
+    '     ▀█▀     ',
+    '    ▄█▄▄▄▄   ',
+]
+unowns.append(unown0)
+ 
+unown1 = [
+    ' █▄        █ ',
+    ' █ ▀▄▀▀▀▄  █ ',
+    ' █ ▀▄ ▀ ▄▀ █ ',
+    ' █   ▀▀▀ ▀▄█ ',
+    ' ▀         ▀ ',
+]
+unowns.append(unown1)
+ 
+unown2 = [
+    '   ▀▀▀█▀▀▀   ',
+    '    ▄▀▀▀▄    ',
+    '   ▀▄ ▀ ▄▀   ',
+    '     ▀▀▀     ',
+    '             ',
+]
+unowns.append(unown2)
+ 
+unown3 = [
+    ' ▀▄       ▄▀ ',
+    '   ▀▄▀▀▀▄▀   ',
+    '   ▀▄ ▀ ▄▀   ',
+    '  ▄▀ ▀▀▀ ▀▄  ',
+    ' ▀         ▀ ',
+]
+unowns.append(unown3)
+ 
+unown4 = [
+    '      █▀▀▄   ',
+    '    ▄▀▀▀▄ ▀▄ ',
+    '   ▀▄ ▀ ▄▀ █ ',
+    '     ▀▀▀ ▄▀  ',
+    '      ▀▀▀    ',
+]
+unowns.append(unown4)
+ 
+unown5 = [
+    '    ▀▄ ▄▀    ',
+    '    ▄▀▀▀▄    ',
+    '   ▀▄ ▀ ▄▀   ',
+    '     ▀█▀     ',
+    '     ▄▀▄     ',
+]
+unowns.append(unown5)
+ 
+ 
+for a in range(2):
+    random.shuffle(unowns)
+    for j in range(5):
+        for i in range(6):
+            print("\033[03" + str(i + 1) + "m"),
+            if i == 5:
+                print(unowns[i][j])
+            else:
+                print(unowns[i][j]),
+    print("\033[1m")  # bold mode
+print("\033[0m")  # reset font
