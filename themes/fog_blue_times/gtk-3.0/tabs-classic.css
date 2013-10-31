@@ -1,0 +1,89 @@
+/*****************
+ * Notebooks and *
+ * tabs          *
+ *****************/
+
+.notebook {
+    padding: 0px;
+
+    border-color: @transparent;
+    border-style: solid; 
+	border-radius: 0px;
+    border-width: 3px 0px 0px 0px;
+    -unico-border-gradient: none;
+
+    background-color: shade(@theme_bg_color, 0.97);
+
+
+	-unico-inner-stroke-width: 0px;
+	-unico-outer-stroke-width: 0px;
+
+    -unico-focus-border-color: 	@transparent;
+    -unico-focus-border-radius: 0;
+    -unico-focus-fill-color: 	@transparent;
+    -unico-focus-outer-stroke-color: @transparent;
+}
+
+.notebook GtkDrawingArea {
+	background-color: shade (@theme_bg_color, 0.97);
+}
+
+.notebook tab .button {
+    padding: 0px;
+}
+
+.notebook tab {
+    /* border-width: 3px; */
+	border-width: 0px 0px 0px 4px;
+    border-style: solid; 
+	border-radius: 0px;
+    -unico-border-gradient: -gtk-gradient (linear,
+                                             left top, left bottom,
+                                             from (@transparent),
+                                             to (@transparent));
+
+    background-color: shade(@theme_bg_color, 0.88);
+
+	-unico-inner-stroke-width: 0px;
+	-unico-outer-stroke-width: 0px;
+}
+
+.notebook tab:first-child {
+	border-radius: 0px;
+}
+
+.notebook tab:last-child {
+	border-radius: 0px;
+}
+
+.notebook tab:only-child {
+   	border-radius: 0px;
+}
+
+.notebook tab.top {
+    padding: 2px 6px 2px;
+}
+
+.notebook tab.bottom {
+    padding: 0px 6px 4px;;
+}
+
+.notebook tab.right {
+    padding: 3px 4px 3px 0px;
+}
+
+.notebook tab.left {
+    padding: 3px 0px 3px 4px;
+}
+
+.notebook tab:active {
+    background-color: shade(@theme_bg_color, 0.97);
+	background-image: none; 
+}
+
+.notebook tab GtkLabel {
+	padding: 0px 3px 0px 3px;
+	color: @theme_fg_color;
+	text-shadow: 0 1 alpha(#fff, 0.10);
+}
+
