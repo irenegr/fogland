@@ -1,11 +1,11 @@
 /* Default color scheme */
-@define-color bg_color #f4eed7; /*Possibly slightly grayer?*/
+@define-color bg_color #F4F3F0; /*Possibly slightly grayer?*/
 @define-color fg_color #b09c62;
-@define-color base_color #f4eed7; /*Same as bg color for consistency in asthetics*/
+@define-color base_color #F4F3F0; /*Same as bg color for consistency in asthetics*/
 @define-color text_color #b09c62;
 @define-color selected_bg_color #8b9c73;
-@define-color selected_fg_color #f4eed7;
-@define-color tooltip_bg_color #f4eed7;
+@define-color selected_fg_color #F4F3F0;
+@define-color tooltip_bg_color #F4F3F0;
 @define-color tooltip_fg_color #b09c62;
 
 /* colormap actually used by the theme, to be overridden in other css files */
@@ -19,7 +19,7 @@
 @define-color theme_tooltip_fg_color @tooltip_fg_color;
 
 /* shadow effects */
-@define-color light_shadow #f4eed7;
+@define-color light_shadow #F4F3F0;
 @define-color dark_shadow #000000;
 
 /* misc colors used by gtk+ */
@@ -46,12 +46,12 @@
 @define-color panel_fg_color #b09c62;
 
 /* osd */
-@define-color osd_base #f4eed7;
+@define-color osd_base #F4F3F0;
 @define-color osd_fg #b09c62;
 @define-color osd_bg alpha(@osd_base, 0.8);
 
 /* window manager colors */
-@define-color wm_bg #f4eed7;
+@define-color wm_bg #F4F3F0;
 @define-color wm_title_focused #b09c62;
 @define-color wm_title_unfocused #888888;
 @define-color wm_border_focused #484848;
