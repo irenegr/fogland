@@ -3,7 +3,7 @@
 # which gets echoed to the console.
 #
 # made by rhowaldt (fuck you)
-# customized for termnator by fog
+# customized for terminator by fog
 # depends: imagemagick
 
 PALETTE=$(convert "$1" -colors 16 -format "%c" histogram:info:)
