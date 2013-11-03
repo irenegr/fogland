@@ -13,9 +13,9 @@
 .sidebar.view:prelight,
 .sidebar .view:prelight {
     border-radius: 0px;
-    color:				@theme_fg_color;
-	text-shadow: 		0 1 alpha(#fff, 0.20);
-    background-color:	@sidebar_background;
+    color:				@sidebar_fg_color;
+	text-shadow: 		0px 1px @theme_shadow_color;
+    background-color:	@sidebar_background; 
 }
 
 .sidebar.view:selected,
@@ -24,13 +24,17 @@
 .sidebar .view *:selected,
 .sidebar .view:selected:prelight {
     border-style: solid;
-    border-width: 0px;
-    border-color: shade(@theme_selected_bg_color, 1.00);
+    border-width: 1px 0px 0px 0px;
+    border-color: shade (@sidebar_selected_bg, 0.90) #bbb shade (@sidebar_selected_bg, 1.05);
 
-	background-image:none;
-	background-color: shade(@theme_selected_bg_color, 1.00);
-    color: @theme_selected_fg_color;    
-    text-shadow: 0 1 @theme_selected_shadow_color;
+    background-image:	 -gtk-gradient (linear,
+										left top,
+										left bottom,
+										from (shade(@sidebar_selected_bg, 0.90)),
+									 	color-stop (0.40, shade (@sidebar_selected_bg, 0.98)),
+										to   (shade(@sidebar_selected_bg, 1.05)));
+    color:  @theme_selected_fg_color;    
+    text-shadow: 0px 1px @theme_selected_shadow_color;
 }
 
 
@@ -54,7 +58,7 @@ GtkHCollapsablePaned .pane-separator:selected {
     background-color: @sidebar_background;
     border-width: 0px 1px 0px 0px;
     border-style: solid;
-    border-color: shade (@sidebar_background, 0.90);
+    border-color: shade (@button_border, 0.90);
 }
 
 /* Marlin sidebar separator */
@@ -64,11 +68,11 @@ VarkaWidgetsHCollapsiblePaned.pane-separator:prelight,
 VarkaWidgetsHCollapsiblePaned.pane-separator:selected {
     border-width:		0px;
 	border-color:		shade(@sidebar_background, 0.80);
-    background-image: -gtk-gradient(linear,
+    background-image: 	-gtk-gradient(linear,
                                     left top, right top,
-                                    from(@sidebar_background),
+                                    from (@sidebar_background),
                                     color-stop(0.50, @sidebar_background),
-                                    to(@sidebar_background));
+                                    to   (#a9a9a9));
 }
 
 /*
