@@ -1,0 +1,67 @@
+######################
+# - Conky settings - #
+######################
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+if_up_strictness link
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Sawasdee:style=Bold:size=9
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_value 200
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_left
+gap_x 25
+gap_y 40
+minimum_size 182 600
+maximum_width 182
+
+default_bar_size 60 10
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+
+default_color 000000
+
+color0 375E4C
+color1 63271B
+color2 375E4C
+color3 7296BB
+
+TEXT
+#############
+# - CLOCK - #
+#############
+
+${voffset -2}${goto 32}${font Sawasdee:size=38}${color2}${time %H}${color}${font}
+${voffset -40}${goto 90}${font Sawasdee:style=Bold:size=11}${color2}${time :%M}${time :%S}${color}${font}
+${voffset -2}${goto 90}${font Sawasdee:style=Bold:size=8}${color2}${time %A}${color}${font}
+${goto 90}${time %d %b %Y}
+################
+# - CALENDAR - #
+################
+${font Sawasdee:style=Bold:size=9}${offset -17}${voffset 4}${time %d}${font}${color}${voffset -1}${font Liberation Mono:size=7}${execpi 300 DJS=`date +%_d`; ncal -h -S -b|sed '2,8!d'| sed '/./!d' | sed 's/^/${goto 42} /'| sed 's/$/ /' | sed 's/^/ /' | sed /" $DJS "/s/" $DJS "/" "'${font Arial:style=Bold:size=8}${voffset -2}${offset -4}${color1} '"$DJS"'${color}${font Liberation Mono:size=7}'" "/}${voffset -1}

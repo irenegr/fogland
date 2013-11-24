@@ -15,7 +15,7 @@ own_window yes
 own_window_transparent yes
 #own_window_argb_visual yes
 #own_window_argb_value 99
-own_window_type normal
+own_window_type desktop
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 
 #borders
@@ -31,7 +31,7 @@ update_interval 1
 #font
 use_xft yes
 #xftfont Inconsolata-10:style=Medium
-xftfont CaviarDreams-8:style=Bold
+xftfont Pragmata-8:style=Regular
 # Force UTF8? note that UTF8 support required XFT
 override_utf8_locale yes
 
