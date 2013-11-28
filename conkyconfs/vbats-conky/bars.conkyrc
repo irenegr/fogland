@@ -17,8 +17,8 @@ double_buffer yes
 no_buffers yes
 text_buffer_size 2048
 
-gap_x 260
-gap_y 670
+gap_x 220
+gap_y 30
 minimum_size 900 68
 #maximum_width 1155
 own_window yes
