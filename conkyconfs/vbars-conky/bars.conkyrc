@@ -1,0 +1,54 @@
+#==============================================================================
+#screenshot: http://irenegr.wordpress.com/2013/11/28/a-drop-of-poison/
+#==============================================================================
+
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+
+gap_x 220
+gap_y 30
+minimum_size 900 68
+#maximum_width 1155
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+#own_window_argb_visual yes
+own_window_hints override,undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+alignment tl
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+override_utf8_locale yes
+use_xft yes
+xftfont Pragmata:size=7
+xftalpha 0.5
+uppercase no
+
+lua_load ~/.scripts/barsline.lua
+lua_draw_hook_pre main_bars
+#lua_draw_hook_post main_box
+###  LUA Settings  ###########################################################
+#lua_load ~/draw_bg.lua
+TEXT
+#${lua conky_draw_bg 0 5 7 1890 30 0x333333 0.5}
+
+${goto 25}${font Pragmata:size=10}${color 4D4D4D}Root:${goto 185}${fs_used_perc /}%${goto 240}Cpu 1:${goto 405}${cpu}%${goto 450}Cpu 2:${goto 615}${cpu cpu2}%${goto 660}Mem:${goto 820}${memperc}%
+${voffset 16}${goto 25}Bat:${goto 185}${exec acpi -b | grep "Battery 0" | awk '{ print $4}'} ${goto 240}Wifi:${goto 405}${wireless_link_qual_perc wlan0}%${goto 450}${downspeedf wlan0}Kb${goto 640}DL|UL${goto 820}${upspeedf wlan0}Kb
+${color 777777}${goto 25}${font Pragmata:size=7}${voffset -62}${nodename} on ${kernel} ${goto 240}UpTime : ${uptime}${goto 450}hdd : ${texeci 60 sudo /usr/sbin/hddtemp /dev/sda -n}°C${goto 660}Mobo : ${acpitemp}°C
+${goto 25}${voffset 20}${top_mem name 1} ${goto 182}${top_mem mem 1}%${goto 240}${top_mem name 2} ${goto 400}${top_mem mem 2}%${goto 450}${top_mem name 3}${goto 610}${top_mem mem 3}%${goto 660}${top_mem name 4} ${goto 815}${top_mem mem 4}%
+${if_running mocp}${goto 25}${voffset 20}Artist : ${goto 100}${exec mocp -Q %artist}${goto 240}Album : ${goto 320}${exec mocp -Q %song}${goto 450}Duree : ${goto 530}${exec mocp -Q %ct} / ${exec mocp -Q %tt}${endif}
+
+${goto 25}Gmail: ${execi 1800 perl ~/.scripts/gmail.py n} message(s)${goto 240}Layout: ${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}${goto 450}Athens: ${execi 1800 /home/fog/.scripts/weather.sh "EUR|GR|GR007|Athens"}${goto 660}${time %A %d %B}: ${alignr 50}${time %T}
