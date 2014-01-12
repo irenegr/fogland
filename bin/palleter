@@ -3,16 +3,16 @@
 # which gets echoed to the console.
 #
 # made by rhowaldt (fuck you)
-#
+# customized for terminator by fog
 # depends: imagemagick
 
 PALETTE=$(convert "$1" -colors 16 -format "%c" histogram:info:)
 HEXLIST=$(echo "$PALETTE" | sed 's/^.*\#\(.*\) srgb.*/\1/g')
-COL=("" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "");
+COL=("#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#" ":#");
 x=0
 
 while read line; do
-      echo -en "\n${COL[$x]}$line";
+      echo -en "${COL[$x]}$line";
       let x=x+1
 done <<< "$HEXLIST"
 clear
