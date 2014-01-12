@@ -1,0 +1,252 @@
+<div class="column-1 clearfix">
+        <div id="panel-main" class="strong panel">
+          <!-- NOTE: The left and right ordering is swapped for this one, since it's a two element stretch! -->
+          <div class="panel-head-rt">
+            <div class="panel-head-lt">
+            </div>
+          </div>
+          <!-- /.panel-head-rt -->
+          <div class="panel-body-lt">
+            <div class="panel-body-rt">
+              <div class="panel-body">
+
+               
+<div class="feed-controls clearfix">
+  <span class="lt">1 - 5 of 45 days | <a href="http://www.accuweather.com/en/gr/kallithea/176819/month/176819?view=table">All 45 days</a></span>
+  <ul class="g g-nav rt">
+    <li class="first"><a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=6">Next 5 &gt;</a></li>
+  </ul>
+</div>
+<!-- /.feed-controls -->
+
+<div id="feed-tabs">
+    <a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=6" class="arrow-right">Next 5 Days<span></span></a>
+
+  <ul>
+    <li class="day current first cl { href: 'http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=1' }">
+    <div class="frame"></div>
+    <div class="bg bg-su">
+        <h3><a href="#">Today</a></h3>
+        <h4>Dec 12</h4>
+        <div class="icon i-3-s "></div>
+        <div class="info">
+        <span class="cond">Cool with partial sunshine</span>
+        <strong class="temp">10<span>&deg;</span></strong><span class="low"><span>Lo</span> 5<span>&deg;</span></span>
+        </div>
+        <!-- /.info -->
+    </div>
+    <!-- /.bg -->
+    </li>
+    <li class="day hv  cl { href: 'http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=2' }">
+    <div class="frame"></div>
+    <div class="bg bg-c">
+        <h3><a href="#">Fri</a></h3>
+        <h4>Dec 13</h4>
+        <div class="icon i-6-s "></div>
+        <div class="info">
+        <span class="cond">Mostly cloudy and chilly</span>
+        <strong class="temp">9<span>&deg;</span></strong><span class="low"><span>Lo</span> 3<span>&deg;</span></span>
+        </div>
+        <!-- /.info -->
+        <a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=2" class="bt-more">more</a>
+    </div>
+    <!-- /.bg -->
+    </li>
+    <li class="day hv  cl { href: 'http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=3' }">
+    <div class="frame"></div>
+    <div class="bg bg-su">
+        <h3><a href="#">Sat</a></h3>
+        <h4>Dec 14</h4>
+        <div class="icon i-1-s "></div>
+        <div class="info">
+        <span class="cond">A full day of sunshine</span>
+        <strong class="temp">13<span>&deg;</span></strong><span class="low"><span>Lo</span> 4<span>&deg;</span></span>
+        </div>
+        <!-- /.info -->
+        <a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=3" class="bt-more">more</a>
+    </div>
+    <!-- /.bg -->
+    </li>
+    <li class="day hv  cl { href: 'http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=4' }">
+    <div class="frame"></div>
+    <div class="bg bg-su">
+        <h3><a href="#">Sun</a></h3>
+        <h4>Dec 15</h4>
+        <div class="icon i-2-s "></div>
+        <div class="info">
+        <span class="cond">Mostly sunny</span>
+        <strong class="temp">15<span>&deg;</span></strong><span class="low"><span>Lo</span> 5<span>&deg;</span></span>
+        </div>
+        <!-- /.info -->
+        <a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=4" class="bt-more">more</a>
+    </div>
+    <!-- /.bg -->
+    </li>
+    <li class="day hv last cl { href: 'http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=5' }">
+    <div class="frame"></div>
+    <div class="bg bg-su">
+        <h3><a href="#">Mon</a></h3>
+        <h4>Dec 16</h4>
+        <div class="icon i-1-s "></div>
+        <div class="info">
+        <span class="cond">Sunny</span>
+        <strong class="temp">15<span>&deg;</span></strong><span class="low"><span>Lo</span> 6<span>&deg;</span></span>
+        </div>
+        <!-- /.info -->
+        <a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=5" class="bt-more">more</a>
+    </div>
+    <!-- /.bg -->
+    </li>
+  </ul>
+</div>
+<!-- /.feed-tabs -->
+
+
+
+                <div id="details"> 
+                  <ul id="detail-tab-buttons" class="detail-tab-buttons"> 
+                    <li class="first { target: '#detail-now' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/current-weather/176819" class=""><span>Now</span></a></li>    
+                    <li class="current { target: '#detail-day-night' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/daily-weather-forecast/176819?day=1"><span>Daily</span></a> 
+                      <div class="nub"></div> 
+                    </li>                                        <li class="{ target: '#detail-hourly' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/hourly-weather-forecast/176819"><span>Hourly</span></a></li> 
+                    <li class="{ target: '#detail-morning' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/morning-weather-forecast/176819?day=1"><span>Morning</span></a></li>
+                    <li class="{ target: '#detail-afternoon' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/afternoon-weather-forecast/176819?day=1"><span>Afternoon</span></a></li>
+                    <li class="{ target: '#detail-evening' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/evening-weather-forecast/176819?day=1"><span>Evening</span></a></li>
+                    <li class="last { target: '#detail-overnight' }"><a href="http://www.accuweather.com/en/gr/kallithea/176819/overnight-weather-forecast/176819?day=1"><span>Overnight</span></a></li>
+                  </ul> 
+                  <!-- /#detail-tab-buttons.detail-tab-buttons --> 
+
+                  <div id="detail-day-night" class="detail-tab-panel"> 
+                    <div class="day"> 
+                      <div class="bg bg-su"> 
+                        <div class="icon i-3-l"></div> 
+                        <div class="info"> <span class="cond"></span> <span class="hi">Hi </span><span class="temp">10<span>&deg;</span></span> 
+                            <span class="realfeel">RealFeel&#174; 10&#176;</span>
+                            <span class="realfeel">Precipitation 25%</span>
+                        </div> 
+                        <!-- /.info --> 
+                        <div class="nub"></div> 
+                      </div> 
+                      <!-- /.bg --> 
+                      <div class="content"> 
+                        <h4>Day</h4> 
+                        <div class="desc"> 
+                          <div class="rt" style="text-align:center;">
+                            <div class="wind-box-sm">
+                              <div id="wind-arm-day" class="wind-arm"></div>
+                                <p class="n">N</p>
+                                <p class="e">E</p>
+                                <p class="s">S</p>
+                                <p class="w">W</p>
+	                            <script type="text/javascript">
+	                                (function () {
+	                                    var d = 'N';
+	                                    var s = '6kph';
+	                                    $('#wind-arm-day').flash({ 'wmode': 'transparent', 'allowScriptAccess': 'always', 'src': 'http://vortex.accuweather.com/adc2010/flash/wind-arm-small.swf?speed=' + s + '&direction=' + d.toLowerCase() + '&units=kph', 'width': '84', 'height': '76' });
+	                                    if (typeof (acm_hasFlash) != 'undefined' && !acm_hasFlash) {
+	                                        $('#wind-arm-day').html('<img src="http://vortex.accuweather.com/adc2010/images/icons-wind/arrow-sm-' + d + '.png" />');
+	                                    }
+	                                })();
+	                            </script>
+                              </div>                             
+                            <!--
+                            <img src="http://vortex.accuweather.com/adc2010/images/icons-wind/sm_N.png" width="84" height="76" alt="Wind" />                                
+                            -->
+                            <ul class="stats"> 
+                                <li> 
+                                <strong style="">N 6 km/h</strong> 
+                                </li> 
+                                <li style="margin-top:-2px;"> 
+                                Gusts:<strong style=""> 13 km/h</strong> 
+                                </li> 
+                            </ul> 
+                          </div> 
+                          <p>Cool with partial sunshine</p> 
+                        </div> 
+                        <!-- /.desc --> 
+                        <ul class="stats"> 
+                          <li>Max UV Index: <strong>2</strong> (Low)</li> 
+                          <li>Thunderstorms: <strong style="">0%</strong></li> 
+                          <li>Precipitation: <strong>0 mm</strong></li> 
+                          <li>Rain: <strong style="">0 mm</strong></li> 
+                          <li>Snow: <strong style="">0 CM</strong></li> 
+                          <li>Ice: <strong style="">0 mm</strong></li>
+                          <li>Hours of Precipitation: <strong>0 hrs</strong></li> 
+                          <li>Hours of Rain: <strong>0 hrs</strong></li> 
+                        </ul> 
+                        <!-- /.stats --> 
+                      </div> 
+                      <!-- /.content --> 
+                    </div> 
+                    <!-- /.day --> 
+                    <div class="night"> 
+                      <div class="bg bg-cl"> 
+                        <div class="icon i-39-l"></div> 
+                        <div class="info"> <span class="cond"></span> <span class="lo">Lo </span><span class="temp">5<span>&deg;</span></span> 
+                            <span class="realfeel">RealFeel&#174; 2&#176;</span>
+                            <span class="realfeel">Precipitation 61%</span>
+                        </div> 
+                        <!-- /.info --> 
+                        <div class="nub"></div> 
+                      </div> 
+                      <!-- /.bg --> 
+                      <div class="content"> 
+                        <h4>Night</h4> 
+                        <div class="desc"> 
+                          <div class="rt" style="text-align:center;"> 
+                    
+                            <div class="wind-box-sm">
+                              <div id="wind-arm-night" class="wind-arm"></div>
+                                <p class="n">N</p>
+                                <p class="e">E</p>
+                                <p class="s">S</p>
+                                <p class="w">W</p>
+	                            <script type="text/javascript">
+	                                (function () {
+	                                    var d = 'NNE';
+	                                    var s = '11kph';
+	                                    $('#wind-arm-night').flash({ 'wmode': 'transparent', 'allowScriptAccess': 'always', 'src': 'http://vortex.accuweather.com/adc2010/flash/wind-arm-small.swf?speed=' + s + '&direction=' + d.toLowerCase() + '&units=kph', 'width': '84', 'height': '76' });
+	                                    if (typeof (acm_hasFlash) != 'undefined' && !acm_hasFlash) {
+	                                        $('#wind-arm-night').html('<img src="http://vortex.accuweather.com/adc2010/images/icons-wind/arrow-sm-' + d + '.png" />');
+	                                    }
+	                                })();
+	                            </script>
+                              </div>                            
+                          <!--
+                          <img src="http://vortex.accuweather.com/adc2010/images/icons-wind/sm_NNE.png" width="84" height="76" alt="Wind" /> 
+                          -->  
+                            <ul class="stats"> 
+                                <li>
+                                <strong style="">NNE 11 km/h</strong> 
+                                </li> 
+                                <li style="margin-top:-2px;"> 
+                                Gusts:<strong style=""> 14 km/h</strong> 
+                                </li> 
+                            </ul> 
+                          </div> 
+                          <p>Partly cloudy and chilly with a couple of showers</p> 
+                        </div> 
+                        <!-- /.desc --> 
+                        <ul class="stats"> 
+                          <li>Max UV Index: <strong>N/A</strong></li> 
+                          <li>Thunderstorms: <strong style="">20%</strong></li> 
+                          <li>Precipitation: <strong>3 mm</strong></li> 
+                          <li>Rain: <strong style="">3 mm</strong></li> 
+                          <li>Snow: <strong style="">0 CM</strong></li> 
+                          <li>Ice: <strong style="">0 mm</strong></li> 
+                          <li>Hours of Precipitation: <strong>1.5 hrs</strong></li> 
+                          <li>Hours of Rain: <strong>1.5 hrs</strong></li>
+                        </ul> 
+                        <!-- /.stats --> 
+                      </div> 
+                      <!-- /.content --> 
+                    </div> 
+                    <!-- /.night --> 
+                  </div> 
+                  <!-- /.detail-tab-panel --> 
+                  
+                </div> 
+                <!-- /#details --> 
+                <script>acm.setupLifestylePromoLinks(jQuery);</script>
+
+                    <div id="feature-history">

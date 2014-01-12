@@ -1,0 +1,49 @@
+use_xft yes
+#override_utf8 locale yes
+override_utf8 locale yes
+#override_utf8 locale yes
+
+
+update_interval 1
+total_run_times 0
+cpu_avg_samples 1
+
+double_buffer yes
+
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_left
+maximum_width 610 
+#minimun_size 510 
+
+maximum_width 510 
+minimun_size 510 
+minimum_size 550 600
+
+gap_x 40
+gap_y 140
+
+draw_shades no
+
+color0 3D4658
+color1 3D4658
+color4 BA605F
+color5 BA605F
+color2 111111
+#3D4658
+TEXT         
+
+${color0}${voffset -10}${font very damaged:size=60}${time %H}:${time %M}${color1 }${voffset -30}${offset 0}${goto 195}${font all ages:size=30}${time %d}${color0}${voffset -6}${offset 8}${goto 245}${font Brother tattoo:size=40}${time %B %Y}${color0}${voffset 28}${offset -145}${goto 260}${font graveyard brk:size=35}${time %A}  
+${color0}${voffset -25}${offset 0}${font grotesque brk:size=50}-----${color4}${voffset -15}${offset -18}${font true man tattoos:size=60}W${color0}${voffset 0}${offset 0}${font grotesque brk:size=50}----
+${color5}${voffset -50}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Data${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:stile:size=13}${fs_used /media/data}/${fs_size /media/data} 
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Cpu ${voffset -2}${color0}${font hotel coral essex:size=12}:  ${voffset -2}${color0}${font philosopher:bold:size=12}${freq}MHz   ${color0}${font philosopher:bold:size=12}${cpu cpu1} % 
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Ram${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:size=12}${mem}  ${color0}${font philosopher:style:bold:size=12}$memperc%                       
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Battery${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:size=12}${battery_percent BAT1}%
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Layout${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:size=12}${if_match ${execi 2 xset -q | grep -A 0 'LED' | cut -c63} == 0}us${else}gr${endif}
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Temp${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:size=12}${hwmon 0 temp 1}${voffset -4}°C
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Down${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:size=12}${downspeed wlan0}
+${color5}${voffset 10}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Up${voffset -2}${color0}${font hotel coral essex:size=12} : ${voffset -2}${color0}${font philosopher:bold:size=12}${upspeed wlan0}
+${color5}${voffset 12}${font floreale two:size=20}g${color0}${voffset 0}${offset 5}${font 28 days later:size=18}Mail${voffset -3}${color0}${font hotel coral essex:size=12} : ${voffset 0}${color0}${font philosopher:bold:size=12}${execpi 300 python ~/.scripts/gmail.py}

@@ -1,0 +1,199 @@
+
+style "panel"
+{
+
+xthickness = 0
+ythickness = 0
+
+  	fg[NORMAL]			= "#a4a4a4" 
+  	fg[PRELIGHT]			= "#d0d0d0" 
+  	fg[ACTIVE]			= "#d0d0d0" 
+  	
+	bg_pixmap[NORMAL] 		= "Panel/panel-bg.png"
+}
+
+#############################################################
+
+
+style "panelbar"
+{
+engine "pixmap"
+{
+	image
+	{
+		function	= BOX
+		state		= NORMAL
+		file		= "Panel/panel-bg.png"
+		border		= { 0 , 0 , 0 , 0}
+		stretch		= FALSE
+	}
+
+	
+	image
+	{
+		function	= BOX
+		state		= ACTIVE
+		file		= "Panel/panel-bg.png"
+		border		= { 0 , 0 , 0 , 0}
+		stretch		= FALSE
+	}
+
+	
+	image
+	{
+		function	= BOX
+		state		= INSENSITIVE
+		file		= "Panel/panel-bg.png"
+		border		= { 0 , 0 , 0 , 0}
+		stretch		= FALSE
+	}
+
+	
+	image
+	{
+		function	= BOX
+		state		= PRELIGHT
+		recolorable	= TRUE
+		file		= "Panel/panel-bg.png"
+		border		= { 0 , 0 , 0 , 0}
+		stretch		= TRUE
+	}
+
+}
+
+}
+
+widget_class "*Panel*MenuBar*" style "panelbar"
+
+#############################################################
+
+style "panelbuttons"
+{
+ xthickness            			= 3
+ ythickness            			= 3
+
+	GtkWidget::focus_padding = 2
+
+	engine "pixmap" {
+      
+	image
+	{
+		function        		= BOX
+		recolorable     		= TRUE
+		state				= NORMAL
+		file            		= "Others/null.png"
+		border          		= { 5, 5, 5, 5 }
+		stretch         		= TRUE
+	}
+		
+	image
+	{
+		function        		= BOX
+		shadow				= OUT
+		recolorable     		= TRUE
+		state				= PRELIGHT
+		file            		= "Panel/panel-button-prelight.png"
+		border          		= { 5, 5, 5, 5 }
+		stretch         		= TRUE
+	}		
+
+	image
+	{
+		function        		= BOX
+		recolorable     		= TRUE
+		shadow				= IN
+		state				= PRELIGHT
+		file            		= "Panel/panel-button-prelight.png"
+		border          		= { 5, 5, 5, 5 }
+		stretch         		= TRUE
+	}
+		
+
+	image
+	{
+		function        		= BOX
+		recolorable     		= TRUE
+		state				= ACTIVE
+		file            		= "Panel/panel-button-active.png"
+		border          		= { 5, 5, 5, 5 }
+		stretch         		= TRUE
+	}  
+
+	image
+	{
+		function        		= BOX
+		recolorable     		= TRUE
+		state				= INSENSITIVE
+		file            		= "Others/null.png"
+		border          		= { 5, 5, 5, 5 }
+		stretch         		= TRUE
+	} 
+
+	image
+	{
+		function        		= BOX
+		recolorable     		= TRUE
+		state				= SELECTED
+		file            		= "Panel/panel-button-active.png"
+		border          		= { 5, 5, 5, 5 }
+		stretch         		= TRUE
+	}  
+
+}
+
+}
+
+#############################################################
+
+class "*Mail*" 				style "panel"
+class "*notif*" 			style "panel"
+class "*Notif*" 			style "panel"
+class "*Tray*" 				style "panel"
+class "*tray*" 				style "panel"
+widget_class "*Mail*" 			style "panel"
+widget_class "*notif*" 			style "panel"
+widget_class "*Notif*" 			style "panel"
+widget_class "*Tray*" 			style "panel"
+widget_class "*tray*" 			style "panel"
+widget "*TrayIcon*" 			style "panel"
+class "*Panel*Applet*" 			style "panel"
+widget_class "*Panel*GtkToggleButton" 	style "panel"
+widget_class "*Panel*GtkButton" 	style "panel"
+widget_class "*.Panel*Button*GtkLabel" 	style "panel"
+widget_class "*.Panel*GtkLabel" 	style "panel"
+widget "*PanelWidget*" 			style "panel"
+widget "*PanelApplet*" 			style "panel"
+
+
+
+widget_class "*Netstatus*" 		style "panel"
+widget_class "*Tomboy*Tray*" 		style "panel"
+widget "*fast-user-switch*" 		style "panel"
+widget_class "*PanelToplevel*" 		style "panel"
+class "Xfce*Panel*" 			style "panel"
+widget_class "*Xfce*Panel*" 		style "panel"
+widget_class "*PanelApplet*" 		style "panel"
+widget_class "*PanelWidget*" 		style "panel"
+
+
+widget_class "*Panel*GtkToggleButton" 		style "panelbuttons"
+widget "*.tasklist-button" 			style "panelbuttons"
+
+widget_class "*PanelToplevel*Button" 		style "panelbuttons"
+widget_class "*Xfce*Panel*.GtkToggleButton" 	style "panelbuttons"
+widget_class "*Xfce*NetkTasklist*GtkToggleButton" style "panelbuttons"
+
+#############################################################
+#FIXES THE STANDARD SHUTDOWN-DIALOG ON GNOME
+#############################################################
+
+style "fix"
+{
+xthickness = 0
+ythickness = 0
+ bg[NORMAL]		= "#262524"
+}
+
+class "*Panel*" style "fix"
+
+#############################################################

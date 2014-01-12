@@ -1,0 +1,205 @@
+#!/bin/bash
+
+#function: test_image
+test_image () {
+    case $1 in
+         1)
+           echo a
+         ;;
+         2|3)
+           echo b 
+         ;;
+         4|5)
+           echo c
+         ;;
+         6)
+           echo d
+         ;;
+         7)
+           echo e
+         ;;
+         8)
+           echo f
+         ;;
+         11)
+           echo 0
+         ;;
+         12)
+           echo h
+         ;;
+         13|14)
+           echo g
+         ;;
+         15)
+           echo m
+         ;;
+         16|17)
+           echo k
+         ;;
+         18)
+           echo i
+         ;;
+         19)
+           echo q
+         ;;
+         20|21|23)
+           echo o
+         ;;
+         22)
+           echo r
+         ;;
+         24|31)
+           echo E
+         ;;
+         25)
+           echo v
+         ;;
+         26)
+           echo x
+         ;;
+         29)
+           echo y
+         ;;
+         30)
+           echo 5
+         ;;
+         32)
+           echo 6
+         ;;
+         33)
+           echo A
+         ;;
+         34|35)
+           echo B
+         ;;
+         36|37)
+           echo C
+         ;;
+         38)
+           echo D
+         ;;
+         39|40)
+           echo G
+         ;;
+         41|42)
+           echo K
+         ;;
+         43|44)
+           echo O
+         ;;
+         *)
+		   echo -
+		 ;;   
+        esac
+} 
+
+#put your Accuweather address here
+address="http://www.accuweather.com/en/gr/kallithea/176819/weather-forecast/176819"
+#address="http://www.accuweather.com/en/de/magdeburg/39104/weather-forecast/171293"
+
+loc_id=$(echo $address|sed 's/\/weather-forecast.*$//'|sed 's/^.*\///')
+last_number=$(echo $address|sed 's/^.*\///')
+
+curr_addr="$(echo $address|sed 's/weather-forecast.*$//')"current-weather/"$last_number"
+
+addr1="$(echo $address|sed 's/weather-forecast.*$//')"daily-weather-forecast/"$last_number"
+addr2="$addr1"?day=6
+
+kill -STOP $(pidof conky)
+killall wget
+
+wget --save-cookies $HOME/.1b2_accuweather_conkyweather_font/cookie -O $HOME/.1b2_accuweather_conkyweather_font/curr_cond_raw $curr_addr
+wget --load-cookies $HOME/.1b2_accuweather_conkyweather_font/cookie -O $HOME/.1b2_accuweather_conkyweather_font/first_days_raw $addr1
+wget --load-cookies $HOME/.1b2_accuweather_conkyweather_font/cookie -O $HOME/.1b2_accuweather_conkyweather_font/last_days_raw $addr2
+
+#Current Conditions - curr_cond file
+if [[ -s $HOME/.1b2_accuweather_conkyweather_font/curr_cond_raw ]]; then
+
+    egrep -i '"detail-tab-panel |>Today<\/a>|>Tonight<\/a>|>Early AM<\/a>|>Overnight<\/a>|>Mon<\/a>|>Tue<\/a>|>Wed<\/a>|>Thu<\/a>|>Fri<\/a>|>Sat<\/a>|>Sun<\/a>|icon i-|"cond"|"temp"|var d = '\''|var s = '\''|Humidity: |Pressure: |Cloud Cover: |UV Index: |Dew Point: |Precipitation(1 hr): |Visibility: |"start">|"finish">' $HOME/.1b2_accuweather_conkyweather_font/curr_cond_raw > $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/^[ \t]*//g' -e 's/^.*icon i-//g' -e 's/^.*"cond">//g' -e 's/>Lo</\n/g' -e 's/RealFeel/\n/g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/^.*"#">//g' -e 's/^.*<strong class="temp"//g' -e 's/^>//g' -e 's/<span>&deg.*$//g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/<\/a>.*$//g' -e 's/\/span> //g' -e 's/var d = //g' -e 's/var s = //g' -e 's/"temp">/\n/g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/^.*"start">//g' -e 's/^.*"finish">//g' -e 's/<li>//g' -e 's/<strong>//g' -e 's/<<span.*$//g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/<\/span>//g' -e 's/<\/strong><\/li>//g' -e 's/ "><\/div>//g' -e 's/'\''//g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/"><\/div>//g' -e 's/^.*; //g' -e 's/&#.*$//g' -e 's/ i-alarm.*$//g' -e 's/;//g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/Humidity: //g' -e 's/Pressure: //g' -e 's/Cloud Cover: //g' -e 's/UV Index: //g' -e 's/Dew Point: //g' -e 's/Visibility: //g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i -e 's/^.*detail-tab-panel //g' -e 's/">//g' -e 's/\r//g' -e 's/ *$//g' -e 's/mb.*$/mb/g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i 's/-s\|-xl.*$//g' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    time=$(sed -n 1p $HOME/.1b2_accuweather_conkyweather_font/curr_cond)
+    if [[ $time == Tonight || $time == Overnight || $time == "Early AM" ]]; then
+        sed -i 3a- $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+	fi
+    line35=$(sed -n 35p $HOME/.1b2_accuweather_conkyweather_font/curr_cond)
+    sed -i '35d' $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+    sed -i 35a$line35 $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+	image=$(sed -n 27p $HOME/.1b2_accuweather_conkyweather_font/curr_cond)
+	sed -i 27s/$image/$(test_image $image)/ $HOME/.1b2_accuweather_conkyweather_font/curr_cond
+fi
+
+
+#First 5days - first_days file 
+if [[ -s $HOME/.1b2_accuweather_conkyweather_font/first_days_raw ]]; then
+
+    sed -i '/<div class="column-1 clearfix">/,/<div id=\"feature-history\">/!d' $HOME/.1b2_accuweather_conkyweather_font/first_days_raw
+    egrep -i '>Today<|<p>[a-z]|>Mon<\/a>|>Tue<\/a>|>Wed<\/a>|>Thu<\/a>|>Fri<\/a>|>Sat<\/a>|>Sun<\/a>|icon i-|"cond"|"temp"|realfeel">RealFeel|realfeel">Precipitation' $HOME/.1b2_accuweather_conkyweather_font/first_days_raw > $HOME/.1b2_accuweather_conkyweather_font/first_days
+
+    sed -i -e 's/^[ \t]*//g' -e 's/^.*icon i-//g' -e 's/^.*"cond">//g' -e 's/>Lo</\n/g' $HOME/.1b2_accuweather_conkyweather_font/first_days
+    sed -i -e 's/ "><\/div>//g' -e 's/"><\/div>//g' -e 's/^.*"temp">//g' -e 's/<span>&deg.*$//g' $HOME/.1b2_accuweather_conkyweather_font/first_days
+    sed -i -e 's/<p>//g' -e 's/<\/p>//g' -e 's/^.*"#">//g' -e 's/\/span> //g' -e 's/^.*>Precipitation //g' -e 's/^.*; //g' $HOME/.1b2_accuweather_conkyweather_font/first_days
+    sed -i -e 's/&#.*$//g' -e 's/<.*$//g' -e 's/ i-alarm.*$//g' -e 's/\r//g' -e 's/ *$//g' $HOME/.1b2_accuweather_conkyweather_font/first_days
+	sed -i -e 's/Today/TODAY/' -e 's/Mon$/MONDAY/' -e 's/Tue$/TUESDAY/' -e 's/Wed$/WEDNESDAY/' -e 's/Thu$/THURSDAY/' -e 's/Fri$/FRIDAY/' -e 's/Sat$/SATURDAY/' -e 's/Sun$/SUNDAY/' $HOME/.1b2_accuweather_conkyweather_font/first_days
+    sed -i 's/-s\|-l.*$//g' $HOME/.1b2_accuweather_conkyweather_font/first_days
+    time=$(sed -n 1p $HOME/.1b2_accuweather_conkyweather_font/curr_cond)
+    if [[ $time == Tonight || $time == Overnight || $time == "Early AM" ]]; then
+        sed -i 2a- $HOME/.1b2_accuweather_conkyweather_font/first_days
+	fi
+	L1=$(sed -n 1p $HOME/.1b2_accuweather_conkyweather_font/first_days)
+    if [[ $L1 == TODAY ]]; then
+        sed -i 1d $HOME/.1b2_accuweather_conkyweather_font/first_days
+	fi
+	for (( i=6; i<=21; i+=5 ))
+	  do
+	      image_raw=$(sed -n "${i}"p $HOME/.1b2_accuweather_conkyweather_font/first_days)
+	      sed -i ${i}s/$image_raw/$(test_image $image_raw)/ $HOME/.1b2_accuweather_conkyweather_font/first_days
+	  done
+    image_raw=$(sed -n 25p $HOME/.1b2_accuweather_conkyweather_font/first_days)
+	sed -i 25s/$image_raw/$(test_image $image_raw)/ $HOME/.1b2_accuweather_conkyweather_font/first_days
+    image_raw=$(sed -n 30p $HOME/.1b2_accuweather_conkyweather_font/first_days)
+	sed -i 30s/$image_raw/$(test_image $image_raw)/ $HOME/.1b2_accuweather_conkyweather_font/first_days
+
+fi
+
+
+#Last 5days - last_days file 
+if [[ -s $HOME/.1b2_accuweather_conkyweather_font/last_days_raw ]]; then
+
+    sed -i '/<div class="column-1 clearfix">/,/<div id=\"feature-history\">/!d' $HOME/.1b2_accuweather_conkyweather_font/last_days_raw
+    egrep -i '>Mon<\/a>|>Tue<\/a>|>Wed<\/a>|>Thu<\/a>|>Fri<\/a>|>Sat<\/a>|>Sun<\/a>|icon i-|"cond"|"temp"|realfeel">RealFeel|realfeel">Precipitation' $HOME/.1b2_accuweather_conkyweather_font/last_days_raw > $HOME/.1b2_accuweather_conkyweather_font/last_days
+    sed -i -e 's/^[ \t]*//g' -e 's/^.*icon i-//g' -e 's/^.*"cond">//g' -e 's/>Lo</\n/g' $HOME/.1b2_accuweather_conkyweather_font/last_days
+    sed -i -e 's/ "><\/div>//g' -e 's/"><\/div>//g' -e 's/^.*"temp">//g' -e 's/<span>&deg.*$//g' $HOME/.1b2_accuweather_conkyweather_font/last_days
+    sed -i -e 's/^.*"#">//g' -e 's/\/span> //g' -e 's/^.*>Precipitation //g' -e 's/^.*; //g' $HOME/.1b2_accuweather_conkyweather_font/last_days
+    sed -i -e 's/&#.*$//g' -e 's/<.*$//g' -e 's/ i-alarm.*$//g' -e 's/\r//g' -e 's/ *$//g' $HOME/.1b2_accuweather_conkyweather_font/last_days
+	sed -i -e 's/Mon$/MONDAY/' -e 's/Tue$/TUESDAY/' -e 's/Wed$/WEDNESDAY/' -e 's/Thu$/THURSDAY/' -e 's/Fri$/FRIDAY/' -e 's/Sat$/SATURDAY/' -e 's/Sun$/SUNDAY/' $HOME/.1b2_accuweather_conkyweather_font/last_days
+    sed -i 's/-s\|-l.*$//g' $HOME/.1b2_accuweather_conkyweather_font/last_days
+    for (( i=2; i<=22; i+=5 ))
+	  do
+	      image_raw=$(sed -n "${i}"p $HOME/.1b2_accuweather_conkyweather_font/last_days)
+	      sed -i ${i}s/$image_raw/$(test_image $image_raw)/ $HOME/.1b2_accuweather_conkyweather_font/last_days
+	  done
+
+fi
+
+#messages file
+sed -n 28p $HOME/.1b2_accuweather_conkyweather_font/curr_cond | cut -c -20 > $HOME/.1b2_accuweather_conkyweather_font/messages
+sed -n 29p $HOME/.1b2_accuweather_conkyweather_font/first_days | cut -c -20 >> $HOME/.1b2_accuweather_conkyweather_font/messages
+sed -n 34p $HOME/.1b2_accuweather_conkyweather_font/first_days | cut -c -20 >> $HOME/.1b2_accuweather_conkyweather_font/messages
+for (( i=7; i<=22; i+=5 ))
+  do
+      sed -n ${i}p $HOME/.1b2_accuweather_conkyweather_font/first_days | cut -c -20 >> $HOME/.1b2_accuweather_conkyweather_font/messages
+  done
+for (( i=3; i<=23; i+=5 ))
+  do
+      sed -n ${i}p $HOME/.1b2_accuweather_conkyweather_font/last_days | cut -c -20 >> $HOME/.1b2_accuweather_conkyweather_font/messages
+  done
+
+kill -CONT $(pidof conky)
