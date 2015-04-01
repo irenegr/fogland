@@ -11,5 +11,5 @@ FONT="Monofur:size=10"
 XPOS="0" 
 YPOS="753"
 
-exec conky -d -c $RC | dzen2 -fg $FG -bg $BG -ta $ALIGN -w $WIDTH -h $HEIGHT -x $XPOS -y $YPOS -fn $FONT &
+exec conky -d -c $RC | dzen2 -e 'button2=;' -fg $FG -bg $BG -ta $ALIGN -w $WIDTH -h $HEIGHT -x $XPOS -y $YPOS -fn $FONT &
 exit 0
