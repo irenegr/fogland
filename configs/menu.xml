@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/                 file:///usr/share/openbox/menu.xsd">
+	<menu id="root-menu" label="Openbox 3">
+		<item label="net">
+			<action name="Execute">
+				<execute>google-chrome-unstable %U</execute>
+			</action>
+		</item>
+		<item label="term">
+			<action name="Execute">
+				<execute>terminator</execute>
+			</action>
+		</item>
+		<item label="files">
+			<action name="Execute">
+				<execute>nemo</execute>
+			</action>
+		</item>
+		<item label="text">
+			<action name="Execute">
+				<execute>geany</execute>
+			</action>
+		</item>
+		<item label="rfiles">
+			<action name="Execute">
+				<execute>gksu nemo</execute>
+			</action>
+		</item>
+		<item label="apt">
+			<action name="Execute">
+				<execute>gksu synaptic</execute>
+			</action>
+		</item>
+		<separator/>
+		<menu execute="openbox-xdgmenu /etc/xdg/menus/lxde-applications.menu" id="desktop-app-menu" label="edge"/>
+		<menu id="config" label="config">
+			<item label="look">
+				<action name="Execute">
+					<execute>lxappearance</execute>
+				</action>
+			</item>
+			<item label="wallie">
+				<action name="Execute">
+					<execute>pcmanfm --desktop-pref</execute>
+				</action>
+			</item>
+			<item label="obmenu">
+				<action name="Execute">
+					<execute>obmenu</execute>
+				</action>
+			</item>
+			<item label="obtheme">
+				<action name="Execute">
+					<execute>/home/fog/bin/obtheme</execute>
+				</action>
+			</item>
+			<separator/>
+			<item label="Reconf">
+				<action name="Reconfigure"/>
+			</item>
+		</menu>
+		<menu id="root-menu-6285" label="shots">
+			<item label="shoot me now">
+				<action name="Execute">
+					<execute>scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/'</execute>
+				</action>
+			</item>
+			<item label="7 secs away">
+				<action name="Execute">
+					<execute>scrot -d 7 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/'</execute>
+				</action>
+			</item>
+			<item label="area 51">
+				<action name="Execute">
+					<execute>scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/'</execute>
+				</action>
+			</item>
+		</menu>
+		<menu execute="/home/fog/.config/openbox/scripts/info.sh" id="pipe-27448" label="infos"/>
+		<separator/>
+		<menu id="client-list-menu" label="desktop">
+			<item label="New Item">
+				<action name="Execute">
+					<execute>command</execute>
+				</action>
+			</item>
+		</menu>
+		<item label="Run...">
+			<action name="Execute">
+				<execute>dmenu_extended_run</execute>
+			</action>
+		</item>
+		<separator/>
+		<item label="cu l8er">
+			<action name="Execute">
+				<command>lxsession-default quit</command>
+			</action>
+		</item>
+	</menu>
+</openbox_menu>
