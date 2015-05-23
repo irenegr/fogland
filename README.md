@@ -1,5 +1,5 @@
 fogland
 =======
 
-Configs, scripts and everything
+configs, scripts and everything
 from here, there or mine
