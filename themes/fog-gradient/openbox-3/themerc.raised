@@ -1,0 +1,85 @@
+
+#======================================
+#     Menu Settings	
+#======================================
+
+menu.title.bg: raised
+menu.title.bg.color: #262626
+menu.title.text.color: #ffffff
+menu.separator.color: #262626
+menu.items.bg: raised
+menu.items.bg.color: #262626
+menu.items.text.color: #ffffff
+menu.items.disabled.text.color: #707070
+menu.items.active.bg: gradient horizontal raised
+menu.items.active.bg.colorTo:#945334
+menu.items.active.bg.color:#852B3C
+menu.items.active.bg.border.color: #c3314f
+menu.items.active.text.color: #ffffff
+
+
+#======================================
+#     Focused Window Settings
+#======================================
+
+window.active.title.bg: gradient horizontal raised
+window.active.title.bg.colorTo:#945334
+window.active.title.bg.color:#852B3C
+window.active.handle.bg: raised
+window.active.handle.bg.color: #262626
+window.active.grip.bg: parentrelative
+window.active.label.bg: parentrelative
+window.active.label.text.color: #ffffff
+window.*.button.*.bg: parentrelative
+window.active.button.*.image.color: #ffffff
+window.active.button.*.pressed.image.color: #262626
+window.active.button.disabled.image.color: #ffffff
+
+
+#======================================
+#     Unfocused Window Settings
+#======================================
+
+window.inactive.title.bg: gradient horizontal raised
+window.inactive.title.bg.colorTo:#945334
+window.inactive.title.bg.color:#852B3C
+window.inactive.handle.bg: raised
+window.inactive.handle.bg.color: #262626
+window.inactive.grip.bg: parentrelative
+window.inactive.label.bg: parentrelative
+window.inactive.label.text.color: #262626
+window.inactive.button.*.image.color: #ffffff
+
+
+#======================================
+#     Global Width Settings
+#======================================
+
+padding.width: 1
+padding.height: 1
+border.width: 1
+window.handle.width: 3
+window.client.padding.width: 0
+menu.overlap.x: -5
+
+#======================================
+#     Miscellaneous Settings
+#======================================
+
+border.color: #262626
+menu.border.color: #262626
+
+#======================================
+#     Osd		
+#======================================
+
+osd.hilight.bg: raised border
+osd.hilight.bg.color: #7f1e31
+osd.hilight.bg.border.color: #c3314f
+
+#======================================
+#     Title Justification
+#======================================
+
+menu.title.text.justify: center
+window.label.text.justify: center
