@@ -1,2 +1,2 @@
 conky configs from here and there or mine
-url with screenshots included in the beginning of each file
+url with screenshot included in the beginning of each file

@@ -321,3 +321,14 @@ export PS1='\[\e[1;30m\]\t`if [ $? = 0 ]; then echo "\[\e[32m\] ✔ "; else echo
 # root
 export PS1='\[\e[1;30m\]\t`if [ $? = 0 ]; then echo "\[\e[32m\] ✔ "; else echo "\[\e[31m\] ✘ "; fi`\[\e[0;35m\]\u\[\e[0m\]@\h \[\e[1;34m\]\w \$\[\e[0m\] '
 # Unicode cheracters ✔ 'HEAVY CHECK MARK' (U+2714) and ✘ 'HEAVY BALLOT X' (U+2718)
+
+#    function _update_ps1() {
+#           export PS1="$(~/bin/powerline-shell/powerline-shell.py $? 2> /dev/null)"
+#                           }
+#    export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+
+#if [[ ${EUID} == 0 ]] ; then
+#> PS1='\e[1;31;48;5;234m\u \e[38;5;240mon \e[1;38;5;28;48;5;234m\h \e[38;5;54m\d \@\e[0m\n\e[0;31;48;5;234m[\w] \e[1m\$\e[0m '
+#> else
+#> PS1='\e[1;38;5;56;48;5;234m\u \e[38;5;240mon \e[1;38;5;28;48;5;234m\h \e[38;5;54m\d \@\e[0m\n\e[0;38;5;56;48;5;234m[\w] \e[1m\$\e[0m '
+#> fi
