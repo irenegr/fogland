@@ -4,6 +4,8 @@
 #    and format output. Make sure to output the reset sequence after 
 #    colors (f = foreground, b = background), and use the 'off'
 #    feature for anything you turn on.
+# Author: pfh
+# Source: http://crunchbang.org/forums/viewtopic.php?pid=127064#p127064
 
 initializeANSI()
 {
@@ -35,6 +37,7 @@ cat << EOF
 
  ${redf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗  ${greenf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗  ${yellowf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗
  ${boldon}${redf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝  ${greenf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝  ${yellowf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝${reset}
+  ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■ 
  ${bluef}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗  ${purplef}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗  ${cyanf}╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗
  ${boldon}${bluef}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝  ${purplef}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝  ${cyanf}╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝${reset}
 

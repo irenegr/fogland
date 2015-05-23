@@ -1,0 +1,8 @@
+#!/bin/bash
+sleep 2 &&
+conky -d -c /home/fog/.conkyinfo &
+sleep 2 &&
+conky -d -c /home/fog/.conky_weather &
+sleep 2 &&
+conky -d -c /home/fog/.conkyrc.s &
+exit

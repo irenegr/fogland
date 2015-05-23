@@ -1,3 +1,990 @@
-#!/bin/bash
-screenfo -a debian -c red &
-exit
+#!/usr/bin/perl
+my $APP = 'screenfo';
+use vars qw($VERSION);
+$VERSION = '0.296';
+
+use strict;
+use List::Util qw(shuffle);
+use Getopt::Long;
+use Pod::Usage;
+
+use Term::ExtendedColor qw(fg bg);
+
+my $DEBUG = $ENV{DEBUG};
+
+# imported from configuration file
+our($now_playing, $default_colorscheme, %colorschemes, $default_logo,
+    $color_support);
+our($opt_shot) = undef;
+our($randomize_colors); # 0 disables the randomizing (default)
+our(@df_exclude);
+
+config_init();
+
+GetOptions(
+  'a|ascii:s' => \$default_logo,
+  'c|color:s' => \$default_colorscheme,
+  'l|list'    => \&available_colorschemes,
+  'r|random'  => \$randomize_colors,
+  's|shot'    => \$opt_shot,
+  'd|debug'   => \$DEBUG,
+  'h|help'    => sub { pod2usage(verbose => 1) and exit(0); },
+  'm|man'     => sub { pod2usage(verbose => 3) and exit(0); },
+  'v|version' => sub { printf("%s v%s\n", $APP, $VERSION); exit(0); },
+);
+
+logo_init($default_logo);
+
+if(not defined($default_logo)) {
+  $default_logo = logo_init('arch');
+}
+
+get_color_support();
+
+sub logo_init {
+  my $logo = shift;
+
+  if(-f "$ENV{XDG_DATA_HOME}/screenfo/ascii/$logo") {
+    $default_logo = "$ENV{XDG_DATA_HOME}/screenfo/ascii/$logo";
+  }
+  elsif(-f "$ENV{HOME}/.local/share/screenfo/ascii/$logo") {
+    $default_logo = "$ENV{HOME}/.local/share/screenfo/ascii/$logo";
+  }
+  elsif(-f "$ENV{HOME}/.config/screenfo/ascii/$logo") {
+    $default_logo = "$ENV{HOME}/.config/screenfo/ascii/$logo";
+  }
+  elsif(-f "./ascii/$logo") {
+    $default_logo = "./ascii/$logo";
+  }
+  elsif(-f "/usr/share/screenfo/ascii/$logo") {
+    $default_logo = "/usr/share/screenfo/ascii/$logo";
+  }
+  else {
+    $default_logo = undef;
+  }
+}
+
+sub config_init {
+  my $config;
+  if(-f "$ENV{XDG_CONFIG_HOME}/screenfo/screenfo.conf") {
+    $config = "$ENV{XDG_CONFIG_HOME}/screenfo/screenfo.conf";
+  }
+  elsif(-f "$ENV{HOME}/.config/screenfo/screenfo.conf") {
+    $config = "$ENV{HOME}/.config/screenfo/screenfo.conf";
+  }
+  elsif(-f "$ENV{HOME}/.screenfo.conf") {
+    $config = "$ENV{HOME}/.screenfo.conf";
+  }
+  elsif(-f "$ENV{HOME}/screenfo.conf") {
+    $config = "$ENV{HOME}/screenfo.conf";
+  }
+  elsif(-f './screenfo.conf') {
+    $config = './screenfo.conf';
+  }
+  elsif(-f '/etc/screenfo.conf') {
+    $config = '/etc/screenfo.conf';
+  }
+  else {
+    warn "No configuration file found.\n";
+    warn "See docs/screenfo.conf.example for an example configuration file.\n";
+    exit 1;
+  }
+  print "Config found: $config\n" if $DEBUG;
+
+  require($config);
+  warn $@ if $@;
+}
+sub longest {
+  return unless(my @strings = @_);
+  chomp(@strings);
+
+  my %len_map = ();
+
+  map{ $len_map{length($_)} = $_ } @strings;
+
+  for my $k(sort{$b <=> $a} keys(%len_map)) {
+    return $k;
+  }
+}
+
+
+
+sub get_color_support {
+  my $colors = 16;
+  if(
+    $ENV{TERM} eq 'xterm'
+      or($ENV{TERM} eq 'rxvt-256-color')
+      or($ENV{TERM} =~ /screen-256/)
+      or($ENV{TERM} eq 'Eterm-256color')
+      or($ENV{TERM} eq 'gnome-256color')
+      or($ENV{TERM} eq 'konsole-256color')
+      or($ENV{TERM} eq 'putty-256color')
+      or($ENV{TERM} =~ /u?rxvt-256color/)
+  ) {
+    $colors = 256;
+  }
+  elsif($ENV{TERM} eq 'rxvt-unicode') {
+    $colors = 88;
+  }
+  elsif($ENV{TERM} eq 'screen') {
+    $colors = 16;
+  }
+  else {
+    chomp($colors = `tput colors`); # fail silently
+  }
+
+  if(!defined($colors) or($colors < 88)) { # man 7 urxvt
+    # mm, maintaince mayhem
+    %colorschemes = (
+    all        => [0..15],
+    ansi       => [0..15],            # obviously the same thing here
+    grey       => [0,8,7,15],         # black, bright black, white, bright white
+    red        => [1,9],              # red, bright red
+    green      => [2,10],             # green, bright green
+    white      => [7,15],             # white, bright white
+    blue       => [4,12],             # blue, bright blue
+    pink       => [5,13],             # magenta, bright magenta
+    yellow     => [3,11],             # yellow, bright yellow (' brown ')
+    fire       => [1,11,9,3],         # red, bright yellow, bright red, yellow
+    pinkgrey   => [0,13,7,15,5,8],    # black, bright magenta, white,
+                                      # bright white, magenta, bright black
+    orangegrey => [1,0,8,7,11,9,15,3],# red, black, bright black, white, bright
+                                      # yellow, bright red, bright white, yellow
+    );
+  }
+  elsif($colors == 88) {
+    %colorschemes = (
+      all       => [0..87],
+      ansi      => [0..15],
+      grey      => [0,8,7,15],
+      red       => [52,88],
+      green     => [22,28,34,40,46,70,76],
+      white     => [7,15],
+      blue      => [17..21,24..27,32,33,37..39],
+      pink      => [53..57,60..63],
+      yellow    => [3,11],
+      fire      => [3,11,88,52],
+      pinkgrey  => [8,0,53..57,60..63,15,7],
+      orangegrey => [1,0,8,7,11,9,15,3],
+    );
+  }
+}
+
+if($DEBUG) {
+  chomp(my $host = `hostname`);
+  printf("\e[31;1m%13s \e[0mver \e[32;1m%s\e[0m\n", 'screenfo', $VERSION);
+  printf("%13s -=> \e[1m%s\e[0m\n", 'Perl', $^V);
+  printf("%13s -=> \e[1m%s\e[0m (from ENV)\n", 'User', $ENV{USER});
+  printf("%13s -=> \e[1m%s\e[0m (from hostname bin)\n",   'Host', $host);
+  printf("%13s -=> \e[1m%s\e[0m\n",'OS', get_os());
+  printf("%13s -=> \e[1m%s\e[0m\n",'WM', get_wm());
+  printf("%13s -=> \e[1m%s\e[0m (from /proc/version)\n",'Kernel', get_kernel());
+  printf("%13s -=> \e[1m%s\e[0m\n",'GTK Theme', get_gtk_info('theme'));
+  printf("%13s -=> \e[1m%s\e[0m\n",'GTK Icons', get_gtk_info('icons'));
+  printf("%13s -=> \e[1m%s\e[0m\n",'GTK Font', get_gtk_info('font'));
+  printf("%13s -=> %s \e[1mused\e[0m out of %s (%s \e[1mfree\e[0m - that is %s)\n",
+    'Disk', get_disk_total('used'), get_disk_total('size'),
+    get_disk_total('avail'), get_disk_total('percent')
+  );
+  printf("%13s -=> %d\n", 'Processes', get_no_proc());
+  printf("%13s -=> %s \e[1mused\e[0m out of  %s (%s \e[1mfree\e[0m)\n", 'RAM',
+    get_mem('used'), get_mem('total'), get_mem('avail')
+  );
+  printf("%13s -=> %s \e[1mdays\e[0m, %s \e[1mmins\e[0m\n",
+    'Uptime', get_uptime('days'), get_uptime('mins')
+  );
+  printf("%13s -=> \e[1m%s\e[0m\n",'Users', get_no_users());
+  printf("%13s -=> \e[1m%s\e[0m (from ENV)\n",'Shell', get_shell());
+  printf("%13s -=> \e[1m%s\e[0m (from ENV)\n",'Terminal', get_terminal());
+  printf("%13s -=> \e[1m%s\e[0m (from uname or /proc/cpuinfo)\n",
+    'CPU', get_cpu()
+  );
+
+  if(-f '/etc/screenfo.conf') {
+    printf("%13s -=> \e[33m%s\e[0m (/etc/screenfo.conf)\n",
+      'Config', 'Found'
+    );
+  }
+  else {
+    printf("%13s -=> \e[31m%s\e[0m (/etc/screenfo.conf)\n",
+      'Config', 'NOT found'
+    );
+  }
+  printf("%13s -=> \e[1m%s\e[0m\n", 'Colorscheme', $default_colorscheme);
+
+  if(-f $default_logo) {
+    printf("%13s -=> \e[1m%s\e[0m (\e[33mfound\e[0m)\n",
+      'ASCII Art', $default_logo,
+    );
+  }
+  else {
+    printf("%13s -=> \e[1m%s\e[0m (\e[31;1mNOT found\e[0m)\n",
+      'ASCII Art', $default_logo,
+    );
+  }
+
+  if(ref($now_playing) eq 'CODE') {
+    printf("%13s -=> \e[1m%s\e[0m\n",
+      'Now Playing', "\e[33mValid\e[0m CODEREF",
+    );
+    printf("%s  \e[1m%s\e[0m\n",
+      "\t\t  \t'-->", $now_playing->(),
+    );
+  }
+  else {
+    printf("%13s -=> \e[1m%s\e[0m\n",
+      'Now Playing', "\e[31;1mINVALID\e[0m CODEREF",
+    );
+  }
+
+  printf("%13s -=> \e[1m%s\e[0m (\e[1m%s\e[0m)\n",
+    'Color support', $color_support, $ENV{TERM},
+  );
+  exit(0);
+}
+
+sub get_kernel {
+  if($^O =~ /bsd$/) {
+    return(`uname -r`);
+  }
+  else {
+    open(my $fh, '<', '/proc/version') or warn($!);
+    my $version = <$fh>;
+    # extended to match kernels [1-3]
+    my ($kernel) = $version =~ /([1-3][.][0-9][.0-9\S]+)/;
+    return($kernel);
+  }
+}
+
+sub get_no_proc {
+  opendir(my $dh, '/proc') or warn($!);
+  my @processes = grep{/^[0-9]+/} readdir($dh); # PIDs
+  return(scalar(@processes));
+}
+
+sub get_gtk_info {
+  my $wanted = shift;
+  if(!defined($wanted)) {
+    $wanted = 'theme';
+  }
+  my ($gtk_theme,$gtk_font,$gtk_icons) =
+    (fg(242,'Unknown')) x 4;
+
+  my $gtk_rc = "$ENV{HOME}/.gtkrc.mine";
+  if(-f $gtk_rc) {
+    # all good
+  }
+  elsif(-f "$ENV{HOME}/.gtkrc-2.0") {
+    $gtk_rc = "$ENV{HOME}/.gtkrc-2.0";
+  }
+
+  open(my $fh, '<', $gtk_rc); #fail silently
+  while(<$fh>) {
+    if(/gtk-theme-name\s*=\s*"(.+)"/) {
+      $gtk_theme = $1;
+    }
+    elsif(/include\s*".+themes\/(.+)\/.+\/gtkrc/) {
+      $gtk_theme = $1;
+    }
+    if(/gtk-icon-theme-name\s*=\s*"(.+)"/) {
+      $gtk_icons = $1;
+    }
+    if(/gtk-font-name\s*=\s*"(.+)"/) {
+      $gtk_font = $1;
+    }
+  }
+  return($gtk_theme)   if($wanted eq 'theme');
+  return($gtk_icons)   if($wanted eq 'icons');
+  return($gtk_font)    if($wanted eq 'font');
+}
+
+sub get_disk_total {
+  my $wanted = shift;
+  if(!defined($wanted)) {
+    $wanted = 'size';
+  }
+  my $exclude;
+  foreach(@df_exclude) {
+    $exclude .= "-x $_ ";
+  }
+  my $df;
+  if($^O =~ /.*bsd$/) {
+    open($df, '-|', 'df -h -c') or warn($!);
+  }
+  elsif($^O eq 'cygwin') {
+    open($df, '-|', 'df '.$exclude.' -h --total /cygdrive/*') or warn($!);
+  }
+  else {
+    open($df, '-|', 'df '.$exclude.' -h --total') or warn($!);
+  }
+  my($size,$used,$avail,$percent);
+  while(<$df>) {
+    if(/^total\s+([0-9.,MGTP]+)\s+([0-9.,MGTP]+)\s+([0-9.,MGTP]+)\s+([0-9]+%)/) {
+      ($size,$used,$avail,$percent) = ($1,$2,$3,$4);
+      $percent =~ s/\%//;
+
+      if($percent >= 90) {
+        $percent = sprintf("%s%%", fg(188, $percent));
+      }
+      else {
+        $percent = sprintf("%s%%", fg(172, fg('bold', $percent)));
+      }
+
+      for(($size,$used,$avail)) {
+        #FIXME Make this a callable function
+        s/([A-Z])//;
+        my $notation = $1;
+        next if(!defined($notation));
+
+        if($notation eq 'M') {
+          $_ = sprintf("%s%s", $_, fg(45, $notation));
+        }
+        elsif($notation eq 'G') {
+          $_ = sprintf("%s%s", $_, fg(35, $notation));
+        }
+        elsif($notation eq 'T') {
+          $_ = sprintf("%s%s", $_, fg(71, $notation));
+        }
+      }
+    }
+  }
+  return($size)    if($wanted eq 'size');
+  return($used)    if($wanted eq 'used');
+  return($avail)   if($wanted eq 'avail');
+  return($percent) if($wanted eq 'percent');
+  return(-1);
+}
+
+sub get_mem {
+  my $wanted = shift;
+  my ($total,$free,$buffers,$cached) = undef;
+  if(!defined($wanted)) {
+    $wanted = 'free';
+  }
+  if($^O =~ /.*bsd$/) {
+    open(my $un, '-|', 'sysctl -a') or warn($!);
+    while(<$un>) {
+      if(/^hw.realmem:\s+([0-9]+)/) {
+        $total = to_mb($1/1024);
+      }
+      elsif(/^hw.usermem:\s+([0-9]+)/) {
+        $free = to_mb($1/1024);
+      }
+    }
+  }
+  else {
+    open(my $fh, '<', '/proc/meminfo') or warn($!);
+    while(<$fh>) {
+      if(/^MemTotal:\s+([0-9]+)\s+/) {
+        $total = to_mb($1);
+      }
+      elsif(/^MemFree:\s+([0-9]+)\s+/) {
+        $free = to_mb($1);
+      }
+      elsif(/^Buffers:\s+([0-9]+)\s+/) {
+        $buffers = to_mb($1);
+      }
+      elsif(/^Cached:\s+([0-9]+)/) {
+        $cached = to_mb($1);
+      }
+    }
+  }
+  my $avail = $free + ($buffers + $cached);
+  my $used  = $total - $avail;
+  return($avail) if($wanted eq 'avail');
+  return($used)  if($wanted eq 'used');
+  return($total) if($wanted eq 'total');
+}
+
+sub to_mb {
+  my $kb = shift;
+  return(sprintf("%d",$kb/1024));
+}
+
+sub get_uptime {
+  if(-e '/proc/uptime') {
+    return &get_uptime_procfs;
+  }
+  else {
+    return &get_uptime_uptime;
+  }
+}
+
+sub get_uptime_uptime {
+  my $wanted = shift;
+  if(!defined($wanted)) {
+    $wanted = 'days';
+  }
+  chomp(my $uptime = `uptime`);
+  #my $uptime = ' 20:27:42 up 14:52,  2 users,  load average: 0.07, 0.11';
+  $uptime =~ s/.+ up //;
+
+  my ($days,$mins) = split(/,/, $uptime, 3);
+  if($days =~ /min/) { # no days
+    $mins = $days;
+    $days = 0;
+  }
+
+  #FIXME
+  $days  =~ s/^\s+//;
+  $days =~ s/\s+\S+//; # remove 'days'
+  $mins  =~ s/^\s+//;  # really HH::MM
+
+
+  if($days =~ /:/) { # no days
+    $mins = $days;
+    $days = 0;
+  }
+
+  my ($hours) = $mins =~ m/(\d+):/;
+  $hours = 0 unless(defined($hours));
+
+  # NOTE needs more testing
+  if(defined($hours)) {
+    $mins =~ s/$hours://; # ugly
+  }
+
+  $mins =~ s/\smins//;
+
+  return($days)  if($wanted eq 'days');
+  return($hours) if($wanted eq 'hours');
+  return($mins)  if($wanted eq 'mins');
+}
+
+sub get_uptime_procfs {
+  my ($up, $idle);
+  open(FILE, '</proc/uptime');
+  while(<FILE>) {
+    chomp;
+    ($up, $idle) = split('\s');
+  }
+  close(FILE);
+  my $return = sprintf('%d days, %d hours, %d mins, %d secs',
+         int($up/(24*60*60)),
+         ($up/(60*60))%24,
+         ($up/60)%60,
+         ($up%60)
+  );
+
+  my $days  = int($up/(24*60*60));
+  my $hours = ($up/(60*60))%24;
+  my $mins  = ($up/60)%60;
+  my $secs  = $up%60;
+
+  my $wanted = shift;
+  if(!defined($wanted)) {
+    $wanted = 'days';
+  }
+
+  return($days)  if($wanted eq 'days');
+  return($hours) if($wanted eq 'hours');
+  return($mins)  if($wanted eq 'mins');
+}
+
+sub get_no_users {
+  my %users;
+
+  my $u = '';
+  if($^O eq 'cygwin') {
+    # Only XP Pro and later
+    chomp($u = `cmd /c wmic ComputerSystem Get UserName | grep -v UserName | head -1`);
+  }
+  else {
+    chomp($u = `users`);
+  }
+  map { $users{$_}++ } split(/ /, $u);
+
+  my @output;
+  for my $who(sort{ $users{$b} <=> $users{$a} } keys(%users)) {
+    push(@output, sprintf("%s (%s)",
+        ($who eq $ENV{USER})
+          ? fg('orange2', fg('bold', $who))
+          : $who
+          , fg('blue4', $users{$who}),
+        ));
+  }
+  return join(', ', @output);
+}
+
+sub get_shell {
+  my $shell = $ENV{SHELL};
+  return(-1) unless(defined($shell));
+  $shell =~ s;.+/(.+)$;$1;;
+  return($shell);
+}
+
+sub get_terminal { return($ENV{TERM}); }
+
+sub get_cpu {
+  my $cpu = undef;
+  if($^O =~ /.*bsd$/) {
+    chomp($cpu = `sysctl -a | grep hw.model`);
+    $cpu =~ s/^hw.model:\s//;
+    $cpu =~ s/\s{2,}/ /;
+  }
+  else {
+    chomp($cpu = `uname -p`);
+  }
+  if(!defined($cpu) or($cpu eq 'unknown')) { # ARMs seems to be 'unknown'
+    open(my $fh, '<', '/proc/cpuinfo') or die($!);
+    my @cpuinfo = <$fh>;
+    close($fh);
+
+    for(@cpuinfo) {
+      if(/^Processor\s+:\s+(.+)/ or /^model\sname\s+:\s+(.+)/) {
+        $cpu = $1;
+        last;
+      }
+    }
+  }
+  return($cpu);
+}
+
+sub print_out {
+  my $color = $default_colorscheme;
+  my $logo = $default_logo;
+
+  open(my $fh, '<', $logo) or return(["No logo found, tried '$logo': $!"]);
+  my @logo = <$fh>;
+  close($fh);
+
+  if(exists($colorschemes{$color})) {
+    $color = $colorschemes{$color};
+  }
+  else {
+    $color = $colorschemes{ansi};
+  }
+
+  @$color = shuffle(@$color) if($randomize_colors);
+
+  #FIXME
+  my $f = join('', @logo);
+  @logo = split(/\n/, $f);
+  #FIXME
+
+  return(\@logo);
+}
+
+sub colorme {
+  my @foo = @_;
+  my $f = join('', @foo);
+  my @data = split(//, $f);
+  my @toreturn;
+
+  my $colorizer = undef;
+  if(exists($colorschemes{$default_colorscheme})) {
+    $colorizer = $colorschemes{$default_colorscheme};
+  }
+  else {
+    $colorizer = $colorschemes{ansi};
+  }
+
+  @$colorizer = shuffle(@$colorizer) if($randomize_colors);
+
+  my $i = 0;
+  for(@data) {
+    if($i == scalar(@$colorizer)-1) {
+      $i = 0;
+    }
+    if($_ eq '') {
+      push(@toreturn, "$_");
+    }
+    else {
+      push(@toreturn, "\e[38;5;@$colorizer[$i]" . 'm' . $_ . "\e[0m");
+    }
+    $i++;
+  }
+  return(@toreturn);
+}
+
+sub get_wm {
+  my $active_wm = 'Unknown';
+  my %wm_list = (
+    ratpoison        => 'Ratpoison',
+    stumpwm          => 'StumpWM',
+    'stumpwm.bin'    => 'StumpWM',
+    dwm              => 'dwm',
+    wmii             => 'wmii',
+    i3               => 'i3',
+    openbox          => 'Openbox',
+    fluxbox          => 'Fluxbox',
+    blackbox         => 'Blackbox',
+    fvwm             => 'FVWM',
+    enlightenment    => 'Enlightenment',
+    icewm            => 'IceWM',
+    pekwm            => 'PekWM',
+    musca            => 'Musca',
+    wmaker           => 'WindowMaker',
+    metacity         => 'Metacity',
+    kwin             => 'Kwin',
+    xfwm4            => 'Xfwm4',
+    beryl            => 'beryl',
+    compiz           => 'Compiz',
+    'hildon-desktop' => 'Matchbox',
+    WMFS             => 'WMFS',
+    'xfce4-session'  => 'Xfce',
+    ksmserver        => 'KDE',
+    'gnome-session'  => 'GNOME',
+    sawfish          => 'Sawfish',
+    ion3             => 'Ion3',
+    notion           => 'Notion',
+    herbstluftwm     => 'Herbstluft',
+    monsterwm        => 'monsterwm',
+    'xmonad-x86_64-l' => 'Xmonad',
+    'xmonad-x86-l'   => 'Xmonad',
+
+    # NOTE Not sure of their processes
+    'xmonad'      => 'Xmonad', # uses .<arch> prefixes ?
+    'evil-wm'     => 'EvilWM',
+    'scrot-wm'    => 'ScrotWM',
+    tritium       => 'Tritium',
+    euclid        => 'Euclid',
+    echinus       => 'Echinus',
+    jwm           => 'JWM',
+    twm           => 'TWM',
+  );
+  my %rev_wm = reverse(%wm_list);
+
+  my $ps = undef;
+  if($^O =~ /.*bsd$/) {
+    open($ps, '-|', 'ps -A|awk \'{print $5}\'') or(warn($!)); # ugly
+  }
+  elsif($^O eq 'cygwin') {
+    open($ps, '-|', 'ps -a|awk \'{gsub(/\/.*\//,"",$8); print $8}\'') or(warn($!)); # _very_ ugly
+  }
+  else {
+    open($ps, '-|', 'ps -A|awk \'{print $4}\'') or(warn($!)); # ugly
+  }
+  chomp(my @processes = <$ps>);
+  close($ps);
+
+  for my $process(@processes) {
+    if(exists $wm_list{$process}) {
+      $active_wm = $wm_list{$process};
+      last;
+    }
+  }
+  return($active_wm);
+}
+
+sub get_os {
+  if(-e '/etc/arch-release') {
+    return("GNU/Linux (Arch Linux)");
+  }
+  elsif(-e '/usr/bin/crux') {
+    return("GNU/Linux (CRUX)");
+  }
+  elsif(-e '/etc/grml-version') {
+    open FILE, "</etc/grml-version";
+    chomp(my $line = <FILE>);
+    $line =~ s/\s\[[-0-9]+\]//;
+    close FILE;
+    return("GNU/Linux (${line})");
+  }
+  elsif(-e '/etc/debian_version') {
+    open FILE, "</etc/debian_version";
+    chomp(my $line = <FILE>);
+    close FILE;
+    return("GNU/Linux (Debian ${line})");
+  }
+  elsif(-e '/etc/sabayon-edition') {
+    open FILE, "</etc/sabayon-edition";
+    chomp(my $line= <FILE>);
+    $line=~ s/^.*?(\w+)[.!?]?\s*$/$1/;
+    close FILE;
+    return("GNU/Linux (Sabayon ${line})");
+  }
+  elsif(-e '/etc/gentoo-release') {
+    open FILE, "</etc/gentoo-release";
+    chomp(my $line = <FILE>);
+    close FILE;
+    return("GNU/Linux ($line)");
+  }
+  elsif($^O eq 'linux') {
+    return("GNU/Linux"); # be nice
+  }
+  elsif($^O eq 'freebsd') {
+    return("FreeBSD");
+  }
+  elsif($^O eq 'cygwin') {
+    my $ver = `echo \`cmd /c ver\``;
+    $ver =~ s/^.*\[Version (.*)\].*$/$1/;
+    my $win = '';
+    # Windows version numbering: major.minor.build
+    # where major.minor corresponds to the name of the OS, and build changes
+    # for different releases under the same name.
+    if($ver =~ /^4\.0\./)   { $win = 'NT 4.0'; }
+    elsif($ver =~ /^4\.00/) { $win = '95'; }
+    elsif($ver =~ /^4\.10/) { $win = '98'; }
+    elsif($ver =~ /^5\.0/)  { $win = '2000'; }
+    elsif($ver =~ /^5\.1/)  { $win = 'XP'; }
+    elsif($ver =~ /^5\.2/)  { $win = 'XP 64'; }
+    elsif($ver =~ /^6\.0/)  { $win = 'Vista'; }
+    elsif($ver =~ /^6\.1/)  { $win = '7'; }
+    elsif($ver =~ /^6\.2/)  { $win = '8'; }
+    return("Windows $win (Cygwin)");
+  }
+  else {
+    return("Unknown");
+  }
+}
+
+sub available_colorschemes {
+  print "$_\n" for(sort(keys(%colorschemes)));
+  exit(0);
+}
+
+my $output = print_out($default_colorscheme, $default_logo);
+my $long = longest(@$output);
+
+
+@$output[0] = sprintf(
+  "%-${long}s %12s: %s", @$output[0], 'OS',
+  ucfirst(get_os()),
+);
+
+@$output[1] = sprintf(
+  "%-${long}s %12s: %s", @$output[1], 'Kernel',
+  get_kernel(),
+);
+
+@$output[2] = sprintf(
+  "%-${long}s %12s: %s", @$output[2], 'WM',
+  ucfirst(get_wm()),
+);
+
+@$output[3] = sprintf(
+  "%-${long}s %12s: %s", @$output[3], 'Theme',
+  ucfirst(get_gtk_info()),
+);
+
+@$output[4] = sprintf(
+  "%-${long}s %12s: %s", @$output[4], 'Icons',
+  ucfirst(get_gtk_info('icons')),
+);
+
+@$output[5] = sprintf(
+  "%-${long}s %12s: %s", @$output[5], 'Font',
+  ucfirst(get_gtk_info('font')),
+);
+
+my $used   = get_disk_total('used');
+my $total  = get_disk_total('size');
+my $percent_full = get_disk_total('percent');
+$percent_full =~ s/\%//g;
+$percent_full = color_by_value($percent_full);
+
+@$output[7] = sprintf(
+  "%-${long}s %12s: %s/%s used (%s%%)", @$output[7], 'Disk',
+  $used,
+  $total,
+  $percent_full,
+);
+
+@$output[8] = sprintf(
+  "%-${long}s %12s: %s", @$output[8], 'Processes',
+  get_no_proc(),
+);
+
+@$output[9] = sprintf(
+  "%-${long}s %12s: %sM/%sM used", @$output[9], 'Memory',
+  fg(220, fg('bold', get_mem('used'))),
+  fg(244, fg('bold', get_mem('total'))),
+);
+
+@$output[10] = sprintf(
+  "%-${long}s %12s: %s days, %s hours and %s minutes", @$output[10], 'Uptime',
+  fg(196, fg('bold', get_uptime('days'))),
+  fg(178, get_uptime('hours')),
+  fg(100, get_uptime('mins')),
+);
+
+@$output[11] = sprintf(
+  "%-${long}s %12s: %s %s", @$output[11], 'Users',
+  get_no_users()
+);
+@$output[12] = sprintf(
+  "%-${long}s %12s: %s %s", @$output[12], 'Shell',
+  get_shell(),
+);
+@$output[13] = sprintf(
+  "%-${long}s %12s: %s %s", @$output[13], 'Terminal',
+  get_terminal(),
+);
+@$output[14] = sprintf(
+  "%-${long}s %12s: %s %s", @$output[14], 'CPU',
+  get_cpu,
+);
+
+my $hostname = sprintf(
+  "%-${long}s %32s@{[fg('bold', '@')]}%s",'',
+  fg(178, $ENV{USER}),
+  fg(240, fg('bold', `hostname`)),
+);
+
+print $hostname;
+
+for(@$output) {
+  # Ugliest hack ever... FIXME
+  # fsck, it works just fine. No one likes ws anyway
+  if(/(.+)\s+([A-Za-z]+: .+)/) {
+    print colorme($1), $2, "\n";
+  }
+  else {
+    print colorme($_),"\n";
+  }
+}
+if($opt_shot) {
+  #FIXME - scrot, import...
+  my($s, $m, $h, $d, $month, $y) = localtime(time());
+  $y += 1900;
+  $month = sprintf("%02d", $month+1);
+  $m     = sprintf("%02d", $m);
+  $s     = sprintf("%02d", $s);
+  system('scrot', "$y-$month-$d-$h$m$s-screenfo.png") == 0 or(warn($!));
+  exit(0);
+}
+
+sub color_by_value {
+  my $value = shift;
+
+  return fg('green15',  $value) if $value <= 10;
+  return fg('green17',  $value) if $value <= 15;
+  return fg('green19',  $value) if $value <= 20;
+  return fg('green21',  $value) if $value <= 25;
+  return fg('green23',  $value) if $value <= 30;
+
+  return fg('yellow8',  $value) if $value <= 35;
+  return fg('yellow9',  $value) if $value <= 40;
+  return fg('yellow10', $value) if $value <= 45;
+  return fg('yellow13', $value) if $value <= 50;
+  return fg('yellow15', $value) if $value <= 55;
+  return fg('yellow17', $value) if $value <= 60;
+
+  return fg('red5', $value) if $value <= 60;
+  return fg('red4', $value) if $value <= 65;
+  return fg('red3', $value) if $value <= 70;
+  return fg('red2', $value) if $value <= 85;
+  return fg('red1', $value) if $value <= 80;
+}
+
+
+
+=pod
+
+=head1 NAME
+
+  screenfo - screenshot information tool for nerds
+
+=head1 SYNOPSIS
+
+  screenfo [OPTION]...
+
+=head1 DESCRIPTION
+
+Everybody likes 'The monthly screenshot thread' where one is supposed to show
+off their latest setup.
+
+Nobody likes screenshots that look awesome, but where there's no information
+at all available.
+
+B<screenfo> outputs a load of system information, including the running window
+manager, GTK theme, icons, fonts, shell, terminal emulator, and much more,
+while taking the screenshot.
+
+=head1 OPTIONS
+
+  -c,   --color     specify colorscheme to use
+  -l,   --list      list available colorschemes
+  -a,   --ascii     specify ascii art to use
+  -r,   --random    randomize the colors
+  -s    --shot      take screenshot
+
+  -d,   --debug     run some tests and exit
+  -h,   --help      show help and exit
+  -m,   --man       show the manpage and exit
+  -v,   --version   show version info and exit
+
+=head1 ENVIRONMENT
+
+The configuration file is searched for in the following places:
+
+    $XDG_CONFIG_HOME/screenfo/screenfo.conf
+    $HOME/.config/screenfo/screenfo.conf
+    $HOME/.screenfo.conf
+    $HOME/screenfo.conf
+    ./screenfo.conf
+    /etc/screenfo.conf
+
+The files in the ascii/ directory is searched for in in the following places:
+
+    $XDG_DATA_HOME/screenfo/ascii
+    $HOME/.local/share/screenfo/ascii
+    $HOME/.screenfo/ascii
+    ./ascii
+    /usr/share/screenfo/ascii
+
+=head1 REQUIREMENTS
+
+Perl => 5.10
+
+Term::ExtendedColor, available from CPAN:
+
+  cpan Term::ExtendedColor
+
+or github: L<http://github.com/trapd00r/Term-ExtendedColor>
+
+Some standard UNIX tools
+
+scrot for taking the actual screenshot
+
+=head1 AUTHOR
+
+Written by Magnus Woldrich
+
+=head1 REPORTING BUGS
+
+Report bugs to trapd00r\@trapd00r.se or use the issue tracker located at
+<http://github.com/trapd00r/screenfo/issues>
+
+screenfo homepage: <http://github.com/trapd00r/screenfo>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 Magnus Woldrich
+
+License: GPLv2
+
+=head1 HISTORY
+
+Lets quote the Arch Linux user B<dtw> from a post on the BBS, late 2006:
+
+    OK, all the time in the screenshots thread we get "What gtk theme is that?",
+    "What is that in the corner?", blah blah blah.
+    Now, while we try to encourage people to post that with their screenie why
+    don't we make a simple script that grabs info from from the gtkrc's, .xinitrc,
+    etc, and outputs into a nice cowsay-like soundbite?
+
+Couple days later, user B<rab> made the first Perl version simply named
+'info.pl'. There were a lot of people in the community helping out,
+making it better, bigger, more complicated and virtually unmaintainable since
+absolutely no modularization or subroutines were used.
+
+People realized this and started to make their own versions in Bash and Python.
+
+My intent was to fork the original project, clean it up and make it
+maintainable, but that was no fun. Therefore, B<screenfo> was born.
+
+=head1 THANKS
+
+I'd like to thank the Archlinux community for being awesome, B<kittykatt> for
+providing some ASCII art that I stole without asking, and B<slush-> for coming up
+with this awesome name.
+
+=head1 SEE ALSO
+
+The original post: <https://bbs.archlinux.org/viewtopic.php?id=24208&p=10>
+
+=cut
+
+# vim: set et sw=2 ts=2 sts=2:

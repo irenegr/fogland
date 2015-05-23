@@ -269,7 +269,7 @@ sub get_gtk_info {
     $wanted = 'theme';
   }
   my ($gtk_theme,$gtk_font,$gtk_icons,$gtk_toolbar) =
-    (fg(242,'tint2')) x 4;
+    (fg(242,'Unknown')) x 4;
 
   my $gtk_rc = "$ENV{HOME}/.gtkrc.mine";
   if(-f $gtk_rc) {
@@ -633,6 +633,7 @@ sub get_wm {
     'gnome-session'  => 'GNOME',
     sawfish          => 'Sawfish',
     ion3             => 'Ion3',
+    notion           => 'Notion',
     herbstluftwm     => 'Herbstluft',
     monsterwm        => 'monsterwm',
     'xmonad-x86_64-l' => 'Xmonad',
@@ -826,6 +827,11 @@ $percent_full = color_by_value($percent_full);
   "%-${long}s %12s: %s %s", @$output[14], 'CPU',
   get_cpu,
 );
+@$output[15] = sprintf(
+  "%-${long}s %12s: %s %s", @$output[15],'Music',
+  $now_playing->(),
+);
+
 my $hostname = sprintf(
   "%-${long}s %32s@{[fg('bold', '@')]}%s",'',
   fg(178, $ENV{USER}),

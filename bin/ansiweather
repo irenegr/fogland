@@ -58,7 +58,7 @@ symbols=$(get_config "symbols" || echo true)
 
 #### [ Colors and characters ]#################################################
 
-background=$(get_config "background" || echo "\033[44m")
+background=$(get_config "background" || echo "\033[40m")
 text=$(get_config "text" || echo "\033[36;1m")
 data=$(get_config "data" || echo "\033[33;1m")
 delimiter=$(get_config "delimiter" || echo "\033[35m=>")

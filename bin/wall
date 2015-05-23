@@ -1,0 +1,30 @@
+#!/bin/bash 
+# $ sudo pacman -S imagemagick
+# $ sudo ln -s /path/to/wallpaper.sh /etc/cron.hourly/wallpaper
+
+ID=fog
+RES1="1366x768^"
+RES2="1920x1080^"
+D="/home/fog/.wallie/"
+FN="/tmp/wallpaper.jpg"
+
+# randomly pick up two images as wallpaper
+#N="`/bin/ls -1 \"$D\" | wc -l`"
+FN1="/home/fog/.wallie/1.jpg"
+FN2="/home/fog/.wallie/2.jpg"
+
+# resize 2 images to fit two resolutions, then append to big wallpaper
+convert \
+    \( -resize ${RES1} "${FN1}" -gravity north -extent "${RES1}" \) \
+    \( -resize ${RES2} "${FN2}" -gravity north -extent "${RES2}" \) \
+    +append "${FN}"
+
+EXEC="su -l ${ID} -c 'pcmanfm --display=:0 --set-wallpaper \"${FN}\"'"
+eval $EXEC
+
+### optional: run at to slideshow
+### $ sudo pacman -S at
+# M=5   # change wallpaper per M minutes
+# if [ -z "`atq | grep \"a ${ID}\"`"     ] ; then
+#    echo $0 | at now+${M}minutes
+# fi

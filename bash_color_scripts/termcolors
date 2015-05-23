@@ -24,10 +24,8 @@ initializeANSI
 
 cat << EOF
 
-              ${boldon}${blackf}|              |              |              |              |${reset}
-  ${redf}██████${reset}  ${boldon}${redf}██${reset}  ${boldon}${blackf}|${reset}  ${greenf}██████${reset}  ${boldon}${greenf}██${reset}  ${boldon}${blackf}|${reset}  ${yellowf}██████${reset}  ${boldon}${yellowf}██${reset}  ${boldon}${blackf}|${reset}  ${bluef}██████${reset}  ${boldon}${bluef}██${reset}  ${boldon}${blackf}|${reset}  ${purplef}██████${reset}  ${boldon}${purplef}██${reset}  ${boldon}${blackf}|${reset}  ${cyanf}██████${reset}  ${boldon}${cyanf}██${reset} 
-  ${redf}██${reset}      ${boldon}${redf}██${reset}  ${boldon}${blackf}|${reset}  ${greenf}██${reset}      ${boldon}${greenf}██${reset}  ${boldon}${blackf}|${reset}  ${yellowf}██${reset}      ${boldon}${yellowf}██${reset}  ${boldon}${blackf}|${reset}  ${bluef}██${reset}      ${boldon}${bluef}██${reset}  ${boldon}${blackf}|${reset}  ${purplef}██${reset}      ${boldon}${purplef}██${reset}  ${boldon}${blackf}|${reset}  ${cyanf}██${reset}      ${boldon}${cyanf}██${reset}  
-  ${redf}██ ${reset} ${boldon}${redf}██████${reset}  ${boldon}${blackf}|${reset}  ${greenf}██ ${reset} ${boldon}${greenf}██████${reset}  ${boldon}${blackf}|${reset}  ${yellowf}██ ${reset} ${boldon}${yellowf}██████${reset}  ${boldon}${blackf}|${reset}  ${bluef}██ ${reset} ${boldon}${bluef}██████${reset}  ${boldon}${blackf}|${reset}  ${purplef}██ ${reset} ${boldon}${purplef}██████${reset}  ${boldon}${blackf}|${reset}  ${cyanf}██ ${reset} ${boldon}${cyanf}██████${reset}  
-              ${boldon}${blackf}|              |              |              |              |${reset}
+  ${redf}██████${reset}  ${boldon}${redf}██${reset}     ${greenf}██████${reset}  ${boldon}${greenf}██${reset}     ${yellowf}██████${reset}  ${boldon}${yellowf}██${reset}     ${bluef}██████${reset}  ${boldon}${bluef}██${reset}     ${purplef}██████${reset}  ${boldon}${purplef}██${reset}     ${cyanf}██████${reset}  ${boldon}${cyanf}██${reset} 
+  ${redf}██${reset}      ${boldon}${redf}██${reset}     ${greenf}██${reset}      ${boldon}${greenf}██${reset}     ${yellowf}██${reset}      ${boldon}${yellowf}██${reset}     ${bluef}██${reset}      ${boldon}${bluef}██${reset}     ${purplef}██${reset}      ${boldon}${purplef}██${reset}     ${cyanf}██${reset}      ${boldon}${cyanf}██${reset}  
+  ${redf}██ ${reset} ${boldon}${redf}██████${reset}     ${greenf}██ ${reset} ${boldon}${greenf}██████${reset}     ${yellowf}██ ${reset} ${boldon}${yellowf}██████${reset}     ${bluef}██ ${reset} ${boldon}${bluef}██████${reset}     ${purplef}██ ${reset} ${boldon}${purplef}██████${reset}     ${cyanf}██ ${reset} ${boldon}${cyanf}██████${reset}  
 
 EOF

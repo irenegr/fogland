@@ -1,7 +1,0 @@
-#!/bin/bash
-echo -e 'front   \E[30m 30    \E[31m31  \E[32m32    \E[33m33     \E[34m34   \E[35m35      \E[36m36   \E[37m37'
-echo -e '        \E[30m black \E[31mred \E[32mgreen \E[33myellow \E[34mblue \E[35mmagenta \E[36mcyan \E[37mwhite'
-echo -e 'back    \E[40m 40    \E[41m41  \E[42m42    \E[43m43     \E[44m44   \E[45m45      \E[46m46   \E[47m47   \e[0m'
-echo -e '        \E[40m black \E[41mred \E[42mgreen \E[43myellow \E[44mblue \E[45mmagenta \E[46mcyan \E[47mwhite\e[0m'
-
-exit
