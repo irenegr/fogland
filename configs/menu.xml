@@ -78,7 +78,7 @@
 		</menu>
 		<menu execute="/home/fog/.config/openbox/scripts/info.sh" id="pipe-27448" label="infos"/>
 		<separator/>
-		<menu execute="/home/fog/.config/openbox/scripts/places.sh --recent ~/" id="pipe-76386" label="Places"/>
+		<menu execute="/home/fog/.config/openbox/scripts/places.sh ~/" id="pipe-76386" label="Places"/>
 		<menu id="client-list-menu" label="desktop">
 			<item label="New Item">
 				<action name="Execute">
