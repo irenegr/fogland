@@ -25,7 +25,7 @@
 # make sure you have cb-recent-files-pipemenu somewhere, and enter its path below.
 
 # path to your "recent files" script, if you want to incorporate it:
-recent_script=/usr/bin/cb-recent-files-pipemenu
+recent_script=/home/fog/.config/openbox/scripts/recent.sh
 
 # Command to open folders at "Browse here..." - any file manager
 open_folder_cmd=nemo
