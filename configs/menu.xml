@@ -26,6 +26,11 @@
 				<execute>gksu nemo</execute>
 			</action>
 		</item>
+		<item label="vbox">
+			<action name="Execute">
+				<execute>virtualbox</execute>
+			</action>
+		</item>
 		<item label="apt">
 			<action name="Execute">
 				<execute>gksu synaptic</execute>
@@ -77,6 +82,7 @@
 			</item>
 		</menu>
 		<menu execute="/home/fog/.config/openbox/scripts/info.sh" id="pipe-27448" label="infos"/>
+		<menu execute="/home/fog/.config/openbox/scripts/processes.sh" id="pipe-961922" label="procs"/>
 		<separator/>
 		<menu execute="/home/fog/.config/openbox/scripts/places.sh --recent ~/" id="pipe-76386" label="Places"/>
 		<menu id="client-list-menu" label="desktop">
