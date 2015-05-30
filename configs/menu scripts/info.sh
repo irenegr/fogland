@@ -92,7 +92,7 @@ DateDate=$(date '+Date: %a %d/%m/%Y ')
 echo "<separator label = \"Date ~ Time\"/>"
 echo "<item label=\"$DateDate\"/>"
 echo "<item label=\"$DateTime\"/>"
-echo "<item label=\"  Up ~$UpTime\"/>"
+echo "<item label=\"Uptime ~$UpTime\"/>"
 
 echo "</openbox_pipe_menu>"
 
