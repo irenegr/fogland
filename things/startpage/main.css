@@ -1,0 +1,59 @@
+/* Startpage  Css */
+html,
+body,
+h1,
+ul,
+li {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #F5F6F7;
+	height: 100vh;
+	width: 100vw;
+}
+
+main {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-90%);
+}
+
+h1 {
+	color: #2F343F;
+	font-family: Pragmata;
+	font-size: 3em;
+}
+
+ul {
+	display: block;
+	margin: 0 auto;
+}
+
+li {
+	display: inline-block;
+	font-family: Pragmata;
+	font-size: 1em;
+	line-height: 1.5;
+	list-style: none;
+	margin: 0 5px;
+}
+
+.subh {
+	color: #532224;
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+a {
+	color: #2F343F;
+	text-decoration: none;
+	transition: .2s;
+}
+
+a:hover {
+	color: #532224;
+}
