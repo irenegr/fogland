@@ -1,4 +1,13 @@
 #!/bin/bash
-wget -qO - wttr.in/Athens &
+weather() {
+     if [ ! -z $1 ]
+     then
+         curl -4 http://wttr.in/$1
+     else
+         curl -4 http://wttr.in/Athens
+     fi
+  
+}
+weather $1
 exit
 
