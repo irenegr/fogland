@@ -1,0 +1,12 @@
+#                                                                                                                                                                                                                                                                               
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+color=$(shuf -i 1-231 -n 1)
+color2=252
+
+color_prompt=yes
+
+export PS1='\[\033[38;5;'$color2'm\]\u\[\033[38;5;'$color'm\][at]\[\033[38;5;'$color2'm\]\h \[\033[38;5;'$color'm\]\w \[\033[38;5;'$color2'm\]฿\[\033[38;5;'$color'm\] '
