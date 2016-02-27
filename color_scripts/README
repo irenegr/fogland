@@ -1,0 +1,100 @@
+                               __                           
+                              /\ \      __                  
+  ___ ___      __   __  __  __\ \ \____/\_\     __    ____  
+/' __` __`\  /'__`\/\ \/\ \/\ \\ \ '__`\/\ \  /'__`\ /',__\ 
+/\ \/\ \/\ \/\  __/\ \ \_/ \_/ \\ \ \L\ \ \ \/\  __//\__, `\
+\ \_\ \_\ \_\ \____\\ \___x___/' \ \_,__/\ \_\ \____\/\____/
+ \/_/\/_/\/_/\/____/ \/__//__/    \/___/  \/_/\/____/\/___/ 
+
+
+                                                            
+DESCRIPTION:
+color_scripts.tar.gz 06 June 2013 http://mewbies.com for
+http://mewbies.com/acute_terminal_fun_08_get_colorized_on_the_terminal.htm#color_scripts
+
+Enclosed is a collection of fourty-five color scripts by various authors
+to demonstrate your terminal's colors' capabilities. You run the script,
+it outputs the colors in the style stated within the script/program, that's 
+it. 
+
+USAGE:
+tar xvfz color_scripts.tar.gz && cd color_scripts && chmod 755 * && ls
+The files in 'color_scripts' output with color console codes.
+The files in 'patterns' output with patterns only.
+Then run the script: ./scriptname
+colortest.sh run with -w to fit window better: ./colortest.sh -w
+
+LOCATION I FOUND EACH SCRIPT:
+'color_scripts' :
+https://gist.github.com/hSATAC/1095100 :
+256color.pl (v 1.2 2002 perl required)
+
+https://github.com/alvatar/code-ttrs/tree/master/perl :
+256colors2.pl (v1.1 1999 perl required)
+
+https://github.com/dgquintas/my-code-samples/tree/master/shell :
+ansicolors.sh <- blinking
+
+http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html :
+colors.sh
+colors2.sh (I modified text to blocks)
+
+https://github.com/lanej/dotfiles/tree/master/util :
+colortable16.sh
+
+http://www.vim.org/scripts/script.php?script_id=1349 :
+colortest.sh -w  (xterm-256-color)
+
+https://bitbucket.org/jasonwryan/workstation/src/b23fce1198d3/scripts : 
+colours.sh
+colortheme.sh
+colortheme2.sh (I modified to larger color blocks)
+
+http://mewbies.com/how_to_customize_your_console_login_message_tutorial.htm :
+mewbies_colors.sh
+
+
+'patterns' :
+https://github.com/vosh/scripts :
+ansidna.sh
+ansirallyx.sh
+ansiskull.sh (only blue)
+ansislendy.sh
+
+https://github.com/Vayn/git-dotfile/tree/master/scripts/bash/ansicolor :
+ansibar.sh
+ansiblocks.sh
+ansicolor.sh
+ansidarthvader.sh
+ansijangofett.sh
+ansiline.sh
+ansipacman.sh
+ansirobot.sh
+ansislot.sh
+ansistarwar.sh
+ansiswirl.sh
+ansitank.sh
+ansitie.sh
+ansitie2.sh
+ansitux.sh
+
+http://crunchbanglinux.org/forums/topic/13645/ansi-colorschemes-scripts/ :
+ansia.sh
+ansiblocks2.sh
+ansiboom.sh
+ansicolorwheel.sh
+ansicougar.sh
+ansidots.sh
+ansighosts.sh
+ansiguns.sh
+ansihash.sh
+ansihash2.sh
+ansihashsmall.sh
+ansimouse.sh
+ansithebat.sh (only yellow)
+ansithevdude.sh
+ansitemplate.sh : I made using pfh's script. Paste in design with correct
+                  color codes after 'cat << EOF' and before 'EOF'.
+
+'mewbies' ASCII art top of file created using figlet 'larry 3d'.
+http://www.figlet.org
