@@ -1,0 +1,50 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+
+conky.config = {
+	alignment = 'middle_right',
+	background = false,
+	cpu_avg_samples = 2,
+	default_color = 'FFFFFF',
+	default_bar_height = 9,
+	default_bar_width = 205,
+	draw_borders = false,
+	draw_outline = false,
+	draw_shades = false,
+	use_xft = true,
+	font = 'Roboto Light:size=21',
+	gap_x = 0,
+	gap_y = 0,
+	minimum_height = 472,
+	minimum_width = 395,
+	maximum_width = 395,
+	double_buffer = true,
+	out_to_console = false,
+	out_to_stderr = false,
+	own_window = true,
+	own_window_transparent = true,
+	--own_window_colour = '333333',
+	--own_window_argb_visual = true,
+	--own_window_argb_value = 63,
+	own_window_class = 'normal',
+	own_window_type = 'dock',
+	own_window_hints = 'undecorated,skip_taskbar,skip_pager,below',
+	update_interval = 1,
+	--mpd_host = 'localhost',
+	--mpd_port = 6600,
+	color1 = '9E9E9E',
+	color2 = '333333',
+	color3 = '4CAF50',
+	color4 = 'E6E6E6',
+ 	}
+
+conky.text = [[ 
+$alignc${offset 12}${voffset 72}${time %H:%M}
+$alignr${offset -171}${voffset 25}${font Roboto:size=11}${color1}${mem}/${memmax}
+${color3}${offset 16}${membar}${offset -205}$color4${execibar 3599 echo 0}
+${offset 235}${voffset -43}${font Roboto Light:size=31}${color2}${memperc}%
+${alignr}${offset -310}${voffset 25}${font Roboto:size=11}${color1}${freq} MHz
+${offset 95}${voffset -25}${font Roboto Light:size=25}${color2}${cpu}%
+${alignr}${offset -310}${voffset 30}${font Roboto:size=11}${color1}TEMP
+${offset 94}${voffset -25}${font Roboto Light:size=25}${color2}${acpitemp}°
+${image ~/.conky/conkyrc-background.png -s 395x472}
+]]
