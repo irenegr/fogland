@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+source ~/.local/bin/colors
+
+DISTRO=`(lsb_release -ds | cut -b 1-12)` 
+VERSION=`(lsb_release -rs)`
+KERNEL_RELEASE=`uname -r`
+PKGNUM=`(dpkg -l | wc -l)`
+UPTIME=`uptime -p | sed 's/up //'`
+
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='DE:'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='DE:'
+		WM="${DESKTOP_SESSION}"
+	elif [ -f "${HOME}/.xinitrc" ]; then
+		envtype='WM:'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM:'
+fi
+
+cat << EOF
+
+${c01}    .--.---.
+${c01}   ( \\'--'/ )           ${c12}$USER${c06}   @${c05}$HOSTNAME
+${c01}  ( '..-...' )       ${c12}distro   ${c05}$DISTRO $VERSION
+${c01}   '.'-._.'.'        ${c12}uptime   ${c05}$UPTIME
+${c06}    <'-.,.->         ${c12}kernel   ${c05}$KERNEL_RELEASE
+${c06}       \`\\(            ${c12}wmngr   ${c05}${WM} 
+${c06}       < \\ /\\         ${c12}shell   ${c05}$SHELL
+${c06}       __ \\|/          ${c12}pkgs   ${c05}$PKGNUM
+${c06}           \\${c07}
+
+EOF
