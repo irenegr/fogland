@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#ubuntucentric (Disco) config
 source ~/.local/bin/colors
 
 DISTRO=`(lsb_release -ds | cut -b 1-12)` 
