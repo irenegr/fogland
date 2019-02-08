@@ -1,0 +1,90 @@
+f=3 b=4
+for j in f b; do
+  for i in {0..7}; do
+    printf -v $j$i %b "\e[${!j}${i}m"
+  done
+done
+d=$'\e[1m'
+t=$'\e[0m'
+v=$'\e[7m'
+
+
+# Time and date
+time=$( date "+%H.%M")
+date=$( date "+%a %d %b" )
+
+# OS
+OS=$(uname -r | cut -d "-" -f1)
+dist=$(cat /etc/*-release | grep -i name | cut -d'=' -d'"' -f2| sed -n 2p)
+bit=$(uname -m)
+
+# WM version
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='DE:'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='DE:'
+		WM="${DESKTOP_SESSION}"
+	elif [ -f "${HOME}/.xinitrc" ]; then
+		envtype='WM:'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM:'
+fi
+
+# Other
+UPT=`uptime | awk -F'( |,)' '{print $2}' | awk -F ":" '{print $1}'`
+uptime=$(uptime | sed 's/.*up \([^,]*\), .*/\1/')
+uptime2=$(uptime | sed -nr 's/.*\s+([[:digit:]]{1,2}):[[:digit:]]{2},.*/\1/p')
+
+pac=$(dpkg -l | wc -l)
+COUNT=$(cat /proc/cpuinfo | grep 'model name' | sed -e 's/.*: //' | wc -l)
+cpu=$(lscpu | grep 'Model name' | awk -F ':' '{print $2}' | cut -c29-51)
+lap1=$(cat /sys/class/dmi/id/sys_vendor)
+lap2=$(cat /sys/class/dmi/id/product_name)
+vga=$(lspci | grep -i nvidia | cut -c51-66)
+memkb=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+ram=$(expr $memkb / 1024)
+
+cat << EOF
+$f7$d                                                                                                                                   
+$f7                            .      'o;       .                                                                                     
+$f7                          ;Nd   'dNMMo   'oKMd                            .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM             
+$f7                         oMMX.oXMMMMMOl0WMMMMd  ..,:cl.                  MM                                           MM           
+$f7                        dMMMMMMMMMMMMMMMMMMMMNKWMMMMMMd                 MM                                             MM          
+$f7           .,:ldkO0KXXXXMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX                 MM    MMMMM   MM MMMMMM .dOkc  MM  MM          MM          
+$f7     .;oONMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                MM    0M  MM  MM   MM   KX  Ml MM  MM          MM          
+$f7     kMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM'                MM    MMmmW.  MM   MM   X0     MM  MM          MM          
+$f7     .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM;                MM    MMMMMM  MM   MM   X0     MKMMMM          MM          
+$f7      kMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                MM    MM  WN  MM   MM   KK  Ml Mk  MM          MM          
+$f7       NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM0                MM    MMMMM'  MM   MM   '0XXx' Xd  XM  M  M    MM          
+$f7       'WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMx               MM                                             MM          
+$f7        :MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:              cK;                                           MM          
+$f7         oMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW.              .OW.   .:MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM            
+$f7          dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd              x0..ckOo,                                                 
+$f7           oMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMk KW            'XNkko'            $f6 $USER $f7@ $f1$HOSTNAME
+$f7            oMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMk kM;          .Ol'                $H $f4$time$NC - $f7$date
+$f7             :WMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMXMMNx.                                                                    
+$f7              :MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWMMMMMMMMMMMMMM0.                                                                    
+$f7              .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  MMMMMMMM' OMMMOl         OS »$f4 $OS$NC $bit
+$f7               NMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  MMMMMMMMKxMM0X:         $f7 WM »$f4 ${WM}  
+$f7               .NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW;             
+$f7                KMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO.              Theme » TG4 
+$f7               kMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM0,                Icon  » Suru++ 
+$f7              cMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNk;.                  Font  » Sansation » Hack
+$f7              c;'.dMMMMMMMMMMMMMMMMMMMMMMMM$t$f1 KKK0kxd             $d$f7        
+$f7                  OMMMMMMMMMMMMMMMMXdlc;'.  $t$f1 :ddxx,             $d$f7        $dist with $f2$ram$f7 MB Memory  
+$f7                  WMM"'   NMMMMMMk'            $t$f1 lxx.            $d$f7        packages » $f2$pac$f7
+$f7                  W       ,MMMM0.              $t$f1 .xxo            $d$f7        
+$f7                           :MN;                $t$f1  ;xx;           $d$f7        
+$f7                            '.                 $t$f1   dxx.          $d$f7        $lap1 $lap2
+$f7                                               $t$f1   'xxx.         $d$f7        $cpu
+$f7                                               $t$f1    dxxxc.       $d$f7        $vga
+$f7          "..you still can go                  $t$f1    .xxxxxo'     $d$f7        
+$f7           fuck yourself.."                    $t$f1     ,xxxxxxxl.  $d$f7        
+$f7                       the$f1 cat$f7                 $t$f1      cxxxxxxxd  $d$f7        
+$f7                                               $t$f1       :cloodxx' $d$f7        
+$f7                                                                        
+EOF
