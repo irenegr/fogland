@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Nordic fog
+Comment=Darker theme based on Nordic theme.
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Nordic fog
+MetacityTheme=Nordic fog
+IconTheme=Zafiro-icons
+ButtonLayout=:minimize,maximize,close
