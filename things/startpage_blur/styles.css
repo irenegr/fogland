@@ -1,0 +1,159 @@
+.background-image {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    left: 0;
+    right: 0;
+    z-index: 1;
+  
+    display: block;
+    background-image: url("dragon.jpg");
+    background-size:cover;
+    
+    /* blur */
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    /* blur */
+    
+  }
+  
+  .content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+html {
+  overflow:   scroll;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    position: absolute;
+    top: 170px;
+    flex-direction: column;
+}
+
+#clock {
+    font-family: Sansation;
+    font-size: 50pt;
+    font-weight: 400;
+    font-family: Sansation;
+    color: #BF616A;
+    margin-bottom: .25em;
+}
+
+#search {
+    width: 100%;
+    height: 100%;
+    background-color: #282A36;
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-field {
+    width: 90%;
+    padding: .75em 1em;
+    box-sizing: border-box;
+    background-color: #282A36;
+    border: solid 0px #282A36;
+    font-family: Sansation;
+    font-size: 15pt;
+    color: #FDFDFD;
+    outline: none;
+    border-radius: 6px;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.welcome-container {
+    width: 30%;
+    background-color: #282A36;
+    opacity: 0.9;
+    padding: 1em;
+    border-radius: 6px;
+    font-family: Sansation;
+    font-size: 13pt;
+    font-weight: 500;
+    color: #FDFDFD;
+    text-align: center;
+}
+.inline {
+    display: inline-block;
+}
+
+.bookmark-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 55%;
+    margin: 1em 0em;
+}
+
+@media only screen and (max-width: 960px) {
+    .container {
+        height: auto;
+    }
+    #clock {
+        margin-top: 1em;
+    }
+    .container > .bookmark-container {
+        flex-direction: column;
+        width: 60%;
+    }
+    .bookmark-container > .bookmark-set {
+        width: auto;
+        margin: 1em 0em;
+    }
+}
+
+.bookmark-set{
+    padding: 1em;
+    background-color: #282A36;
+    color: #BEBEC1;
+    opacity: 0.9;
+    border-radius: 9px;
+    font-family: Sansation;
+    font-size: 12pt;
+    width: 25%;
+    height: 13em;
+    margin: 0em .5em;
+}
+.bookmark-inner-container {
+    overflow-y: hidden;
+    height: 80%;
+    vertical-align: top;
+}
+.bookmark-title {
+    font-size: 13pt;
+    font-weight: 500;
+    color: #BF616A;
+    margin: 0em 0em .35em 0em;
+}
+.bookmark {
+    text-decoration: none;
+    color: #BEBEC1;
+    display:block;
+    margin: .5em 0em;
+}
+.bookmark:hover {
+    color: #FDFDFD;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="favicon.png" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="content">
+
+    <div id="search">
+        <input id="search-field" type="text" name="search-field" onkeypress="return search(event)"/>
+    </div>
+    <div class="container">
+        <div id="clock"></div>
+        <div class="welcome-container">
+            <div class="row">
+                <div id="welcome-description"class="inline"></div>
+                <div class="inline"> This, fog, is the Internet</div>
+                <div id="temp" class="inline"></div>
+            </div>
+        </div>
+        <div class="bookmark-container">
+            <div class="bookmark-set">
+                <div class="bookmark-title">Netizen</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="http://irenegr.wordpress.com/" target="_blank">blog</a>
+                    <a class="bookmark" href="http://fogbox.ishoutbox.com/" target="_blank">sbox</a>
+                    <a class="bookmark" href="https://github.com/irenegr" target="_blank">github</a>
+                    <a class="bookmark" href="https://discordapp.com/" target="_blank">discord</a>
+                    <a class="bookmark" href="https://xiaomi-miui.gr/community/index.php/BoardList/" target="_blank">forum</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+            <div class="bookmark-title">Timeout</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="http://gamatotv.me/" target="_blank">movies</a>
+                    <a class="bookmark" href="https://greekdocumentaries2.blogspot.com" target="_blank">cosmos</a>
+                    <a class="bookmark" href="https://www.nexusmods.com/stardewvalley" target="_blank">nexus</a>
+                    <a class="bookmark" href="http://9gag.com/" target="_blank">9gag</a>
+                    <a class="bookmark" href="https://www.facebook.com/?ref=logo" target="_blank">fbook</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Candies</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://reddit.com/r/unixporn" target="_blank">unixporn</a>
+                    <a class="bookmark" href="https://www.reddit.com/r/linux/" target="_blank">r/linux</a>
+                    <a class="bookmark" href="https://www.skroutz.gr/" target="_blank">skroutz</a>
+                    <a class="bookmark" href="https://www.opendesktop.org/s/Gnome/browse/cat/135/ord/latest/" target="_blank">look</a>
+                    <a class="bookmark" href="https://forum.xda-developers.com/redmi-note-3/development" target="_blank">kenzo</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get current time and format
+        function getTime() {
+            let date = new Date(),
+                min = date.getMinutes(),
+                sec = date.getSeconds(),
+                hour = date.getHours();
+
+            return "" + 
+                (hour < 10 ? ("0" + hour) : hour) + ":" + 
+                (min < 10 ? ("0" + min) : min) + ":" + 
+                (sec < 10 ? ("0" + sec) : sec);
+        }
+
+        window.onload = () => {
+            // Set up the clock
+            document.getElementById("clock").innerHTML = getTime();
+            // Set clock interval to tick clock
+            setInterval( () => {
+                document.getElementById("clock").innerHTML = getTime();
+            },100);
+        }
+    </script>
+</body>
+</html>
