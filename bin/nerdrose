@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#Requires Nerd Fonts to display the icons
+#Requires colors (in repo)
+#by fog
+source ~/.local/bin/colors
+
+
+h=$'\uf004'
+DISTRO=`(lsb_release -ds | cut -b 1-12)` 
+k=$'\uf425'
+VERSION=`(lsb_release -rs)`
+KERNEL_RELEASE=`uname -r | cut -b 1-9`
+p=$'\uf8d3'
+PKGNUM=`(dpkg -l | wc -l)`
+u=$'\uf017'
+UPTIME=`uptime -p | sed 's/up //'`
+sh=$'\ue780'
+w=$'\uf1eb'
+WIFINAME="$(iwgetid | cut -d \" -f2)"
+wm=$'\uf2d2'
+WM="$(xprop -id $(xprop -root -notype | awk '$1=="_NET_SUPPORTING_WM_CHECK:"{print $5}') -notype -f _NET_WM_NAME 8t | grep "WM_NAME" | cut -f2 -d \")"
+r=$'\uf878'
+RESOLUTION="$(xwininfo -root | grep geometry | awk '{print $2}' | cut -d + -f1)"
+
+tput clear
+cat << EOF
+
+${c01}    .--.---.            ${c01}$USER${c06}   @${c06}$HOSTNAME
+${c01}   ( \\'--'/ )            ${c01}$h    ${c07}$DISTRO $VERSION
+${c01}  ( '..-...' )           ${c06}$u    ${c07}$UPTIME 
+${c01}   '.'-._.'.'            ${c05}$k    ${c07}$KERNEL_RELEASE
+${c10}    <'-.,.->             ${c04}$wm    ${c07}$WM
+${c10}       \`\\(               ${c03}$r   ${c07} $RESOLUTION    
+${c10}       < \\ /\\            ${c01}$sh    ${c07}$(basename $SHELL)
+${c10}       __ \\|/            ${c02}$p    ${c07}$PKGNUM
+${c10}           \\${c07}             ${c05}$w    ${c07}$WIFINAME
+
+EOF

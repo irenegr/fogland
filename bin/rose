@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-#ubuntucentric (Disco) config
 source ~/.local/bin/colors
 
 DISTRO=`(lsb_release -ds | cut -b 1-12)` 
 VERSION=`(lsb_release -rs)`
-KERNEL_RELEASE=`uname -r`
+KERNEL_RELEASE=`uname -r | cut -b 1-9`
 PKGNUM=`(dpkg -l | wc -l)`
 UPTIME=`uptime -p | sed 's/up //'`
 
@@ -26,13 +25,13 @@ fi
 cat << EOF
 
 ${c01}    .--.---.
-${c01}   ( \\'--'/ )           ${c12}$USER${c06}   @${c05}$HOSTNAME
-${c01}  ( '..-...' )       ${c12}distro   ${c05}$DISTRO $VERSION
-${c01}   '.'-._.'.'        ${c12}uptime   ${c05}$UPTIME
-${c06}    <'-.,.->         ${c12}kernel   ${c05}$KERNEL_RELEASE
-${c06}       \`\\(            ${c12}wmngr   ${c05}${WM} 
-${c06}       < \\ /\\         ${c12}shell   ${c05}$SHELL
-${c06}       __ \\|/          ${c12}pkgs   ${c05}$PKGNUM
-${c06}           \\${c07}
+${c01}   ( \\'--'/ )           ${c01}$USER${c06}   @${c06}$HOSTNAME
+${c01}  ( '..-...' )       ${c06}distro   ${c01}$DISTRO $VERSION
+${c01}   '.'-._.'.'        ${c06}uptime   ${c01}$UPTIME
+${c10}    <'-.,.->         ${c06}kernel   ${c01}$KERNEL_RELEASE
+${c10}       \`\\(            ${c06}wmngr   ${c01}${WM}
+${c10}       < \\ /\\         ${c06}shell   ${c01}$SHELL
+${c10}       __ \\|/          ${c06}pkgs   ${c01}$PKGNUM
+${c10}           \\${c07}
 
 EOF
