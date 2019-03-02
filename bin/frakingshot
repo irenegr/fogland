@@ -25,7 +25,7 @@ f0=$'\e[1;30m'
 f1=$'\e[1;37m'
 f2=$'\e[0;37m'
 
-kernel="$(uname -sr)"
+kernel="$(uname -r | cut -b 1-9)"
 system=$(sed 's/\s*[\(\\]\+.*$//' /etc/issue)
 resolution="$(xwininfo -root | grep geometry | awk '{print $2}' | cut -d + -f1)"
 
@@ -50,7 +50,7 @@ fi
 
 pkgnum=$(dpkg -l | wc -l)
 birthd="$(uptime -p | sed 's/up //')"
-
+tput clear
 cat << EOF
 
 
@@ -61,7 +61,7 @@ cat << EOF
     ${c02}██  |
     ${c10}  ██| ${f1}kernel ${f0}....... $f2$kernel
     ${c03}██  | ${f1}wmanager ${f0}..... $f2$wmname
-    ${c11}  ██| ${f1}shell ${f0}........ $f2$SHELL
+    ${c11}  ██| ${f1}shell ${f0}........ $f2$(basename $SHELL)
     ${c04}██  |
     ${c12}  ██| ${f1}terminal ${f0}..... $f2$TERM
     ${c05}██  | ${f1}term font ${f0}.... $f2$termfn
