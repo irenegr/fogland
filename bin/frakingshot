@@ -27,6 +27,7 @@ f2=$'\e[0;37m'
 
 kernel="$(uname -sr)"
 system=$(sed 's/\s*[\(\\]\+.*$//' /etc/issue)
+resolution="$(xwininfo -root | grep geometry | awk '{print $2}' | cut -d + -f1)"
 
 if [[ -n $DISPLAY ]]; then
     WM=$(xprop -root _NET_SUPPORTING_WM_CHECK)
@@ -59,7 +60,7 @@ cat << EOF
     ${c09}  ██| ${f1}packages ${f0}..... $f2$pkgnum
     ${c02}██  |
     ${c10}  ██| ${f1}kernel ${f0}....... $f2$kernel
-    ${c03}██  | ${f1}wm ${f0}........... $f2$wmname
+    ${c03}██  | ${f1}wmanager ${f0}..... $f2$wmname
     ${c11}  ██| ${f1}shell ${f0}........ $f2$SHELL
     ${c04}██  |
     ${c12}  ██| ${f1}terminal ${f0}..... $f2$TERM
@@ -68,7 +69,7 @@ cat << EOF
     ${c06}██  |
     ${c14}  ██| ${f1}gtk theme ${f0}.... $f2$gtktheme
     ${c07}██  | ${f1}icon theme ${f0}... $f2$icons
-    ${c15}  ██|
+    ${c15}  ██| ${f1}resolution ${f0}... $f2$resolution
 
 
 EOF
